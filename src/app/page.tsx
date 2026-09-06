@@ -1,6 +1,6 @@
-import Image from "next/image";
 import Link from "next/link";
 import StoryCard from "@/components/StoryCard";
+import ParallaxHero from "@/components/ParallaxHero";
 import SectionHeading from "@/components/SectionHeading";
 import Reveal from "@/components/Reveal";
 import { articles, articlesBySection, latestArticles } from "@/data/articles";
@@ -8,7 +8,7 @@ import { obituaries } from "@/data/obituaries";
 import { issues } from "@/data/archive";
 import { legalNoticeRates } from "@/data/rates";
 import { site } from "@/data/site";
-import { asset, formatDate, formatShortDate } from "@/lib/utils";
+import { formatDate, formatShortDate } from "@/lib/utils";
 
 export default function HomePage() {
   const [lead, ...rest] = latestArticles;
@@ -43,56 +43,19 @@ export default function HomePage() {
         </div>
       </div>
 
+      <ParallaxHero article={lead} />
+
       {/* Front page */}
-      <section className="wrap pt-8">
+      <section className="wrap pt-12">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
           {/* Lead well */}
           <div className="lg:col-span-8 lg:border-r lg:border-rule lg:pr-8">
-            <Reveal>
-              <article className="group">
-                {lead.image && (
-                  <Link
-                    href={`/news/${lead.slug}`}
-                    className="relative mb-5 block aspect-[16/9] overflow-hidden bg-newsprint-deep"
-                  >
-                    <Image
-                      src={asset(lead.image)}
-                      alt={lead.imageAlt ?? ""}
-                      fill
-                      priority
-                      sizes="(min-width: 1024px) 62vw, 96vw"
-                      className="object-cover transition-transform duration-[900ms] group-hover:scale-[1.03]"
-                    />
-                    {lead.credit && (
-                      <span className="absolute bottom-0 right-0 bg-ink/75 px-2 py-1 font-label text-[0.65rem] uppercase tracking-[0.14em] text-newsprint-deep">
-                        {lead.credit}
-                      </span>
-                    )}
-                  </Link>
-                )}
-                <p className="kicker text-cherry">{lead.kicker}</p>
-                <h2 className="mt-2 font-display text-[2.1rem] font-black leading-[1.05] tracking-[-0.015em] sm:text-[2.9rem]">
-                  <Link href={`/news/${lead.slug}`} className="headline-link">
-                    {lead.title}
-                  </Link>
-                </h2>
-                <p className="mt-4 max-w-2xl font-display text-lg leading-relaxed text-ink-muted sm:text-xl">
-                  {lead.deck}
-                </p>
-                <p className="mt-4 font-label text-[0.78rem] uppercase tracking-[0.16em] text-ink-faint">
-                  By {lead.byline} &middot; {formatDate(lead.date)}
-                </p>
-              </article>
-            </Reveal>
-
-            <div className="rule-hair mt-10 pt-8">
-              <div className="grid gap-8 sm:grid-cols-2 sm:divide-x sm:divide-rule">
-                {secondary.map((a, i) => (
-                  <Reveal key={a.slug} delay={i * 0.08} className={i === 1 ? "sm:pl-8" : ""}>
-                    <StoryCard article={a} />
-                  </Reveal>
-                ))}
-              </div>
+            <div className="grid gap-8 sm:grid-cols-2 sm:divide-x sm:divide-rule">
+              {secondary.map((a, i) => (
+                <Reveal key={a.slug} delay={i * 0.08} className={i === 1 ? "sm:pl-8" : ""}>
+                  <StoryCard article={a} priority={i === 0} />
+                </Reveal>
+              ))}
             </div>
           </div>
 

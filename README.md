@@ -106,9 +106,29 @@ Everything the newsroom would change lives in `src/data/`. No component edits re
 
 These are the deliberate placeholders in this preview build:
 
-1. **Photography.** `public/images/*.svg` are rendered editorial plates in the Herald's palette,
-   standing in for the paper's own photographs. Replace them with real images and update the
-   `image` paths in `src/data/articles.ts`. `scripts/generate-art.mjs` regenerates the plates.
+1. **Photography. This is the single biggest gap.** `public/images/*.svg` are rendered editorial
+   plates, not photographs. The front page hero, the article headers and every story card are
+   built to carry real images and are visibly held back without them.
+
+   To swap them in, drop eight files into `public/images/` using these exact names, then change
+   the `.svg` extensions to `.jpg` in `src/data/articles.ts`. Nothing else needs to change.
+
+   | File | Subject | Where it appears |
+   | --- | --- | --- |
+   | `cherry-harvest.jpg` | Cherry orchard, ideally low sun | Front page hero, landscape, wide crop |
+   | `school-board.jpg` | Classroom or a public meeting room | Front page, article header |
+   | `football.jpg` | High school football under lights | Front page, article header |
+   | `canal.jpg` | Irrigation canal or farm field | Section rail, article header |
+   | `fair.jpg` | County fair, livestock barn or midway | Section rail, article header |
+   | `fire.jpg` | Fire crew or engine, no identifiable faces | Section rail, article header |
+   | `walnut-orchard.jpg` | Walnut trees in rows | Agriculture rail |
+   | `main-street.jpg` | Small town street with storefronts | History section |
+
+   Landscape, at least 1600px wide. The hero crops to roughly 16:9 at full bleed, so leave
+   headroom at the bottom of that frame: the headline sits over the lower third.
+
+   Best long-term answer is the Herald's own archive rather than stock. Sixty-seven years of
+   local photography is the one thing a competitor cannot copy.
 2. **Story content.** Everything in `articles.ts` is sample copy written for this demonstration.
 3. **Obituary notices.** `obituaries.ts` contains sample entries, not real notices.
 4. **Issue PDFs.** `archive.ts` points at `/issues/*.pdf`. Drop the real files in and the archive
