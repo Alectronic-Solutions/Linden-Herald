@@ -8,6 +8,8 @@ const nextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true,
+    // Demo only. Before launch these move to self-hosted files in public/images.
+    remotePatterns: [{ protocol: "https", hostname: "images.pexels.com" }],
   },
   reactStrictMode: true,
 };
