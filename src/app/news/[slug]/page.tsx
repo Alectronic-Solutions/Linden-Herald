@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 import StoryCard from "@/components/StoryCard";
 import { articles, getArticle } from "@/data/articles";
 import { sectionName, site } from "@/data/site";
-import { formatDate } from "@/lib/utils";
+import { asset, formatDate } from "@/lib/utils";
 
 type Params = { params: { slug: string } };
 
@@ -79,7 +79,7 @@ export default function ArticlePage({ params }: Params) {
         <figure className="mx-auto mt-10 max-w-5xl">
           <div className="relative aspect-[16/9] overflow-hidden bg-newsprint-deep">
             <Image
-              src={article.image}
+              src={asset(article.image)}
               alt={article.imageAlt ?? ""}
               fill
               priority

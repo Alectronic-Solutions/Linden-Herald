@@ -2,8 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Article } from "@/data/articles";
 import { sectionName } from "@/data/site";
-import { formatShortDate } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import { asset, cn, formatShortDate } from "@/lib/utils";
 
 type Props = {
   article: Article;
@@ -48,7 +47,7 @@ export default function StoryCard({
         {article.image && (
           <Link href={href} className="relative block aspect-[4/3] overflow-hidden bg-newsprint-deep">
             <Image
-              src={article.image}
+              src={asset(article.image)}
               alt={article.imageAlt ?? ""}
               fill
               sizes="144px"
@@ -82,7 +81,7 @@ export default function StoryCard({
           className="relative mb-4 block aspect-[16/10] overflow-hidden bg-newsprint-deep"
         >
           <Image
-            src={article.image}
+            src={asset(article.image)}
             alt={article.imageAlt ?? ""}
             fill
             priority={priority}

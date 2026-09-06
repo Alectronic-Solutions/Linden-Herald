@@ -4,8 +4,7 @@ import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import IssueCover from "@/components/IssueCover";
 import { issues, archiveYears } from "@/data/archive";
-import { formatDate } from "@/lib/utils";
-import { cn } from "@/lib/utils";
+import { asset, cn, formatDate } from "@/lib/utils";
 
 export default function ArchiveBrowser() {
   const [year, setYear] = useState("all");
@@ -89,7 +88,7 @@ export default function ArchiveBrowser() {
               className="group"
             >
               <a
-                href={issue.file}
+                href={asset(issue.file)}
                 className="block transition-transform duration-500 group-hover:-translate-y-1.5"
                 aria-label={`Download the ${issue.label} edition, PDF, ${issue.sizeMb} megabytes`}
               >
@@ -98,7 +97,7 @@ export default function ArchiveBrowser() {
                 </div>
               </a>
               <h3 className="mt-3 font-display text-lg font-bold leading-tight">
-                <a href={issue.file} className="headline-link">
+                <a href={asset(issue.file)} className="headline-link">
                   {formatDate(issue.date)}
                 </a>
               </h3>

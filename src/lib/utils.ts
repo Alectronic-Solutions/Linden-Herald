@@ -19,3 +19,18 @@ export function formatShortDate(iso: string) {
 export function volumeFor(iso: string, founded = 1959) {
   return Number(iso.slice(0, 4)) - founded + 1;
 }
+
+/**
+ * Prefixes the deployment base path onto a site-root asset path.
+ *
+ * next/image does not apply basePath when images.unoptimized is set, and plain
+ * anchors never do, so anything under /public must go through this helper or it
+ * 404s on a GitHub Pages project site. Empty base path (Cloudflare, local dev)
+ * passes straight through.
+ */
+const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
+
+export function asset(path: string) {
+  if (!path.startsWith("/")) return path;
+  return `${BASE_PATH}${path}`;
+}

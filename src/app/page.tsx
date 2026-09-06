@@ -8,7 +8,7 @@ import { obituaries } from "@/data/obituaries";
 import { issues } from "@/data/archive";
 import { legalNoticeRates } from "@/data/rates";
 import { site } from "@/data/site";
-import { formatDate, formatShortDate } from "@/lib/utils";
+import { asset, formatDate, formatShortDate } from "@/lib/utils";
 
 export default function HomePage() {
   const [lead, ...rest] = latestArticles;
@@ -56,7 +56,7 @@ export default function HomePage() {
                     className="relative mb-5 block aspect-[16/9] overflow-hidden bg-newsprint-deep"
                   >
                     <Image
-                      src={lead.image}
+                      src={asset(lead.image)}
                       alt={lead.imageAlt ?? ""}
                       fill
                       priority
