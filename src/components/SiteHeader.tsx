@@ -87,7 +87,7 @@ export default function SiteHeader() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -8 }}
                 transition={{ duration: 0.25 }}
-                className="hidden shrink-0 py-2 lg:block"
+                className="hidden shrink-0 py-2 xl:block"
               >
                 <Link
                   href="/"
@@ -105,7 +105,7 @@ export default function SiteHeader() {
                 <Link
                   href={item.href}
                   className={cn(
-                    "relative block px-3 py-3 font-label text-[0.82rem] font-semibold uppercase tracking-[0.14em] transition-colors",
+                    "relative block whitespace-nowrap px-2 py-3 font-label text-[0.78rem] font-semibold uppercase tracking-[0.1em] transition-colors xl:px-3 xl:text-[0.82rem] xl:tracking-[0.14em]",
                     isActive(item.href)
                       ? "text-herald"
                       : "text-ink hover:text-herald",
@@ -125,9 +125,9 @@ export default function SiteHeader() {
 
           <Link
             href="/subscribe"
-            className="hidden shrink-0 bg-cherry px-4 py-1.5 font-label text-[0.78rem] font-semibold uppercase tracking-[0.14em] text-newsprint-white transition-colors hover:bg-ink lg:inline-block"
+            className="hidden shrink-0 whitespace-nowrap bg-cherry px-3 py-1.5 font-label text-[0.74rem] font-semibold uppercase tracking-[0.1em] text-newsprint-white transition-colors hover:bg-ink lg:inline-block xl:px-4 xl:text-[0.78rem] xl:tracking-[0.14em]"
           >
-            Subscribe $42
+            Subscribe
           </Link>
 
           {/* Mobile bar */}

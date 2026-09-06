@@ -22,8 +22,29 @@ adds the things a weekly paper needs online in 2026:
 | E-Edition | `/archive` | Searchable back-issue archive with year filtering and cover thumbnails |
 | Subscribe | `/subscribe` | Rate cards plus an online subscription request form |
 | Advertise | `/advertise` | Legal notice rate table, display ad sizes, deadlines, request form |
-| About | `/about` | The paper's history, coverage and adjudication |
+| Calendar | `/calendar` | Filterable community events with a free submission form |
+| Classifieds | `/classifieds` | Categorised listings set in newspaper columns, plus rates and a submission form |
+| About | `/about` | The paper's history, named masthead, coverage and adjudication |
 | Contact | `/contact` | News tip form, deadlines, corrections policy |
+
+## The three interactive pieces
+
+These are the features that separate this from a brochure site, and the ones worth
+demonstrating live:
+
+**On This Date** (`/archive`) — generates every Thursday publication date from 1959 to today,
+roughly 3,500 of them, and finds the issue nearest any date a reader picks. Issues with a scanned
+PDF open directly; the rest are shown as held in the bound volumes with a request prompt. The
+decade chart underneath shows exactly how much of the back catalogue is online, which doubles as
+the case for a digitisation project.
+
+**Legal notice estimator** (`/advertise`) — three questions to a price, the copy deadline, the
+first publication date and a document checklist. Deadlines are computed from the real Thursday
+publication schedule rather than hard-coded. Rates and requirements live in `src/data/rates.ts`.
+
+**Ad size previewer** (`/advertise`) — drops each ad size onto a scaled 10 x 13 inch page at true
+proportion, with its share of the page. Sizes are defined in inches in `src/data/rates.ts`, so
+changing one updates the preview automatically.
 
 ## Stack
 
@@ -76,7 +97,10 @@ Everything the newsroom would change lives in `src/data/`. No component edits re
   and article page all pick it up automatically
 - `archive.ts` — back issues. Add an entry per week and drop the PDF into `public/images/issues/`
 - `obituaries.ts` — notices
-- `rates.ts` — subscription rates, legal notice pricing, display ad sizes
+- `rates.ts` — subscription rates, legal notice pricing and requirements, display ad sizes in inches
+- `classifieds.ts` — classified categories, listings and rates
+- `events.ts` — community calendar entries
+- `staff.ts` — the masthead
 
 ## Before launch
 
@@ -93,6 +117,12 @@ These are the deliberate placeholders in this preview build:
    activate it once, then the forms are live.
 6. **Design preview banner.** Remove `<DemoBadge />` from `src/app/layout.tsx` before launch.
 7. **Out-of-county subscription rate.** Listed at $52 as a placeholder. Confirm current postage.
+8. **The masthead.** `src/data/staff.ts` reads "Name to come" for all four roles. Real names and
+   beats are the single highest-value edit on this list: for a paper whose product is credibility,
+   an unnamed newsroom is a missed trust signal.
+9. **Classifieds and calendar entries.** `src/data/classifieds.ts` and `src/data/events.ts` hold
+   sample listings, not real ones.
+10. **Classified rates.** Priced as a placeholder. Confirm against what the Herald charges today.
 
 ## Accessibility and performance
 
@@ -102,3 +132,5 @@ These are the deliberate placeholders in this preview build:
 - No horizontal overflow at 390px
 - Fonts self-hosted at build time via `next/font`, no third-party font requests at runtime
 - `NewsMediaOrganization` and `NewsArticle` structured data
+- Asset paths routed through `asset()` in `src/lib/utils.ts`, because `next/image` does not apply
+  `basePath` when `images.unoptimized` is set. Anything added under `public/` must use it.

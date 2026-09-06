@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import ArchiveBrowser from "@/components/ArchiveBrowser";
+import OnThisDate from "@/components/OnThisDate";
 import PageHeader from "@/components/PageHeader";
 import { site } from "@/data/site";
 import { issues } from "@/data/archive";
@@ -19,6 +20,10 @@ export default function ArchivePage() {
         title="The Herald E-Edition"
         blurb="Every issue, page for page, posted the morning it reaches mailboxes. Search by keyword, filter by year, and download the pages you want to keep."
       />
+
+      <div className="mb-14">
+        <OnThisDate />
+      </div>
 
       <ArchiveBrowser />
 

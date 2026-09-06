@@ -3,7 +3,8 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import HeraldForm from "@/components/HeraldForm";
 import { Field, Select, TextArea } from "@/components/Field";
-import { site, mailingAddressLines } from "@/data/site";
+import ContactCard from "@/components/ContactCard";
+import { site } from "@/data/site";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -57,28 +58,7 @@ export default function ContactPage() {
 
         <aside className="lg:col-span-5">
           <Reveal>
-            <div className="border border-ink bg-newsprint-white p-7">
-              <p className="kicker text-herald">By phone, 24 hours</p>
-              <a
-                href={site.phoneHref}
-                className="mt-2 block font-display text-4xl font-black leading-none hover:text-herald"
-              >
-                {site.phone}
-              </a>
-              <p className="mt-2 font-body text-[0.95rem] text-ink-muted">
-                Seven days a week. Our correspondents live and work in Linden.
-              </p>
-              <address className="mt-6 border-t border-rule pt-5 font-body text-[1rem] not-italic leading-relaxed">
-                <span className="kicker block text-ink-faint">Mailing address</span>
-                <span className="mt-2 block">
-                  {mailingAddressLines.map((line) => (
-                    <span key={line} className="block">
-                      {line}
-                    </span>
-                  ))}
-                </span>
-              </address>
-            </div>
+            <ContactCard variant="full" heading="By phone, 24 hours" />
           </Reveal>
 
           <Reveal delay={0.1}>

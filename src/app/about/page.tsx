@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
-import { site, sections, mailingAddressLines } from "@/data/site";
+import ContactCard from "@/components/ContactCard";
+import { site, sections } from "@/data/site";
+import { staff } from "@/data/staff";
 
 export const metadata: Metadata = {
   title: "About",
@@ -29,6 +31,24 @@ export default function AboutPage() {
               is a print newspaper, written and reported the traditional way: somebody sits in the
               room, takes the notes, and writes it down.
             </p>
+          </section>
+
+          <section className="mt-12">
+            <h2 className="font-display text-2xl font-black drop-rule">The masthead</h2>
+            <p className="mt-5 font-body text-[1.05rem] leading-[1.75] text-ink-soft">
+              The people who report, edit and sell this paper, and what each of them covers.
+            </p>
+            <ul className="mt-7 divide-y divide-rule border-y border-rule">
+              {staff.map((person) => (
+                <li key={person.role} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-4">
+                  <p className="font-display text-lg font-bold">{person.name}</p>
+                  <p className="font-label text-[0.76rem] uppercase tracking-[0.14em] text-herald">
+                    {person.role}
+                  </p>
+                  <p className="w-full font-body text-[0.93rem] text-ink-muted">{person.beat}</p>
+                </li>
+              ))}
+            </ul>
           </section>
 
           <section className="mt-12">
@@ -111,23 +131,7 @@ export default function AboutPage() {
           </Reveal>
 
           <Reveal delay={0.1}>
-            <div className="mt-6 border-l-4 border-cherry bg-newsprint-white p-6">
-              <p className="kicker text-cherry">Reach the newsroom</p>
-              <a
-                href={site.phoneHref}
-                className="mt-2 block font-display text-3xl font-black hover:text-herald"
-              >
-                {site.phone}
-              </a>
-              <p className="mt-1 font-body text-[0.92rem] text-ink-muted">{site.phoneNote}</p>
-              <address className="mt-5 border-t border-rule pt-4 font-body text-[0.96rem] not-italic leading-relaxed text-ink-muted">
-                {mailingAddressLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </address>
-            </div>
+            <ContactCard variant="compact" className="mt-6" />
           </Reveal>
 
           <Reveal delay={0.15}>

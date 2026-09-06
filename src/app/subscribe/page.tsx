@@ -3,6 +3,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import HeraldForm from "@/components/HeraldForm";
 import { Field, Select, TextArea } from "@/components/Field";
+import ContactCard from "@/components/ContactCard";
 import { subscriptionRates } from "@/data/rates";
 import { site, mailingAddressLines } from "@/data/site";
 import { cn } from "@/lib/utils";
@@ -110,14 +111,7 @@ export default function SubscribePage() {
               ))}
             </address>
             <div className="mt-6 border-t border-rule pt-5">
-              <p className="kicker text-herald">By phone, any hour</p>
-              <a
-                href={site.phoneHref}
-                className="mt-1 block font-display text-3xl font-black hover:text-herald"
-              >
-                {site.phone}
-              </a>
-              <p className="mt-1 font-body text-[0.9rem] text-ink-muted">{site.phoneNote}</p>
+              <ContactCard variant="compact" heading="Or by phone, any hour" showAddress={false} />
             </div>
           </div>
 
