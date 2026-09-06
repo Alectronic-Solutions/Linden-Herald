@@ -1,0 +1,9 @@
+*.log
+.DS_Store
+.env*.local
+.next/
+.vercel
+next-env.d.ts
+node_modules/
+out/
+project-src.tar.gz

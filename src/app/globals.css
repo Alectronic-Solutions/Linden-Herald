@@ -1,0 +1,136 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-newsprint text-ink font-body;
+    background-image: theme("backgroundImage.newsprint-grain");
+    background-attachment: fixed;
+  }
+
+  ::selection {
+    @apply bg-herald text-newsprint-white;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-herald ring-offset-2 ring-offset-newsprint;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display text-ink;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  .wrap {
+    @apply mx-auto w-full max-w-broadsheet px-5 sm:px-8;
+  }
+
+  /* Small condensed uppercase label used for kickers and section names */
+  .kicker {
+    @apply font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em];
+  }
+
+  /* The double rule that separates major zones, borrowed from print furniture */
+  .rule-double {
+    border-top: 3px solid theme("colors.ink.DEFAULT");
+    border-bottom: 1px solid theme("colors.ink.DEFAULT");
+    height: 4px;
+  }
+
+  .rule-hair {
+    @apply border-t border-rule;
+  }
+
+  .link-underline {
+    @apply decoration-rule-strong underline-offset-4 transition-colors hover:decoration-herald;
+  }
+
+  .headline-link {
+    @apply transition-colors duration-200 hover:text-herald;
+  }
+
+  /* Body copy inside long-form article pages */
+  .prose-herald {
+    @apply font-body text-[1.0625rem] leading-[1.75] text-ink-soft;
+  }
+
+  .prose-herald p + p {
+    @apply mt-5;
+  }
+
+  .prose-herald p:first-of-type::first-letter {
+    @apply float-left mr-2 mt-1 font-display text-[3.4rem] font-black leading-[0.8] text-herald;
+  }
+
+  .drop-rule::after {
+    content: "";
+    @apply mt-3 block h-px w-16 bg-harvest;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 font-label text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200;
+  }
+
+  .btn-primary {
+    @apply btn bg-herald px-6 py-3 text-newsprint-white hover:bg-herald-dark hover:shadow-lift;
+  }
+
+  .btn-outline {
+    @apply btn border border-ink px-6 py-3 text-ink hover:bg-ink hover:text-newsprint-white;
+  }
+
+  .field-label {
+    @apply kicker mb-1.5 block text-ink-muted;
+  }
+
+  .field {
+    @apply w-full border border-rule-strong bg-newsprint-white px-3.5 py-2.5 font-body text-[0.95rem] text-ink placeholder:text-ink-faint focus:border-herald focus:outline-none focus:ring-1 focus:ring-herald;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  header nav,
+  .no-print {
+    display: none !important;
+  }
+}
+
+
+/* Without JavaScript the reveal animation never runs, so force content visible. */
+@layer base {
+  .no-js [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
