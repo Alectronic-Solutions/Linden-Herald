@@ -10,6 +10,10 @@ export const metadata: Metadata = {
   title: "E-Edition Archive",
   description:
     "Browse and download past issues of the Linden Herald. Search by date or keyword, filter by year, and read the full page-for-page edition.",
+  alternates: { canonical: "/archive" },
+  openGraph: {
+    images: [{ url: "/og/archive.jpg", width: 1200, height: 630 }],
+  },
 };
 
 export default function ArchivePage() {

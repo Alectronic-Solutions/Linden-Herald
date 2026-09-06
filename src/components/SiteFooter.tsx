@@ -1,5 +1,7 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 import { site, sections } from "@/data/site";
+import { policyList } from "@/data/policies";
 
 export default function SiteFooter() {
   const year = new Date().getFullYear();
@@ -9,9 +11,12 @@ export default function SiteFooter() {
       <div className="wrap py-12 sm:py-16">
         <div className="grid gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
-            <p className="font-display text-3xl font-black leading-none text-newsprint-white">
-              The Linden Herald
-            </p>
+            <div className="flex items-center gap-3">
+              <Logo size={44} bg="#FAF7F0" fg="#14110F" />
+              <p className="font-display text-3xl font-black leading-none text-newsprint-white">
+                The Linden Herald
+              </p>
+            </div>
             <p className="mt-3 font-display text-sm italic text-newsprint-deep/70">
               {site.tagline}
             </p>
@@ -75,7 +80,22 @@ export default function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col gap-3 border-t border-newsprint-deep/15 pt-6 font-label text-[0.75rem] uppercase tracking-[0.14em] text-newsprint-deep/55 sm:flex-row sm:items-center sm:justify-between">
+        <nav
+          aria-label="Policies"
+          className="mt-12 flex flex-wrap gap-x-6 gap-y-2 border-t border-newsprint-deep/15 pt-6"
+        >
+          {policyList.map((p) => (
+            <Link
+              key={p.slug}
+              href={`/${p.slug}`}
+              className="font-label text-[0.76rem] uppercase tracking-[0.14em] text-newsprint-deep/60 transition-colors hover:text-harvest-light"
+            >
+              {p.title}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="mt-6 flex flex-col gap-3 border-t border-newsprint-deep/15 pt-6 font-label text-[0.75rem] uppercase tracking-[0.14em] text-newsprint-deep/55 sm:flex-row sm:items-center sm:justify-between">
           <p>
             &copy; {year} {site.name}. All rights reserved.
           </p>
@@ -91,6 +111,11 @@ export default function SiteFooter() {
             </a>
           </p>
         </div>
+
+        <p className="mt-5 font-body text-[0.84rem] leading-relaxed text-newsprint-deep/55">
+          Preview build. Stories, photographs, notices and listings shown here are samples for
+          design purposes and are not the Herald&apos;s own reporting.
+        </p>
       </div>
     </footer>
   );

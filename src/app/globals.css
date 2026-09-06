@@ -143,6 +143,74 @@
   }
 }
 
+
+@layer components {
+  /*
+   * Depth is carried by elevation and paper edges, not by shadows under body
+   * type: drop-shadowed text on a newsprint ground reads as a cheap effect.
+   * The one place a text shadow earns its keep is the hero headline, which sits
+   * over photography and needs to hold at any exposure.
+   */
+  .lift {
+    @apply transition-[transform,box-shadow] duration-500;
+  }
+
+  .lift:hover {
+    transform: translateY(-3px);
+    box-shadow: theme("boxShadow.lift");
+  }
+
+  /* A hairline of light along the top edge, the way stacked paper catches it */
+  .paper-edge {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.9),
+      0 1px 2px rgba(20, 17, 15, 0.05),
+      0 14px 34px -22px rgba(20, 17, 15, 0.3);
+  }
+
+  /* Image wells: a faint inner rule so photographs sit in the page, not on it */
+  .plate {
+    @apply relative overflow-hidden bg-newsprint-deep;
+    box-shadow: inset 0 0 0 1px rgba(20, 17, 15, 0.08);
+  }
+}
+
+@layer base {
+  ::selection {
+    @apply bg-herald text-newsprint-white;
+  }
+
+  /* Scrollbar tuned to the paper, so the chrome does not fight the design */
+  * {
+    scrollbar-color: theme("colors.rule.strong") transparent;
+    scrollbar-width: thin;
+  }
+
+  ::-webkit-scrollbar {
+    width: 11px;
+    height: 11px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: theme("colors.newsprint.deep");
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: theme("colors.rule.strong");
+    border: 3px solid theme("colors.newsprint.deep");
+    border-radius: 99px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme("colors.ink.faint");
+  }
+
+  /* Anchor targets clear the sticky nav */
+  :target {
+    scroll-margin-top: 6rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

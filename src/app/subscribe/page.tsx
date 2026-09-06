@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   title: "Subscribe",
   description:
     "Subscribe to the Linden Herald for $42 a year and receive 52 issues delivered weekly within San Joaquin County.",
+  alternates: { canonical: "/subscribe" },
+  openGraph: {
+    images: [{ url: "/og/subscribe.jpg", width: 1200, height: 630 }],
+  },
 };
 
 export default function SubscribePage() {

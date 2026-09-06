@@ -3,8 +3,8 @@ import { Playfair_Display, Source_Serif_4, Barlow_Condensed } from "next/font/go
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
-import DemoBadge from "@/components/DemoBadge";
-import { site } from "@/data/site";
+import { site, SITE_URL, ALLOW_INDEXING } from "@/data/site";
+import { asset } from "@/lib/utils";
 
 const display = Playfair_Display({
   subsets: ["latin"],
@@ -30,27 +30,67 @@ const label = Barlow_Condensed({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`https://www.${site.domain}`),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: `${site.name} | ${site.tagline}`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
+  applicationName: site.name,
+  authors: [{ name: site.name }],
+  publisher: site.name,
   keywords: [
     "Linden California newspaper",
-    "San Joaquin County legal notices",
     "Linden Herald",
+    "San Joaquin County legal notices",
+    "fictitious business name San Joaquin County",
     "Linden Unified school board",
     "San Joaquin County agriculture news",
+    "Linden CA obituaries",
+    "Linden community calendar",
   ],
+  alternates: { canonical: "/" },
+  icons: {
+    icon: [
+      { url: asset("/favicon.ico"), sizes: "any" },
+      { url: asset("/favicon.svg"), type: "image/svg+xml" },
+      { url: asset("/icon-192.png"), type: "image/png", sizes: "192x192" },
+    ],
+    apple: [{ url: asset("/apple-touch-icon.png"), sizes: "180x180" }],
+  },
+  manifest: asset("/manifest.webmanifest"),
   openGraph: {
     title: `${site.name} | ${site.tagline}`,
     description: site.description,
     type: "website",
     locale: "en_US",
     siteName: site.name,
+    url: "/",
+    images: [
+      {
+        url: "/og/default.jpg",
+        width: 1200,
+        height: 630,
+        alt: `${site.name}, ${site.tagline}`,
+      },
+    ],
   },
-  robots: { index: true, follow: true },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} | ${site.tagline}`,
+    description: site.description,
+    images: ["/og/default.jpg"],
+  },
+  // Kept out of search until this reaches the Herald's own domain.
+  robots: ALLOW_INDEXING
+    ? { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 }
+    : { index: false, follow: false, nocache: true },
+  category: "news",
+};
+
+export const viewport = {
+  themeColor: "#1B4D3E",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -58,7 +98,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     "@context": "https://schema.org",
     "@type": "NewsMediaOrganization",
     name: site.name,
-    url: `https://www.${site.domain}`,
+    url: SITE_URL,
     foundingDate: String(site.founded),
     slogan: site.tagline,
     telephone: site.phone,
@@ -71,6 +111,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       addressCountry: "US",
     },
     areaServed: "San Joaquin County, California",
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: site.name,
+    url: SITE_URL,
+    inLanguage: "en-US",
+    publisher: { "@type": "NewsMediaOrganization", name: site.name },
   };
 
   return (
@@ -88,13 +137,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         >
           Skip to content
         </a>
-        <DemoBadge />
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(publisherSchema) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
         />
       </body>
     </html>

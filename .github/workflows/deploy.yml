@@ -35,7 +35,12 @@ jobs:
 
       - name: Build static export
         env:
+          # base_path is "/<repo>" for a project site, "" for a custom domain.
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+          # Absolute deployment URL, so canonical tags and share images resolve.
+          NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
+          # Search engines stay out until this sits on the Herald's own domain.
+          NEXT_PUBLIC_ALLOW_INDEXING: "false"
         run: npm run build
 
       - uses: actions/upload-pages-artifact@v3

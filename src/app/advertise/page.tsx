@@ -13,6 +13,10 @@ export const metadata: Metadata = {
   title: "Advertise & Legal Notices",
   description:
     "Display advertising and legal notice publication with the Linden Herald, a newspaper of general circulation in San Joaquin County since 1959. Estimate your notice cost in three questions.",
+  alternates: { canonical: "/advertise" },
+  openGraph: {
+    images: [{ url: "/og/advertise.jpg", width: 1200, height: 630 }],
+  },
 };
 
 export default function AdvertisePage() {

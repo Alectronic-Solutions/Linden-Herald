@@ -7,6 +7,10 @@ export const metadata: Metadata = {
   title: "News",
   description:
     "Local news, agriculture, sports, schools and public safety reporting from the Linden Herald.",
+  alternates: { canonical: "/news" },
+  openGraph: {
+    images: [{ url: "/og/news.jpg", width: 1200, height: 630 }],
+  },
 };
 
 export default function NewsPage() {

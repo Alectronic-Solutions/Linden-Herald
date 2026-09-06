@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Logo from "@/components/Logo";
 import { site } from "@/data/site";
 import { cn } from "@/lib/utils";
 
@@ -91,8 +92,9 @@ export default function SiteHeader() {
               >
                 <Link
                   href="/"
-                  className="font-display text-lg font-black leading-none tracking-tight hover:text-herald"
+                  className="flex items-center gap-2 font-display text-lg font-black leading-none tracking-tight transition-colors hover:text-herald"
                 >
+                  <Logo size={26} />
                   The Linden Herald
                 </Link>
               </motion.div>
@@ -135,12 +137,13 @@ export default function SiteHeader() {
             <Link
               href="/"
               className={cn(
-                "font-display text-base font-black tracking-tight transition-opacity duration-300",
+                "flex items-center gap-2 font-display text-base font-black tracking-tight transition-opacity duration-300",
                 condensed ? "opacity-100" : "pointer-events-none opacity-0",
               )}
               aria-hidden={!condensed}
               tabIndex={condensed ? undefined : -1}
             >
+              <Logo size={22} />
               The Linden Herald
             </Link>
             <button

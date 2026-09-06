@@ -45,7 +45,7 @@ export default function StoryCard({
         )}
       >
         {article.image && (
-          <Link href={href} className="relative block aspect-[4/3] overflow-hidden bg-newsprint-deep">
+          <Link href={href} className="plate lift block aspect-[4/3]">
             <Image
               src={asset(article.image)}
               alt={article.imageAlt ?? ""}
@@ -78,7 +78,7 @@ export default function StoryCard({
       {article.image && (
         <Link
           href={href}
-          className="relative mb-4 block aspect-[16/10] overflow-hidden bg-newsprint-deep"
+          className="plate lift mb-4 block aspect-[16/10]"
         >
           <Image
             src={asset(article.image)}

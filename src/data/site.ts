@@ -1,3 +1,18 @@
+/**
+ * Where this build is deployed. The demo sits on a github.io project page; the
+ * real launch sets NEXT_PUBLIC_SITE_URL to the Herald's own domain.
+ */
+export const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://www.lindenherald.com"
+).replace(/\/$/, "");
+
+/**
+ * Search engines are kept out until this is on the Herald's real domain. A
+ * second copy of a real newspaper ranking in search would confuse their readers
+ * and split their own SEO. CI sets this to "true" for the production build.
+ */
+export const ALLOW_INDEXING = process.env.NEXT_PUBLIC_ALLOW_INDEXING === "true";
+
 export const site = {
   name: "The Linden Herald",
   shortName: "Linden Herald",
