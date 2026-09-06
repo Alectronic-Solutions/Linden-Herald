@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Logo from "@/components/Logo";
 import { site } from "@/data/site";
@@ -21,6 +21,9 @@ export default function SiteHeader() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [condensed, setCondensed] = useState(false);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onScroll = () => setCondensed(window.scrollY > 220);
@@ -32,6 +35,48 @@ export default function SiteHeader() {
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
+
+  // While the drawer is open: lock the page behind it, close on Escape, and
+  // keep the keyboard inside it.
+  useEffect(() => {
+    if (!open) return;
+
+    const { overflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        setOpen(false);
+        toggleRef.current?.focus();
+        return;
+      }
+      if (event.key !== "Tab") return;
+
+      const focusables = drawerRef.current?.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])',
+      );
+      if (!focusables?.length) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    const t = window.setTimeout(() => closeRef.current?.focus(), 60);
+
+    return () => {
+      document.body.style.overflow = overflow;
+      document.removeEventListener("keydown", onKeyDown);
+      window.clearTimeout(t);
+    };
+  }, [open]);
 
   const isHome = pathname === "/";
   const MastheadTag = isHome ? "h1" : "p";
@@ -147,51 +192,112 @@ export default function SiteHeader() {
               The Linden Herald
             </Link>
             <button
+              ref={toggleRef}
               type="button"
-              onClick={() => setOpen((v) => !v)}
+              onClick={() => setOpen(true)}
               aria-expanded={open}
               aria-controls="mobile-nav"
-              className="flex items-center gap-2 border border-ink px-3 py-1.5 font-label text-[0.78rem] font-semibold uppercase tracking-[0.14em]"
+              className="flex min-h-[44px] items-center gap-2.5 border border-ink px-4 font-label text-[0.8rem] font-semibold uppercase tracking-[0.14em]"
             >
-              {open ? "Close" : "Menu"}
+              <span aria-hidden className="flex flex-col gap-[3px]">
+                <span className="block h-[2px] w-4 bg-ink" />
+                <span className="block h-[2px] w-4 bg-ink" />
+                <span className="block h-[2px] w-4 bg-ink" />
+              </span>
+              Menu
             </button>
           </div>
         </div>
 
-        <AnimatePresence>
-          {open && (
-            <motion.div
-              id="mobile-nav"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
-              className="overflow-hidden border-t border-rule bg-newsprint-white lg:hidden"
-            >
-              <ul className="wrap divide-y divide-rule py-1">
-                {site.nav.map((item) => (
-                  <li key={item.href}>
-                    <Link
-                      href={item.href}
-                      className={cn(
-                        "block py-3 font-label text-sm font-semibold uppercase tracking-[0.16em]",
-                        isActive(item.href) ? "text-herald" : "text-ink",
-                      )}
-                    >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <div className="wrap pb-4">
-                <Link href="/subscribe" className="btn-primary w-full">
-                  Subscribe for $42 a year
-                </Link>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
       </nav>
+
+      <AnimatePresence>
+          {open && (
+            <>
+              <motion.button
+                type="button"
+                aria-label="Close menu"
+                tabIndex={-1}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.25 }}
+                onClick={() => setOpen(false)}
+                className="fixed inset-0 z-40 cursor-default bg-ink/55 backdrop-blur-[2px] lg:hidden"
+              />
+
+              <motion.div
+                ref={drawerRef}
+                id="mobile-nav"
+                role="dialog"
+                aria-modal="true"
+                aria-label="Site menu"
+                initial={{ x: "100%" }}
+                animate={{ x: 0 }}
+                exit={{ x: "100%" }}
+                transition={{ type: "spring", stiffness: 320, damping: 34 }}
+                className="fixed inset-y-0 right-0 z-50 flex w-[88%] max-w-sm flex-col overflow-y-auto overscroll-contain border-l-[3px] border-ink bg-newsprint shadow-lift lg:hidden"
+              >
+                <div className="flex items-center justify-between border-b border-rule px-5 py-4">
+                  <span className="flex items-center gap-2.5">
+                    <Logo size={30} />
+                    <span className="font-display text-lg font-black leading-none">
+                      The Linden Herald
+                    </span>
+                  </span>
+                  <button
+                    ref={closeRef}
+                    type="button"
+                    onClick={() => setOpen(false)}
+                    className="-mr-2 flex h-11 w-11 items-center justify-center text-ink transition-colors hover:text-cherry"
+                    aria-label="Close menu"
+                  >
+                    <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden focusable="false">
+                      <path
+                        d="M5 5l14 14M19 5L5 19"
+                        stroke="currentColor"
+                        strokeWidth="2.2"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+
+                <ul className="flex-1 divide-y divide-rule px-5">
+                  {site.nav.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        aria-current={isActive(item.href) ? "page" : undefined}
+                        className={cn(
+                          "flex min-h-[52px] items-center font-label text-[0.95rem] font-semibold uppercase tracking-[0.16em] transition-colors",
+                          isActive(item.href) ? "text-herald" : "text-ink hover:text-herald",
+                        )}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="border-t border-rule bg-newsprint-white px-5 py-5">
+                  <Link href="/subscribe" className="btn-primary w-full">
+                    Subscribe for $42 a year
+                  </Link>
+                  <a
+                    href={site.phoneHref}
+                    className="mt-3 flex min-h-[44px] items-center justify-center text-center font-display text-2xl font-black leading-none transition-colors hover:text-herald"
+                  >
+                    {site.phone}
+                  </a>
+                  <p className="mt-1 text-center font-label text-[0.7rem] uppercase tracking-[0.12em] text-ink-faint">
+                    {site.phoneNote}
+                  </p>
+                </div>
+              </motion.div>
+            </>
+          )}
+      </AnimatePresence>
     </header>
   );
 }

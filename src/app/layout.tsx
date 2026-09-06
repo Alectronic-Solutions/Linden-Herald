@@ -3,6 +3,7 @@ import { Playfair_Display, Source_Serif_4, Barlow_Condensed } from "next/font/go
 import "./globals.css";
 import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
+import BackToTop from "@/components/BackToTop";
 import { site, SITE_URL, ALLOW_INDEXING } from "@/data/site";
 import { asset } from "@/lib/utils";
 
@@ -49,7 +50,10 @@ export const metadata: Metadata = {
     "Linden CA obituaries",
     "Linden community calendar",
   ],
-  alternates: { canonical: "/" },
+  alternates: {
+    canonical: "/",
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: `${site.name} news feed` }] },
+  },
   icons: {
     icon: [
       { url: asset("/favicon.ico"), sizes: "any" },
@@ -140,6 +144,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <main id="main">{children}</main>
         <SiteFooter />
+        <BackToTop />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(publisherSchema) }}

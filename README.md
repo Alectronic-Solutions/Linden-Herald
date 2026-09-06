@@ -32,23 +32,23 @@ adds the things a weekly paper needs online in 2026:
 These are the features that separate this from a brochure site, and the ones worth
 demonstrating live:
 
-**On This Date** (`/archive`) — generates every Thursday publication date from 1959 to today,
+**On This Date** (`/archive`). generates every Thursday publication date from 1959 to today,
 roughly 3,500 of them, and finds the issue nearest any date a reader picks. Issues with a scanned
 PDF open directly; the rest are shown as held in the bound volumes with a request prompt. The
 decade chart underneath shows exactly how much of the back catalogue is online, which doubles as
 the case for a digitisation project.
 
-**Legal notice estimator** (`/advertise`) — three questions to a price, the copy deadline, the
+**Legal notice estimator** (`/advertise`). three questions to a price, the copy deadline, the
 first publication date and a document checklist. Deadlines are computed from the real Thursday
 publication schedule rather than hard-coded. Rates and requirements live in `src/data/rates.ts`.
 
-**Ad size previewer** (`/advertise`) — drops each ad size onto a scaled 10 x 13 inch page at true
+**Ad size previewer** (`/advertise`). drops each ad size onto a scaled 10 x 13 inch page at true
 proportion, with its share of the page. Sizes are defined in inches in `src/data/rates.ts`, so
 changing one updates the preview automatically.
 
 ## Stack
 
-- **Next.js 14** (App Router) with **static export** — no server, no database, no PHP
+- **Next.js 14** (App Router) with **static export**. No server, no database, no PHP
 - **TypeScript**
 - **Tailwind CSS** with a custom heritage-broadsheet design system
 - **Framer Motion** for scroll reveals and layout transitions
@@ -92,15 +92,15 @@ to move the DNS.
 
 Everything the newsroom would change lives in `src/data/`. No component edits required.
 
-- `site.ts` — phone, mailing address, navigation, deadlines, section list, form endpoint
-- `articles.ts` — stories. Add an object to the array and the front page, section rails, news index
+- `site.ts`: phone, mailing address, navigation, deadlines, section list, form endpoint
+- `articles.ts`: stories. Add an object to the array and the front page, section rails, news index
   and article page all pick it up automatically
-- `archive.ts` — back issues. Add an entry per week and drop the PDF into `public/images/issues/`
-- `obituaries.ts` — notices
-- `rates.ts` — subscription rates, legal notice pricing and requirements, display ad sizes in inches
-- `classifieds.ts` — classified categories, listings and rates
-- `events.ts` — community calendar entries
-- `staff.ts` — the masthead
+- `archive.ts`: back issues. Add an entry per week and drop the PDF into `public/images/issues/`
+- `obituaries.ts`: notices
+- `rates.ts`: subscription rates, legal notice pricing and requirements, display ad sizes in inches
+- `classifieds.ts`: classified categories, listings and rates
+- `events.ts`: community calendar entries
+- `staff.ts`: the masthead
 
 ## Before launch
 
@@ -144,12 +144,27 @@ These are the deliberate placeholders in this preview build:
    sample listings, not real ones.
 10. **Classified rates.** Priced as a placeholder. Confirm against what the Herald charges today.
 
+## Migration and syndication
+
+`public/_redirects` maps the old PHP URLs (`/about.php`, `/archive.php` and the rest) to their new
+homes, plus the shapes readers guess at, like `/obits` and `/legals`. Cloudflare Pages reads this
+file directly. GitHub Pages has no server-side redirects, so these only take effect after the move.
+
+`public/_headers` sets security headers and long cache lifetimes for immutable assets, also read by
+Cloudflare Pages.
+
+An RSS feed is generated at `/feed.xml` from the same article data, and is declared in the document
+head so feed readers and aggregators find it.
+
 ## Accessibility and performance
 
 - One `h1` per page, ordered headings, skip-to-content link
 - Visible focus rings, `aria-pressed` on all filter controls, labelled form fields
 - Reduced-motion support, and a no-JavaScript fallback so scroll-revealed content stays visible
 - No horizontal overflow at 390px
+- Mobile navigation is a real dialog: focus moves into it, Tab is trapped, Escape closes and
+  restores focus to the toggle, and the page behind it is scroll-locked
+- Every interactive target on mobile is at least 44px tall
 - Fonts self-hosted at build time via `next/font`, no third-party font requests at runtime
 - `NewsMediaOrganization` and `NewsArticle` structured data
 - Asset paths routed through `asset()` in `src/lib/utils.ts`, because `next/image` does not apply

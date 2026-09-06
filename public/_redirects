@@ -1,0 +1,20 @@
+# Migration from the previous PHP site.
+# Cloudflare Pages reads this file; GitHub Pages has no server-side redirects,
+# so these only take effect once the site moves to Cloudflare.
+/index.php      /              301
+/about.php      /about         301
+/subscribe.php  /subscribe     301
+/advertise.php  /advertise     301
+/contact.php    /contact       301
+/archive.php    /archive       301
+
+# Shapes readers and search engines are likely to try
+/legal-notices  /advertise     301
+/legals         /advertise     301
+/notices        /advertise     301
+/obits          /obituaries    301
+/events         /calendar      301
+/e-edition      /archive       301
+/back-issues    /archive       301
+/rss            /feed.xml      301
+/feed           /feed.xml      301

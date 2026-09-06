@@ -85,7 +85,7 @@ export default function HomePage() {
                   Read the E-Edition
                 </Link>
                 <Link href="/subscribe" className="btn-outline mt-2 w-full text-xs">
-                  Subscribe &mdash; $42 a year
+                  Subscribe for $42 a year
                 </Link>
               </div>
             </Reveal>

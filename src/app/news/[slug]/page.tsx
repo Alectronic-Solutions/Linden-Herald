@@ -3,8 +3,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import StoryCard from "@/components/StoryCard";
+import ReadingProgress from "@/components/ReadingProgress";
 import { articles, getArticle } from "@/data/articles";
-import { sectionName, site } from "@/data/site";
+import { sectionName, site, SITE_URL } from "@/data/site";
 import { asset, formatDate } from "@/lib/utils";
 
 type Params = { params: { slug: string } };
@@ -47,8 +48,24 @@ export default function ArticlePage({ params }: Params) {
     articleSection: sectionName(article.section),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Front Page", item: SITE_URL },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: sectionName(article.section),
+        item: `${SITE_URL}/news`,
+      },
+      { "@type": "ListItem", position: 3, name: article.title },
+    ],
+  };
+
   return (
     <article className="wrap py-10">
+      <ReadingProgress />
       <nav aria-label="Breadcrumb" className="mb-8">
         <Link
           href={`/news?section=${article.section}`}
@@ -128,6 +145,10 @@ export default function ArticlePage({ params }: Params) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
     </article>
   );
