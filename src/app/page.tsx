@@ -196,7 +196,7 @@ export default function HomePage() {
         <div>
           <SectionHeading
             title="Agriculture"
-            href="/news?section=agriculture"
+            href="/section/agriculture"
             action="More"
             blurb="Cherries, walnuts, water and the growing season, reported from the orchard rows."
           />
@@ -211,7 +211,7 @@ export default function HomePage() {
         <div>
           <SectionHeading
             title="Sports & Opinion"
-            href="/news?section=sports"
+            href="/section/sports"
             action="More"
             blurb="Friday nights at Linden High, and the editorial page."
           />

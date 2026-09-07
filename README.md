@@ -16,7 +16,8 @@ adds the things a weekly paper needs online in 2026:
 | Page | Route | What it does |
 | --- | --- | --- |
 | Front Page | `/` | Lead well, section rails, print-edition callout, obituaries, subscribe CTA |
-| News | `/news` | Filterable, searchable story index across seven sections |
+| News | `/news` | Filterable, searchable index across all stories |
+| Section | `/section/[slug]` | A landing page per section with its own lead story and grid |
 | Article | `/news/[slug]` | Long-form template with drop cap, credits, related stories, article schema |
 | Obituaries | `/obituaries` | Published notices plus a family submission form |
 | E-Edition | `/archive` | Searchable back-issue archive with year filtering and cover thumbnails |
@@ -130,6 +131,8 @@ These are the deliberate placeholders in this preview build:
    Best long-term answer is the Herald's own archive rather than stock. Sixty-seven years of
    local photography is the one thing a competitor cannot copy.
 2. **Story content.** Everything in `articles.ts` is sample copy written for this demonstration.
+   Attribution is deliberately by role rather than by invented name, and no quotation is put in a
+   named person's mouth, so nothing reads as the record of a real local official.
 3. **Obituary notices.** `obituaries.ts` contains sample entries, not real notices.
 4. **Issue PDFs.** `public/issues/` holds a generated sample edition for each entry in
    `archive.ts`, so the archive is clickable end to end. Each one is plainly marked a placeholder.

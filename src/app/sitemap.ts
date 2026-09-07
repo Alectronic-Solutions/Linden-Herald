@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/data/site";
 import { articles } from "@/data/articles";
+import { sections } from "@/data/site";
 
 export const dynamic = "force-static";
 
@@ -30,6 +31,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: now,
       changeFrequency,
       priority,
+    })),
+    ...sections.map((s) => ({
+      url: `${SITE_URL}/section/${s.slug}`,
+      lastModified: now,
+      changeFrequency: "weekly" as const,
+      priority: 0.7,
     })),
     ...articles.map((a) => ({
       url: `${SITE_URL}/news/${a.slug}`,

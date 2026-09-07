@@ -45,4 +45,35 @@ export const obituaries: Obituary[] = [
       "A volunteer with the fair board and the fire district auxiliary, and a fixture at the livestock barn every year for as long as anyone can remember.",
     published: "2026-08-20",
   },
+  {
+    slug: "sample-notice-four",
+    name: "Sample Notice",
+    years: "1932 - 2026",
+    town: "Linden",
+    serviceDate: "Saturday, August 22",
+    serviceLocation: "Graveside service, Linden Cemetery",
+    summary:
+      "Farmed the same ground for more than fifty years and served two terms on the water district board. Known for keeping a coffee pot on for anyone who stopped by the shop.",
+    published: "2026-08-13",
+  },
+  {
+    slug: "sample-notice-five",
+    name: "Sample Notice",
+    years: "1949 - 2026",
+    town: "Linden",
+    serviceDate: "Friday, August 7",
+    serviceLocation: "Linden Community Church",
+    summary:
+      "Taught fourth grade in the district for twenty-six years, and volunteered at the fair every summer for nearly as long.",
+    published: "2026-07-30",
+  },
+  {
+    slug: "sample-notice-six",
+    name: "Sample Notice",
+    years: "1957 - 2026",
+    town: "Waverly",
+    summary:
+      "Drove for a local hauler for three decades and coached youth baseball on the side. Remembered for never missing a game.",
+    published: "2026-07-16",
+  },
 ];

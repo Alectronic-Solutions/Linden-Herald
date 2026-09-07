@@ -64,7 +64,7 @@ export default function AboutPage() {
               {sections.map((s) => (
                 <li key={s.slug} className="border-t border-rule pt-3">
                   <Link
-                    href={`/news?section=${s.slug}`}
+                    href={`/section/${s.slug}`}
                     className="font-display text-lg font-bold headline-link"
                   >
                     {s.name}

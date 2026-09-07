@@ -68,7 +68,7 @@ export default function ArticlePage({ params }: Params) {
       <ReadingProgress />
       <nav aria-label="Breadcrumb" className="mb-8">
         <Link
-          href={`/news?section=${article.section}`}
+          href={`/section/${article.section}`}
           className="font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
         >
           &larr; {sectionName(article.section)}

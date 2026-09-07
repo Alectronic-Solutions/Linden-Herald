@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import IssueCover from "@/components/IssueCover";
-import { issues, archiveYears } from "@/data/archive";
+import { sortedIssues as issues, archiveYears } from "@/data/archive";
 import { asset, cn, formatDate } from "@/lib/utils";
 
 export default function ArchiveBrowser() {

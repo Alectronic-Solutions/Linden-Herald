@@ -33,7 +33,7 @@ export default function SiteFooter() {
               {sections.map((s) => (
                 <li key={s.slug}>
                   <Link
-                    href={`/news?section=${s.slug}`}
+                    href={`/section/${s.slug}`}
                     className="text-newsprint-deep/80 transition-colors hover:text-newsprint-white"
                   >
                     {s.name}
