@@ -131,8 +131,10 @@ These are the deliberate placeholders in this preview build:
    local photography is the one thing a competitor cannot copy.
 2. **Story content.** Everything in `articles.ts` is sample copy written for this demonstration.
 3. **Obituary notices.** `obituaries.ts` contains sample entries, not real notices.
-4. **Issue PDFs.** `archive.ts` points at `/issues/*.pdf`. Drop the real files in and the archive
-   works as-is.
+4. **Issue PDFs.** `public/issues/` holds a generated sample edition for each entry in
+   `archive.ts`, so the archive is clickable end to end. Each one is plainly marked a placeholder.
+   Replace them with the Herald's real scans, keeping the same filenames, and nothing else changes.
+   `scripts/build_issue_pdfs.py` regenerates them if the issue list grows.
 5. **Form endpoint.** `site.formEndpoint` points at FormSubmit. Confirm the receiving address and
    activate it once, then the forms are live.
 6. **Design preview banner.** Remove `<DemoBadge />` from `src/app/layout.tsx` before launch.
@@ -165,6 +167,8 @@ head so feed readers and aggregators find it.
 - Mobile navigation is a real dialog: focus moves into it, Tab is trapped, Escape closes and
   restores focus to the toggle, and the page behind it is scroll-locked
 - Every interactive target on mobile is at least 44px tall
+- The primary nav is a sibling of the masthead rather than a child of it. A sticky element can
+  only stick inside its parent's box, so nesting it in `<header>` gave it no sticky range at all.
 - Fonts self-hosted at build time via `next/font`, no third-party font requests at runtime
 - `NewsMediaOrganization` and `NewsArticle` structured data
 - Asset paths routed through `asset()` in `src/lib/utils.ts`, because `next/image` does not apply

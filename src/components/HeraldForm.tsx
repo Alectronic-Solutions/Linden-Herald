@@ -41,8 +41,16 @@ export default function HeraldForm({ subject, submitLabel, children, note }: Pro
       <input type="hidden" name="_subject" value={subject} />
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_captcha" value="false" />
-      {/* Honeypot */}
-      <input type="text" name="_honey" className="hidden" tabIndex={-1} autoComplete="off" />
+      {/* Honeypot. Hidden from people and from assistive technology alike. */}
+      <input
+        type="text"
+        name="_honey"
+        className="hidden"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        aria-label="Leave this field empty"
+      />
 
       {children}
 

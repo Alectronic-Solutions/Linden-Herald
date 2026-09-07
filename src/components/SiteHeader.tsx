@@ -85,7 +85,8 @@ export default function SiteHeader() {
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
   return (
-    <header className="relative z-40">
+    <>
+      <header className="relative z-40">
       {/* Folio line, the way it runs across the top of the printed page */}
       <div className="no-print border-b border-rule bg-newsprint-white/70">
         <div className="wrap flex flex-wrap items-center justify-between gap-y-1 py-2 font-label text-[0.72rem] uppercase tracking-[0.16em] text-ink-muted">
@@ -115,6 +116,8 @@ export default function SiteHeader() {
           <span className="h-px flex-1 bg-rule-strong" />
         </div>
       </div>
+
+      </header>
 
       {/* Navigation */}
       <nav
@@ -298,6 +301,6 @@ export default function SiteHeader() {
             </>
           )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }
