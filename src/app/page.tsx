@@ -1,275 +1,224 @@
 import Link from "next/link";
-import StoryCard from "@/components/StoryCard";
-import ParallaxHero from "@/components/ParallaxHero";
+import IssueContents from "@/components/IssueContents";
+import IssueCover from "@/components/IssueCover";
 import SectionHeading from "@/components/SectionHeading";
+import ServiceCard from "@/components/ServiceCard";
 import Reveal from "@/components/Reveal";
-import { articles, articlesBySection, latestArticles } from "@/data/articles";
-import { obituaries } from "@/data/obituaries";
-import { issues } from "@/data/archive";
-import { legalNoticeRates } from "@/data/rates";
+import { currentIssue, sortedIssues } from "@/data/archive";
+import { legalNoticeRates, subscriptionRates } from "@/data/rates";
 import { site } from "@/data/site";
-import { formatDate, formatShortDate } from "@/lib/utils";
+import { asset, formatDate } from "@/lib/utils";
+
+const inCounty = subscriptionRates[0];
 
 export default function HomePage() {
-  const [lead, ...rest] = latestArticles;
-  const secondary = rest.slice(0, 2);
-  const moreThisWeek = rest.slice(2, 5);
-  const agriculture = articlesBySection("agriculture").slice(0, 2);
-  const sports = articlesBySection("sports").slice(0, 1);
-  const opinion = articlesBySection("opinion").slice(0, 1);
-  const currentIssue = issues[0];
-  const ticker = articles.slice(0, 6).map((a) => a.title);
+  const recent = sortedIssues.slice(1, 5);
 
   return (
     <>
-      {/* Wire ticker */}
-      <div className="no-print overflow-hidden border-b border-rule bg-newsprint-white py-2">
-        <div className="flex items-center gap-6">
-          <span className="kicker shrink-0 bg-cherry px-3 py-1 text-newsprint-white">
-            This Week
-          </span>
-          <div className="relative flex-1 overflow-hidden">
-            <div className="flex w-max animate-marquee gap-10 whitespace-nowrap">
-              {[...ticker, ...ticker].map((t, i) => (
-                <span
-                  key={i}
-                  className="font-body text-[0.9rem] text-ink-muted before:mr-10 before:text-harvest before:content-['\25C6']"
-                >
-                  {t}
-                </span>
-              ))}
-            </div>
-          </div>
+      {/* What this paper is. Stated before anything else, because the rest of
+          the site only makes sense once a reader knows there are no stories
+          to read here. */}
+      <section className="border-b border-rule bg-newsprint-white">
+        <div className="wrap py-8 text-center">
+          <p className="kicker text-cherry">Print Only, Since {site.founded}</p>
+          <p className="mx-auto mt-3 max-w-3xl font-display text-xl leading-relaxed sm:text-2xl">
+            {site.printOnlyLong}
+          </p>
         </div>
-      </div>
+      </section>
 
-      <ParallaxHero article={lead} />
-
-      {/* Front page */}
+      {/* This week's issue */}
       <section className="wrap pt-12">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-8">
-          {/* Lead well */}
-          <div className="lg:col-span-8 lg:border-r lg:border-rule lg:pr-8">
-            <div className="grid gap-8 sm:grid-cols-2 sm:divide-x sm:divide-rule">
-              {secondary.map((a, i) => (
-                <Reveal key={a.slug} delay={i * 0.08} className={i === 1 ? "sm:pl-8" : ""}>
-                  <StoryCard article={a} priority={i === 0} />
-                </Reveal>
-              ))}
-            </div>
-          </div>
-
-          {/* Right rail */}
-          <aside className="lg:col-span-4">
-            <Reveal delay={0.1}>
-              <div className="border border-ink bg-newsprint-white p-6">
-                <p className="kicker text-herald">In Print This Week</p>
-                <p className="mt-2 font-display text-2xl font-bold leading-tight">
-                  {formatDate(currentIssue.date)}
-                </p>
-                <p className="mt-1 font-label text-[0.78rem] uppercase tracking-[0.14em] text-ink-faint">
-                  Vol. {currentIssue.volume} &middot; No. {currentIssue.number} &middot;{" "}
-                  {currentIssue.pages} pages
-                </p>
-                <ul className="mt-4 space-y-2 border-t border-rule pt-4 font-body text-[0.95rem] text-ink-muted">
-                  {currentIssue.highlights.map((h) => (
-                    <li key={h} className="flex gap-2">
-                      <span aria-hidden className="text-harvest">
-                        &#9670;
-                      </span>
-                      {h}
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/archive" className="btn-primary mt-5 w-full text-xs">
-                  Read the E-Edition
-                </Link>
-                <Link href="/subscribe" className="btn-outline mt-2 w-full text-xs">
-                  Subscribe for $42 a year
+        <div className="grid gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="lg:col-span-4">
+            <Reveal>
+              <Link
+                href={`/archive/${currentIssue.date}`}
+                className="block shadow-lift transition-transform duration-500 hover:-translate-y-1"
+                aria-label={`This week's issue, ${currentIssue.label}`}
+              >
+                <IssueCover
+                  date={currentIssue.date}
+                  volume={currentIssue.volume}
+                  number={currentIssue.number}
+                />
+              </Link>
+              <div className="mt-5 space-y-2">
+                <a href={asset(currentIssue.file)} className="btn-primary w-full text-xs" download>
+                  Download the PDF ({currentIssue.sizeMb} MB)
+                </a>
+                <Link href="/subscribe" className="btn-outline w-full text-xs">
+                  Subscribe &mdash; ${inCounty.price} a year
                 </Link>
               </div>
             </Reveal>
+          </div>
 
-            <Reveal delay={0.15}>
+          <div className="lg:col-span-8">
+            <Reveal delay={0.08}>
+              <p className="kicker text-herald">In Mailboxes This Week</p>
+              <h1 className="mt-2 font-display text-4xl font-black leading-[1.05] tracking-[-0.02em] sm:text-[3.2rem]">
+                {formatDate(currentIssue.date)}
+              </h1>
+              <p className="mt-2 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
+                Vol. {currentIssue.volume} &middot; No. {currentIssue.number} &middot;{" "}
+                {currentIssue.pages} pages
+              </p>
+
               <div className="mt-8">
-                <SectionHeading title="Also This Week" />
-                <div className="divide-y divide-rule">
-                  {rest.slice(0, 5).map((a) => (
-                    <StoryCard key={a.slug} article={a} variant="compact" />
-                  ))}
-                </div>
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.2}>
-              <div className="mt-8 border-l-4 border-harvest bg-newsprint-white p-5">
-                <p className="kicker text-harvest">Legal Notices</p>
-                <p className="mt-2 font-body text-[0.95rem] leading-relaxed text-ink-muted">
-                  Adjudicated by the {site.adjudication.court} in{" "}
-                  {site.adjudication.date}, {site.adjudication.decree}. Fictitious business names
-                  from {legalNoticeRates[0].price}, with proof of publication filed at no extra
-                  cost.
+                <p className="font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ink-faint">
+                  What&rsquo;s inside
                 </p>
-                <Link
-                  href="/advertise#legal-notices"
-                  className="mt-3 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
-                >
-                  Place a notice &rarr;
-                </Link>
-              </div>
-            </Reveal>
-          </aside>
-        </div>
-      </section>
-
-      {/* More this week */}
-      <section className="wrap mt-16">
-        <SectionHeading title="More From This Week" href="/news" action="All stories" />
-        <div className="grid gap-10 md:grid-cols-3">
-          {moreThisWeek.map((a, i) => (
-            <Reveal key={a.slug} delay={i * 0.08}>
-              <StoryCard article={a} />
-            </Reveal>
-          ))}
-        </div>
-      </section>
-
-      {/* E-edition band */}
-      <section className="mt-20 border-y-[3px] border-ink bg-herald text-newsprint-white">
-        <div className="wrap grid items-center gap-10 py-14 md:grid-cols-2 md:py-18">
-          <Reveal>
-            <p className="kicker text-harvest-light">New: The Herald E-Edition</p>
-            <h2 className="mt-3 font-display text-3xl font-black leading-tight text-newsprint-white sm:text-[2.6rem]">
-              Every issue, searchable, from any device
-            </h2>
-            <p className="mt-4 max-w-lg font-body text-[1.02rem] leading-relaxed text-newsprint-deep/85">
-              The full page-for-page edition, posted the morning it hits mailboxes. Search back
-              issues by date, browse by year, and download the pages you want to keep. Bound
-              volumes going back to {site.founded} remain available at the Stockton Public Library.
-            </p>
-            <div className="mt-7 flex flex-wrap gap-3">
-              <Link
-                href="/archive"
-                className="btn bg-newsprint-white px-6 py-3 text-ink hover:bg-harvest-light"
-              >
-                Browse the Archive
-              </Link>
-              <Link
-                href="/subscribe"
-                className="btn border border-newsprint-white/40 px-6 py-3 text-newsprint-white hover:bg-newsprint-white hover:text-ink"
-              >
-                Subscribe
-              </Link>
-            </div>
-          </Reveal>
-          <Reveal delay={0.12}>
-            <div className="grid grid-cols-3 gap-4">
-              {issues.slice(0, 3).map((issue) => (
-                <div
-                  key={issue.date}
-                  className="aspect-[3/4] border border-newsprint-white/25 bg-newsprint-white/95 p-3 text-ink shadow-lift transition-transform duration-500 hover:-translate-y-1"
-                >
-                  <p className="font-display text-[0.62rem] font-black leading-tight">
-                    The Linden Herald
-                  </p>
-                  <div className="mt-1 h-px w-full bg-ink/30" />
-                  <p className="mt-1.5 font-label text-[0.55rem] uppercase tracking-wider text-ink-faint">
-                    {formatShortDate(issue.date)}
-                  </p>
-                  <div className="mt-2 space-y-1" aria-hidden>
-                    <div className="h-1 w-full bg-ink/20" />
-                    <div className="h-1 w-4/5 bg-ink/15" />
-                    <div className="mt-2 h-8 w-full bg-ink/10" />
-                    <div className="h-1 w-full bg-ink/15" />
-                    <div className="h-1 w-3/4 bg-ink/10" />
-                    <div className="h-1 w-5/6 bg-ink/10" />
-                  </div>
+                <div className="mt-3">
+                  <IssueContents contents={currentIssue.contents} />
                 </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
+              </div>
 
-      {/* Section rails */}
-      <section className="wrap mt-16 grid gap-12 lg:grid-cols-2 lg:gap-10">
-        <div>
-          <SectionHeading
-            title="Agriculture"
-            href="/section/agriculture"
-            action="More"
-            blurb="Cherries, walnuts, water and the growing season, reported from the orchard rows."
-          />
-          <div className="space-y-8">
-            {agriculture.map((a, i) => (
-              <Reveal key={a.slug} delay={i * 0.08}>
-                <StoryCard article={a} variant="row" />
-              </Reveal>
-            ))}
-          </div>
-        </div>
-        <div>
-          <SectionHeading
-            title="Sports & Opinion"
-            href="/section/sports"
-            action="More"
-            blurb="Friday nights at Linden High, and the editorial page."
-          />
-          <div className="space-y-8">
-            {[...sports, ...opinion].map((a, i) => (
-              <Reveal key={a.slug} delay={i * 0.08}>
-                <StoryCard article={a} variant="row" />
-              </Reveal>
-            ))}
+              <p className="mt-5 font-body text-[0.92rem] italic text-ink-muted">
+                {site.printOnly} Pick up a copy, subscribe, or download the edition as a PDF.
+              </p>
+            </Reveal>
           </div>
         </div>
       </section>
 
-      {/* Obituaries */}
-      <section className="wrap mt-16">
+      {/* The three things the site is for */}
+      <section className="wrap mt-20">
         <SectionHeading
-          title="Obituaries"
-          href="/obituaries"
-          action="All notices"
-          blurb="Notices are published at no charge for families in the district."
+          title="How We Can Help"
+          blurb="Subscriptions, legal notices and local advertising are what keep a reporter in the room at the school board, the water district and the fire board."
         />
         <div className="grid gap-6 md:grid-cols-3">
-          {obituaries.map((o, i) => (
-            <Reveal key={o.slug} delay={i * 0.08}>
-              <article className="h-full border-t-2 border-ink bg-newsprint-white p-5">
-                <p className="font-display text-xl font-bold leading-tight">{o.name}</p>
-                <p className="mt-1 font-label text-[0.76rem] uppercase tracking-[0.14em] text-ink-faint">
-                  {o.years} &middot; {o.town}
+          <Reveal>
+            <ServiceCard
+              kicker="Subscribe"
+              title="The paper, by mail, every week"
+              price={`$${inCounty.price}`}
+              blurb={`${inCounty.detail} Send a check to the PO Box, or start the order online and we will follow up.`}
+              href="/subscribe"
+              action="Start a Subscription"
+            />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <ServiceCard
+              kicker="Legal Notices"
+              title="An adjudicated paper of general circulation"
+              price={`From ${legalNoticeRates[0].price}`}
+              blurb={`Adjudicated by the ${site.adjudication.court} in ${site.adjudication.date}, ${site.adjudication.decree}. We file your proof of publication at no extra cost.`}
+              href="/legal-notices"
+              action="Place a Notice"
+            />
+          </Reveal>
+          <Reveal delay={0.16}>
+            <ServiceCard
+              kicker="Advertise"
+              title="Reach the whole district in one place"
+              price="Call for rates"
+              blurb={`About ${site.reach.districtResidents} residents inside the school district, ${site.reach.townResidents} inside the town limits. Display, classified and insert advertising.`}
+              href="/advertise"
+              action="See Ad Sizes"
+            />
+          </Reveal>
+        </div>
+      </section>
+
+      {/* Reader services */}
+      <section className="mt-20 border-y-[3px] border-ink bg-herald text-newsprint-white">
+        <div className="wrap py-14">
+          <p className="kicker text-harvest-light">Submit to the Paper</p>
+          <h2 className="mt-3 font-display text-3xl font-black leading-tight text-newsprint-white sm:text-[2.4rem]">
+            Anyone in the district can put something in the Herald
+          </h2>
+          <div className="mt-9 grid gap-8 sm:grid-cols-3">
+            {[
+              {
+                title: "Obituaries",
+                href: "/obituaries",
+                blurb: "Published at no charge for families in the district.",
+                deadline: site.deadlines.obituary,
+              },
+              {
+                title: "Community Calendar",
+                href: "/calendar",
+                blurb: "Meetings, fundraisers, school events and club nights. Free to list.",
+                deadline: site.deadlines.classified,
+              },
+              {
+                title: "Classifieds",
+                href: "/classifieds",
+                blurb: "Equipment, services, help wanted and things for sale.",
+                deadline: site.deadlines.classified,
+              },
+            ].map((item, i) => (
+              <Reveal key={item.href} delay={i * 0.08}>
+                <h3 className="font-display text-xl font-bold text-newsprint-white">{item.title}</h3>
+                <p className="mt-2 font-body text-[0.95rem] leading-relaxed text-newsprint-deep/85">
+                  {item.blurb}
                 </p>
-                <p className="mt-3 font-body text-[0.93rem] leading-relaxed text-ink-muted">
-                  {o.summary}
+                <p className="mt-2 font-label text-[0.72rem] uppercase tracking-[0.14em] text-harvest-light">
+                  Deadline: {item.deadline}
                 </p>
-              </article>
+                <Link
+                  href={item.href}
+                  className="mt-3 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-newsprint-white underline-offset-4 hover:underline"
+                >
+                  Submit &rarr;
+                </Link>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Past issues */}
+      <section className="wrap mt-16">
+        <SectionHeading
+          title="Past Issues"
+          href="/archive"
+          action="Browse the archive"
+          blurb="Recent editions are posted here as PDFs, free to download. Bound volumes of every issue since 1959 remain available for review at the Stockton Public Library."
+        />
+        <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
+          {recent.map((issue, i) => (
+            <Reveal key={issue.date} delay={i * 0.06}>
+              <Link
+                href={`/archive/${issue.date}`}
+                className="group block transition-transform duration-500 hover:-translate-y-1"
+              >
+                <IssueCover date={issue.date} volume={issue.volume} number={issue.number} />
+                <p className="mt-3 font-display text-[0.95rem] font-bold leading-tight group-hover:text-herald">
+                  {issue.label}
+                </p>
+                <p className="mt-0.5 font-label text-[0.7rem] uppercase tracking-[0.12em] text-ink-faint">
+                  {issue.pages} pages &middot; {issue.sizeMb} MB
+                </p>
+              </Link>
             </Reveal>
           ))}
         </div>
       </section>
 
-      {/* Subscribe CTA */}
+      {/* Who we are */}
       <section className="wrap mt-20">
         <Reveal>
           <div className="border-[3px] border-ink bg-newsprint-white px-6 py-12 text-center sm:px-12">
-            <p className="kicker text-cherry">Support Local Reporting</p>
-            <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-black leading-tight sm:text-[2.75rem]">
-              Fifty-two issues a year, delivered to your mailbox for $42
+            <p className="kicker text-cherry">Since {site.founded}</p>
+            <h2 className="mx-auto mt-3 max-w-3xl font-display text-3xl font-black leading-tight sm:text-[2.6rem]">
+              A weekly paper, written by people who live here
             </h2>
             <p className="mx-auto mt-4 max-w-2xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
-              Subscriptions and local advertising are what keep a reporter in the room at the
-              school board, the water district and the fire board. Thank you for keeping the
-              Herald printing.
+              Our correspondents live and work in Linden. The phone is answered{" "}
+              {site.phoneNote.toLowerCase()} &mdash; call us with a tip, a correction, or a notice
+              you need published.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
-              <Link href="/subscribe" className="btn-primary">
-                Start a Subscription
-              </Link>
-              <a href={site.phoneHref} className="btn-outline">
+              <a href={site.phoneHref} className="btn-primary">
                 Call {site.phone}
               </a>
+              <Link href="/about" className="btn-outline">
+                About the Herald
+              </Link>
             </div>
           </div>
         </Reveal>

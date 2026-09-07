@@ -1,5 +1,6 @@
-import { latestArticles } from "@/data/articles";
+import { sortedIssues } from "@/data/archive";
 import { site, SITE_URL, sectionName } from "@/data/site";
+import { asset } from "@/lib/utils";
 
 export const dynamic = "force-static";
 
@@ -12,18 +13,29 @@ function escapeXml(value: string) {
     .replace(/'/g, "&apos;");
 }
 
+/**
+ * The Herald is print-only, so the feed announces issues, not stories. Each
+ * item is one printed edition, with its table of contents in the description
+ * and the PDF attached as an enclosure.
+ */
 export async function GET() {
-  const items = latestArticles
-    .map((a) => {
-      const url = `${SITE_URL}/news/${a.slug}`;
+  const items = sortedIssues
+    .map((issue) => {
+      const url = `${SITE_URL}/archive/${issue.date}`;
+      const contents = issue.contents
+        .map((c) => `${sectionName(c.section)}: ${c.title}`)
+        .join(" • ");
+      const description = `Vol. ${issue.volume}, No. ${issue.number} — ${issue.pages} pages. ${contents}`;
+
       return `    <item>
-      <title>${escapeXml(a.title)}</title>
+      <title>${escapeXml(`${site.name}, ${issue.label}`)}</title>
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
-      <description>${escapeXml(a.deck)}</description>
-      <category>${escapeXml(sectionName(a.section))}</category>
-      <dc:creator>${escapeXml(a.byline)}</dc:creator>
-      <pubDate>${new Date(`${a.date}T08:00:00Z`).toUTCString()}</pubDate>
+      <description>${escapeXml(description)}</description>
+      <enclosure url="${SITE_URL}${asset(issue.file)}" length="${Math.round(
+        issue.sizeMb * 1_048_576,
+      )}" type="application/pdf" />
+      <pubDate>${new Date(`${issue.date}T08:00:00Z`).toUTCString()}</pubDate>
     </item>`;
     })
     .join("\n");

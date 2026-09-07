@@ -63,12 +63,7 @@ export default function AboutPage() {
             <ul className="mt-7 grid gap-x-8 gap-y-4 sm:grid-cols-2">
               {sections.map((s) => (
                 <li key={s.slug} className="border-t border-rule pt-3">
-                  <Link
-                    href={`/section/${s.slug}`}
-                    className="font-display text-lg font-bold headline-link"
-                  >
-                    {s.name}
-                  </Link>
+                  <p className="font-display text-lg font-bold">{s.name}</p>
                   <p className="mt-1 font-body text-[0.92rem] leading-relaxed text-ink-muted">
                     {s.blurb}
                   </p>

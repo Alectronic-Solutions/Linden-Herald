@@ -1,18 +1,18 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import HeraldForm from "@/components/HeraldForm";
 import ContactCard from "@/components/ContactCard";
-import LegalNoticeEstimator from "@/components/LegalNoticeEstimator";
 import AdSizePreviewer from "@/components/AdSizePreviewer";
 import { Field, Select, TextArea } from "@/components/Field";
-import { legalNoticeRates } from "@/data/rates";
+import { displayAdSizes, legalNoticeRates } from "@/data/rates";
 import { site } from "@/data/site";
 
 export const metadata: Metadata = {
-  title: "Advertise & Legal Notices",
+  title: "Advertise",
   description:
-    "Display advertising and legal notice publication with the Linden Herald, a newspaper of general circulation in San Joaquin County since 1959. Estimate your notice cost in three questions.",
+    "Display and classified advertising in the Linden Herald, a weekly print newspaper reaching the Linden school district across eastern San Joaquin County since 1959. See ad sizes at true proportion.",
   alternates: { canonical: "/advertise" },
   openGraph: {
     images: [{ url: "/og/advertise.jpg", width: 1200, height: 630 }],
@@ -24,8 +24,8 @@ export default function AdvertisePage() {
     <div className="wrap py-10">
       <PageHeader
         kicker="Reach the district"
-        title="Advertise & Publish Notices"
-        blurb="The Herald reaches households across the Linden school district every week, in print, where readers actually sit down with it. Legal notices are adjudicated, competitively priced, and filed for you."
+        title="Advertise in the Herald"
+        blurb="The Herald reaches households across the Linden school district every week, in print, where readers actually sit down with it. Pick a size, and we will help you fill it."
       />
 
       <section className="grid gap-6 border-b-[3px] border-ink pb-8 sm:grid-cols-3">
@@ -50,61 +50,26 @@ export default function AdvertisePage() {
         ))}
       </section>
 
-      {/* Estimator */}
-      <section id="legal-notices" className="mt-14 scroll-mt-24">
-        <LegalNoticeEstimator />
-      </section>
-
-      {/* Full rate reference */}
+      {/* Legal notices moved to their own page — it is a distinct service with
+          its own audience, and burying it in an anchor here hid it. */}
       <section className="mt-14">
-        <div className="rule-double mb-6" />
-        <h2 className="font-display text-3xl font-black">Every notice we publish</h2>
-        <p className="mt-3 max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
-          The {site.adjudication.court} issued decree {site.adjudication.decree} in{" "}
-          {site.adjudication.date} establishing the Herald as a newspaper of general circulation. We
-          file the proof of publication with the county court or recorder at no cost to the
-          advertiser, then issue a copy to the petitioner or registrant.
-        </p>
-
-        <div className="mt-8 overflow-x-auto border border-ink">
-          <table className="w-full min-w-[42rem] border-collapse bg-newsprint-white text-left">
-            <caption className="sr-only">Legal notice publication rates</caption>
-            <thead>
-              <tr className="bg-ink text-newsprint-white">
-                {["Notice Type", "Rate", "Runs For", "Detail"].map((h) => (
-                  <th
-                    key={h}
-                    scope="col"
-                    className="px-4 py-3 font-label text-[0.76rem] uppercase tracking-[0.16em]"
-                  >
-                    {h}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-rule">
-              {legalNoticeRates.map((r) => (
-                <tr key={r.id} className="align-top transition-colors hover:bg-newsprint">
-                  <th scope="row" className="px-4 py-4 font-display text-[1.02rem] font-bold">
-                    {r.type}
-                  </th>
-                  <td className="whitespace-nowrap px-4 py-4 font-display text-xl font-black text-herald">
-                    {r.price}
-                  </td>
-                  <td className="px-4 py-4 font-body text-[0.9rem] leading-snug text-ink-muted">
-                    {r.runWeeks}
-                  </td>
-                  <td className="px-4 py-4 font-body text-[0.94rem] leading-relaxed text-ink-muted">
-                    {r.detail}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-3 font-label text-[0.74rem] uppercase tracking-[0.14em] text-ink-faint">
-          Additional names $10 each. Call {site.phone} for anything not listed.
-        </p>
+        <Reveal>
+          <div className="border-l-4 border-herald bg-newsprint-white p-6 sm:p-8">
+            <p className="kicker text-herald">Looking to publish a legal notice?</p>
+            <p className="mt-3 max-w-3xl font-display text-xl leading-relaxed sm:text-2xl">
+              We are an adjudicated newspaper of general circulation, and we file your proof of
+              publication at no extra cost.
+            </p>
+            <p className="mt-4 max-w-3xl font-body text-[1rem] leading-relaxed text-ink-muted">
+              Fictitious business names from {legalNoticeRates[0].price}. Name changes, summons,
+              family law and bulk sale transfers all have published rates, and there is a cost
+              estimator that works out your deadline and first publication date.
+            </p>
+            <Link href="/legal-notices" className="btn-primary mt-6 text-xs">
+              Legal Notice Rates &amp; Estimator
+            </Link>
+          </div>
+        </Reveal>
       </section>
 
       {/* Ad previewer */}
@@ -136,12 +101,12 @@ export default function AdvertisePage() {
       <section id="notice-request" className="mt-16 grid gap-12 scroll-mt-24 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <div className="rule-double mb-6" />
-          <h2 className="font-display text-3xl font-black">Start your notice or ad</h2>
+          <h2 className="font-display text-3xl font-black">Start an ad</h2>
           <p className="mt-3 max-w-xl font-body text-[1rem] leading-relaxed text-ink-muted">
             Tell us what you need and we will confirm the quote and the publication schedule.
           </p>
           <div className="mt-8">
-            <HeraldForm subject="Advertising or legal notice request" submitLabel="Send Request">
+            <HeraldForm subject="Advertising request" submitLabel="Send Request">
               <div className="grid gap-4 sm:grid-cols-2">
                 <Field name="name" label="Your name" required />
                 <Field name="business" label="Business or firm" />
@@ -155,10 +120,9 @@ export default function AdvertisePage() {
                 label="What do you need?"
                 required
                 options={[
-                  ...legalNoticeRates.map((r) => r.type),
-                  "Display advertising",
-                  "Classified line ad",
-                  "Something else",
+                  ...displayAdSizes.map((a) => `${a.name} (${a.size})`),
+                  "Insert or flyer",
+                  "Not sure yet",
                 ]}
               />
               <TextArea
@@ -166,7 +130,7 @@ export default function AdvertisePage() {
                 label="Details"
                 required
                 rows={6}
-                placeholder="Case number, filing deadline, business names, run dates, or the ad copy you have in mind."
+                placeholder="Run dates, the ad copy you have in mind, or just tell us what you are promoting and we will help size it."
               />
             </HeraldForm>
           </div>
@@ -175,11 +139,10 @@ export default function AdvertisePage() {
         <aside className="lg:col-span-5">
           <ContactCard variant="full" heading="Talk to a person" />
           <div className="mt-6 border-l-4 border-harvest bg-newsprint-white p-6">
-            <p className="kicker text-harvest">Proof of publication, filed for you</p>
+            <p className="kicker text-harvest">We can build the ad</p>
             <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
-              We file the proof with the San Joaquin County Court or the County Recorder at no
-              additional cost, and issue another copy to the petitioner or registrant. One less
-              errand on a filing deadline.
+              Send a logo and the details and we will set the ad for you at no charge. Camera-ready
+              artwork is welcome too &mdash; PDF or high-resolution JPEG at the size you booked.
             </p>
           </div>
         </aside>

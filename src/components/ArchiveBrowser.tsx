@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import Link from "next/link";
 import IssueCover from "@/components/IssueCover";
-import { sortedIssues as issues, archiveYears } from "@/data/archive";
+import { sortedIssues as issues, archiveYears, issueHeadlines } from "@/data/archive";
 import { asset, cn, formatDate } from "@/lib/utils";
 
 export default function ArchiveBrowser() {
@@ -15,7 +16,7 @@ export default function ArchiveBrowser() {
     return issues
       .filter((i) => (year === "all" ? true : i.date.startsWith(year)))
       .filter((i) =>
-        q ? `${i.label} ${i.highlights.join(" ")}`.toLowerCase().includes(q) : true,
+        q ? `${i.label} ${issueHeadlines(i).join(" ")}`.toLowerCase().includes(q) : true,
       );
   }, [year, query]);
 
@@ -87,25 +88,32 @@ export default function ArchiveBrowser() {
               transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="group"
             >
-              <a
-                href={asset(issue.file)}
+              <Link
+                href={`/archive/${issue.date}`}
                 className="block transition-transform duration-500 group-hover:-translate-y-1.5"
-                aria-label={`Download the ${issue.label} edition, PDF, ${issue.sizeMb} megabytes`}
+                aria-label={`The ${issue.label} edition`}
               >
                 <div className="shadow-page transition-shadow duration-500 group-hover:shadow-lift">
                   <IssueCover date={issue.date} volume={issue.volume} number={issue.number} />
                 </div>
-              </a>
+              </Link>
               <h3 className="mt-3 font-display text-lg font-bold leading-tight">
-                <a href={asset(issue.file)} className="headline-link">
+                <Link href={`/archive/${issue.date}`} className="headline-link">
                   {formatDate(issue.date)}
-                </a>
+                </Link>
               </h3>
               <p className="mt-1 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
-                {issue.pages} pages &middot; PDF {issue.sizeMb} MB
+                {issue.pages} pages &middot;{" "}
+                <a
+                  href={asset(issue.file)}
+                  className="underline decoration-dotted underline-offset-2 hover:text-herald"
+                  download
+                >
+                  PDF {issue.sizeMb} MB
+                </a>
               </p>
               <ul className="mt-2 space-y-1 font-body text-[0.88rem] leading-snug text-ink-muted">
-                {issue.highlights.slice(0, 2).map((h) => (
+                {issueHeadlines(issue, 2).map((h) => (
                   <li key={h}>{h}</li>
                 ))}
               </ul>

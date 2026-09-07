@@ -20,7 +20,14 @@ export const site = {
   founded: 1959,
   domain: "lindenherald.com",
   description:
-    "The Linden Herald is a weekly newspaper published in Linden, California, covering local news, sports, agriculture, schools, public safety and legal notices across eastern San Joaquin County.",
+    "The Linden Herald is a weekly print newspaper published in Linden, California since 1959. Subscribe for $42 a year, publish a legal notice in an adjudicated newspaper of general circulation, advertise to the Linden school district, or download past issues as PDFs.",
+  /**
+   * The Herald does not publish stories online and never has. Every page that
+   * could be mistaken for a newsroom should say so.
+   */
+  printOnly: "The Herald is a print newspaper. We don't publish our stories online.",
+  printOnlyLong:
+    "The Linden Herald is written, edited and printed for the page. Stories run in the weekly edition and nowhere else — subscribe to get it in your mailbox, or download a past issue as a PDF.",
   phone: "(209) 772-8854",
   phoneHref: "tel:+12097728854",
   phoneNote: "Answered 24 hours a day, seven days a week",
@@ -31,6 +38,8 @@ export const site = {
     zip: "95236",
   },
   // Routed through FormSubmit so the paper receives submissions by email with no server to run.
+  // VERIFY: this address is a guess — the Herald publishes only a phone number
+  // and a PO Box. Every form on the site fails silently if it is wrong.
   formEndpoint: "https://formsubmit.co/news@lindenherald.com",
   // Court decree establishing the paper as a newspaper of general circulation.
   adjudication: {
@@ -43,6 +52,8 @@ export const site = {
     townResidents: "1,200",
     combinedExperience: "57",
   },
+  // VERIFY: none of these deadlines are published by the Herald. The legal
+  // deadline feeds the notice estimator's first-publication-date maths.
   deadlines: {
     display: "Friday at 5 p.m. for the following Thursday edition",
     classified: "Monday at noon",
@@ -50,13 +61,11 @@ export const site = {
     obituary: "Monday at noon",
   },
   nav: [
-    { label: "Front Page", href: "/" },
-    { label: "News", href: "/news" },
-    { label: "Obituaries", href: "/obituaries" },
-    { label: "Calendar", href: "/calendar" },
-    { label: "Classifieds", href: "/classifieds" },
-    { label: "E-Edition", href: "/archive" },
+    { label: "Home", href: "/" },
+    { label: "Past Issues", href: "/archive" },
+    { label: "Legal Notices", href: "/legal-notices" },
     { label: "Advertise", href: "/advertise" },
+    { label: "Community", href: "/community" },
     { label: "About", href: "/about" },
     { label: "Contact", href: "/contact" },
   ],

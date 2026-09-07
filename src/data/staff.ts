@@ -1,3 +1,4 @@
+// VERIFY: every name below is a placeholder. See VERIFY.md.
 export type StaffMember = {
   name: string;
   role: string;

@@ -4,6 +4,8 @@ import Reveal from "@/components/Reveal";
 import HeraldForm from "@/components/HeraldForm";
 import { Field, Select, TextArea } from "@/components/Field";
 import ContactCard from "@/components/ContactCard";
+import SubscriptionCoupon from "@/components/SubscriptionCoupon";
+import PrintButton from "@/components/PrintButton";
 import { subscriptionRates } from "@/data/rates";
 import { site, mailingAddressLines } from "@/data/site";
 import { cn } from "@/lib/utils";
@@ -24,7 +26,7 @@ export default function SubscribePage() {
       <PageHeader
         kicker="Fifty-two issues a year"
         title="Subscribe to the Herald"
-        blurb="A subscription is what keeps a reporter in the room at the school board, the water district and the fire board. Start one online, or mail a check the way you always have."
+        blurb="The Herald arrives by mail every Thursday. A subscription is what keeps a reporter in the room at the school board, the water district and the fire board."
       />
 
       <section className="grid gap-6 md:grid-cols-3">
@@ -59,13 +61,59 @@ export default function SubscribePage() {
         ))}
       </section>
 
+      {/* Two ways to order. The check-by-mail path is listed first because it
+          is how most subscriptions actually arrive at the office. */}
+      <section className="mt-16">
+        <div className="rule-double mb-6" />
+        <h2 className="font-display text-3xl font-black">Two ways to subscribe</h2>
+        <p className="mt-3 max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
+          Most subscriptions arrive as a check in the mail, and that still works exactly as it
+          always has. If you would rather start it online, the form below reaches the office by
+          email and we will call you to confirm delivery and take payment.
+        </p>
+      </section>
+
+      <section className="mt-10 grid gap-10 lg:grid-cols-12">
+        <div className="lg:col-span-7">
+          <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
+            <h3 className="font-display text-2xl font-bold">1. Print and mail this form</h3>
+            <PrintButton label="Print this form" />
+          </div>
+          <SubscriptionCoupon />
+        </div>
+        <aside className="lg:col-span-5">
+          <div className="border border-ink bg-newsprint-white p-7">
+            <h3 className="font-display text-2xl font-bold">What a subscriber gets</h3>
+            <ul className="mt-4 space-y-3 font-body text-[0.98rem] leading-relaxed text-ink-muted">
+              {[
+                "Fifty-two printed editions a year, delivered through the postal system.",
+                "Local news, sports, club photographs and agricultural reporting written here.",
+                "School board, water district, sheriff and fire coverage nobody else carries.",
+                "Editorials, letters, history from the Herald morgue, and the legal notices of record.",
+              ].map((line) => (
+                <li key={line} className="flex gap-2.5">
+                  <span aria-hidden className="text-harvest">
+                    &#9670;
+                  </span>
+                  <span>{line}</span>
+                </li>
+              ))}
+            </ul>
+            <p className="mt-6 border-t border-rule pt-5 font-body text-[0.92rem] italic leading-relaxed text-ink-muted">
+              {site.printOnly} Past editions are posted as free PDFs in the archive, but the
+              current week belongs to subscribers.
+            </p>
+          </div>
+        </aside>
+      </section>
+
       <section className="mt-16 grid gap-12 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <div className="rule-double mb-6" />
-          <h2 className="font-display text-3xl font-black">Start a subscription</h2>
+          <h3 className="font-display text-2xl font-bold">2. Or start it online</h3>
           <p className="mt-3 max-w-xl font-body text-[1rem] leading-relaxed text-ink-muted">
-            Fill this out and the office will call you to confirm delivery and take payment. You
-            can also mail a check, or call {site.phone} any hour.
+            Fill this out and the office will call you to confirm delivery and take payment. Or
+            call {site.phone} any hour and we will take it over the phone.
           </p>
 
           <div className="mt-8">
@@ -103,7 +151,7 @@ export default function SubscribePage() {
 
         <aside className="lg:col-span-5">
           <div className="border border-ink bg-newsprint-white p-7">
-            <h2 className="font-display text-2xl font-bold">Prefer to mail a check?</h2>
+            <h3 className="font-display text-2xl font-bold">Where to mail it</h3>
             <p className="mt-3 font-body text-[0.98rem] leading-relaxed text-ink-muted">
               Send a check along with the delivery address you would like the paper mailed to.
             </p>

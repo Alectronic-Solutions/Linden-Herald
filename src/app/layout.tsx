@@ -49,10 +49,12 @@ export const metadata: Metadata = {
     "San Joaquin County agriculture news",
     "Linden CA obituaries",
     "Linden community calendar",
+    "subscribe Linden Herald",
+    "San Joaquin County newspaper of general circulation",
   ],
   alternates: {
     canonical: "/",
-    types: { "application/rss+xml": [{ url: "/feed.xml", title: `${site.name} news feed` }] },
+    types: { "application/rss+xml": [{ url: "/feed.xml", title: `${site.name} issue feed` }] },
   },
   icons: {
     icon: [

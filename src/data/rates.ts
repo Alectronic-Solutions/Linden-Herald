@@ -1,3 +1,5 @@
+// VERIFY: only the in-county $42 rate is published by the Herald. The
+// out-of-county and gift tiers below are invented. See VERIFY.md.
 export const subscriptionRates = [
   {
     name: "In-County Annual",
@@ -56,6 +58,8 @@ export const legalNoticeRates: LegalNotice[] = [
     type: "Fictitious Business Name, additional entities",
     price: "$145",
     numericPrice: 145,
+    // VERIFY: their page reads "$145 more for corp., LLC, partnerships" — that
+    // may mean $145 total (as shown) or $105 + $145. This drives the estimator.
     detail: "Corporations, LLCs, partnerships, husband and wife. Additional names $10 each.",
     runWeeks: "Four consecutive weeks",
     filedFor: true,
@@ -126,6 +130,7 @@ export const legalNoticeRates: LegalNotice[] = [
     type: "Trustee Sale",
     price: "Call for quote",
     numericPrice: null,
+    // VERIFY: the Herald publishes no trustee sale rate or run length.
     detail: "Priced by column inch. Competitive with the county's larger papers.",
     runWeeks: "Three consecutive weeks",
     filedFor: true,
@@ -148,7 +153,13 @@ export type AdSize = {
   placement: "top" | "fill" | "block";
 };
 
-/** The Herald prints a 10 x 13 inch page. */
+/**
+ * VERIFY: the Herald publishes no display rate card — every size, dimension and
+ * the page size itself are assumptions. AdSizePreviewer draws these to scale,
+ * so wrong numbers are visibly wrong. See VERIFY.md.
+ *
+ * The Herald prints a 10 x 13 inch page.
+ */
 export const PAGE_WIDTH_IN = 10;
 export const PAGE_HEIGHT_IN = 13;
 

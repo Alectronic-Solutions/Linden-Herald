@@ -9,23 +9,31 @@ Built by [Alectronic Solutions](https://alectronicsolutions.com).
 
 ## What this is
 
-A complete, static, eight-page site built to replace the current PHP site. It keeps everything the
-Herald already has (history, legal notice authority, subscription and advertising information) and
-adds the things a weekly paper needs online in 2026:
+A complete, static site built to replace the current PHP site.
+
+**It is not a news website, on purpose.** The Herald's own About page says it plainly: *"We are a
+print-only newspaper written and reported in the traditional journalism manner."* Stories run in
+the weekly edition and nowhere else. So this site does the five things the Herald's site actually
+does for the business — sell subscriptions, sell legal notices, sell advertising, hand out issue
+PDFs, and say who and where they are — and it does them properly.
+
+The **issue** is the primary entity here, not the article. The site lists what ran in each
+edition, as a table of contents, and points readers at the PDF or a subscription. It never carries
+story text.
 
 | Page | Route | What it does |
 | --- | --- | --- |
-| Front Page | `/` | Lead well, section rails, print-edition callout, obituaries, subscribe CTA |
-| News | `/news` | Filterable, searchable index across all stories |
-| Section | `/section/[slug]` | A landing page per section with its own lead story and grid |
-| Article | `/news/[slug]` | Long-form template with drop cap, credits, related stories, article schema |
+| Home | `/` | This week's issue and its contents, the three services, community submissions, recent issues |
+| Past Issues | `/archive` | Searchable back-issue archive with year filtering and cover thumbnails |
+| Issue | `/archive/[date]` | One edition: cover, PDF download, full table of contents, neighbouring issues |
+| Legal Notices | `/legal-notices` | Adjudication credentials, cost estimator, full rate table, per-notice document checklists, request form |
+| Subscribe | `/subscribe` | Rate cards, a printable mail-in order form, and an online request form |
+| Advertise | `/advertise` | Reach figures, display ad sizes at true proportion, deadlines, request form |
+| Community | `/community` | Hub for the three reader submission routes |
 | Obituaries | `/obituaries` | Published notices plus a family submission form |
-| E-Edition | `/archive` | Searchable back-issue archive with year filtering and cover thumbnails |
-| Subscribe | `/subscribe` | Rate cards plus an online subscription request form |
-| Advertise | `/advertise` | Legal notice rate table, display ad sizes, deadlines, request form |
 | Calendar | `/calendar` | Filterable community events with a free submission form |
 | Classifieds | `/classifieds` | Categorised listings set in newspaper columns, plus rates and a submission form |
-| About | `/about` | The paper's history, named masthead, coverage and adjudication |
+| About | `/about` | The paper's history, masthead, coverage and adjudication |
 | Contact | `/contact` | News tip form, deadlines, corrections policy |
 
 ## The three interactive pieces
@@ -39,7 +47,7 @@ PDF open directly; the rest are shown as held in the bound volumes with a reques
 decade chart underneath shows exactly how much of the back catalogue is online, which doubles as
 the case for a digitisation project.
 
-**Legal notice estimator** (`/advertise`). three questions to a price, the copy deadline, the
+**Legal notice estimator** (`/legal-notices`). three questions to a price, the copy deadline, the
 first publication date and a document checklist. Deadlines are computed from the real Thursday
 publication schedule rather than hard-coded. Rates and requirements live in `src/data/rates.ts`.
 
@@ -53,7 +61,7 @@ changing one updates the preview automatically.
 - **TypeScript**
 - **Tailwind CSS** with a custom heritage-broadsheet design system
 - **Framer Motion** for scroll reveals and layout transitions
-- **FormSubmit** for all four forms, so submissions arrive by email with nothing to maintain
+- **FormSubmit** for all six forms, so submissions arrive by email with nothing to maintain
 
 ## Getting started
 
@@ -94,9 +102,9 @@ to move the DNS.
 Everything the newsroom would change lives in `src/data/`. No component edits required.
 
 - `site.ts`: phone, mailing address, navigation, deadlines, section list, form endpoint
-- `articles.ts`: stories. Add an object to the array and the front page, section rails, news index
-  and article page all pick it up automatically
-- `archive.ts`: back issues. Add an entry per week and drop the PDF into `public/images/issues/`
+- `archive.ts`: **the spine of the site.** One entry per printed issue, each with a `contents`
+  array listing what ran in it. Add an entry, drop the PDF into `public/issues/`, and the front
+  page, the archive, the issue page, the sitemap and the RSS feed all pick it up automatically
 - `obituaries.ts`: notices
 - `rates.ts`: subscription rates, legal notice pricing and requirements, display ad sizes in inches
 - `classifieds.ts`: classified categories, listings and rates
@@ -105,49 +113,26 @@ Everything the newsroom would change lives in `src/data/`. No component edits re
 
 ## Before launch
 
-These are the deliberate placeholders in this preview build:
+**See [VERIFY.md](VERIFY.md)** for the full list of everything on this site that is not confirmed
+from lindenherald.com or the paper itself, sorted by consequence. Several items there are prices a
+customer could act on — in particular the fictitious business name entity rate, which is genuinely
+ambiguous in the Herald's published copy and drives the on-site estimator.
 
-1. **Photography. This is the single biggest gap.** `public/images/*.svg` are rendered editorial
-   plates, not photographs. The front page hero, the article headers and every story card are
-   built to carry real images and are visibly held back without them.
+The short version:
 
-   To swap them in, drop eight files into `public/images/` using these exact names, then change
-   the `.svg` extensions to `.jpg` in `src/data/articles.ts`. Nothing else needs to change.
-
-   | File | Subject | Where it appears |
-   | --- | --- | --- |
-   | `cherry-harvest.jpg` | Cherry orchard, ideally low sun | Front page hero, landscape, wide crop |
-   | `school-board.jpg` | Classroom or a public meeting room | Front page, article header |
-   | `football.jpg` | High school football under lights | Front page, article header |
-   | `canal.jpg` | Irrigation canal or farm field | Section rail, article header |
-   | `fair.jpg` | County fair, livestock barn or midway | Section rail, article header |
-   | `fire.jpg` | Fire crew or engine, no identifiable faces | Section rail, article header |
-   | `walnut-orchard.jpg` | Walnut trees in rows | Agriculture rail |
-   | `main-street.jpg` | Small town street with storefronts | History section |
-
-   Landscape, at least 1600px wide. The hero crops to roughly 16:9 at full bleed, so leave
-   headroom at the bottom of that frame: the headline sits over the lower third.
-
-   Best long-term answer is the Herald's own archive rather than stock. Sixty-seven years of
-   local photography is the one thing a competitor cannot copy.
-2. **Story content.** Everything in `articles.ts` is sample copy written for this demonstration.
-   Attribution is deliberately by role rather than by invented name, and no quotation is put in a
-   named person's mouth, so nothing reads as the record of a real local official.
-3. **Obituary notices.** `obituaries.ts` contains sample entries, not real notices.
-4. **Issue PDFs.** `public/issues/` holds a generated sample edition for each entry in
-   `archive.ts`, so the archive is clickable end to end. Each one is plainly marked a placeholder.
-   Replace them with the Herald's real scans, keeping the same filenames, and nothing else changes.
-   `scripts/build_issue_pdfs.py` regenerates them if the issue list grows.
-5. **Form endpoint.** `site.formEndpoint` points at FormSubmit. Confirm the receiving address and
-   activate it once, then the forms are live.
-6. **Design preview banner.** Remove `<DemoBadge />` from `src/app/layout.tsx` before launch.
-7. **Out-of-county subscription rate.** Listed at $52 as a placeholder. Confirm current postage.
-8. **The masthead.** `src/data/staff.ts` reads "Name to come" for all four roles. Real names and
-   beats are the single highest-value edit on this list: for a paper whose product is credibility,
-   an unnamed newsroom is a missed trust signal.
-9. **Classifieds and calendar entries.** `src/data/classifieds.ts` and `src/data/events.ts` hold
-   sample listings, not real ones.
-10. **Classified rates.** Priced as a placeholder. Confirm against what the Herald charges today.
+1. **Rates.** Only the $42 in-county subscription and the legal notice prices come from the
+   Herald. Display advertising, classified rates, out-of-county postage and every deadline are
+   assumptions.
+2. **Form endpoint.** `site.formEndpoint` points at FormSubmit with a guessed address. Confirm it
+   and activate it once, then the forms are live.
+3. **Issue data.** Only the seven most recent issues mirror the Herald's real archive. The other
+   25, and every `contents` list, are sample data. `public/issues/` holds generated placeholder
+   PDFs, marked as such; `scripts/build_issue_pdfs.py` regenerates them.
+4. **The masthead.** `src/data/staff.ts` reads "Name to come" for all four roles. For a paper whose
+   product is credibility, an unnamed newsroom is a missed trust signal.
+5. **Sample notices.** Obituaries, calendar entries and classifieds are all invented.
+6. **Policy pages.** Privacy, terms, accessibility and corrections were drafted for this build and
+   should be reviewed by the Herald before publishing.
 
 ## Migration and syndication
 
@@ -158,8 +143,12 @@ file directly. GitHub Pages has no server-side redirects, so these only take eff
 `public/_headers` sets security headers and long cache lifetimes for immutable assets, also read by
 Cloudflare Pages.
 
-An RSS feed is generated at `/feed.xml` from the same article data, and is declared in the document
-head so feed readers and aggregators find it.
+An RSS feed is generated at `/feed.xml`, and is declared in the document head so feed readers and
+aggregators find it. Because the paper is print-only, the feed announces **issues** rather than
+stories: one item per edition, with its table of contents in the description and the PDF attached
+as an enclosure.
+
+`/news`, `/news/*` and `/section/*` from the earlier draft of this site redirect to the archive.
 
 ## Accessibility and performance
 
@@ -173,6 +162,6 @@ head so feed readers and aggregators find it.
 - The primary nav is a sibling of the masthead rather than a child of it. A sticky element can
   only stick inside its parent's box, so nesting it in `<header>` gave it no sticky range at all.
 - Fonts self-hosted at build time via `next/font`, no third-party font requests at runtime
-- `NewsMediaOrganization` and `NewsArticle` structured data
+- `NewsMediaOrganization`, `WebSite` and `PublicationIssue` structured data
 - Asset paths routed through `asset()` in `src/lib/utils.ts`, because `next/image` does not apply
   `basePath` when `images.unoptimized` is set. Anything added under `public/` must use it.

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Logo from "@/components/Logo";
-import { site, sections } from "@/data/site";
+import { site } from "@/data/site";
 import { policyList } from "@/data/policies";
 
 export default function SiteFooter() {
@@ -28,15 +28,23 @@ export default function SiteFooter() {
           </div>
 
           <div className="md:col-span-3">
-            <h2 className="kicker text-harvest-light">Sections</h2>
+            <h2 className="kicker text-harvest-light">Services</h2>
             <ul className="mt-4 space-y-2 font-body text-[0.95rem]">
-              {sections.map((s) => (
-                <li key={s.slug}>
+              {[
+                { label: "Subscribe", href: "/subscribe" },
+                { label: "Legal Notices", href: "/legal-notices" },
+                { label: "Advertise", href: "/advertise" },
+                { label: "Past Issues", href: "/archive" },
+                { label: "Obituaries", href: "/obituaries" },
+                { label: "Community Calendar", href: "/calendar" },
+                { label: "Classifieds", href: "/classifieds" },
+              ].map((s) => (
+                <li key={s.href}>
                   <Link
-                    href={`/section/${s.slug}`}
+                    href={s.href}
                     className="text-newsprint-deep/80 transition-colors hover:text-newsprint-white"
                   >
-                    {s.name}
+                    {s.label}
                   </Link>
                 </li>
               ))}

@@ -9,12 +9,19 @@
 /archive.php    /archive       301
 
 # Shapes readers and search engines are likely to try
-/legal-notices  /advertise     301
-/legals         /advertise     301
-/notices        /advertise     301
+/legals         /legal-notices 301
+/notices        /legal-notices 301
+/legal-notice   /legal-notices 301
 /obits          /obituaries    301
 /events         /calendar      301
 /e-edition      /archive       301
+/issues         /archive       301
 /back-issues    /archive       301
 /rss            /feed.xml      301
 /feed           /feed.xml      301
+
+# The site no longer carries story text. Anything that pointed at an article or
+# a section lands on the issue archive instead.
+/news           /archive       301
+/news/*         /archive/      301
+/section/*      /archive/      301

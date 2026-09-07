@@ -7,9 +7,9 @@ import { site } from "@/data/site";
 import { issues } from "@/data/archive";
 
 export const metadata: Metadata = {
-  title: "E-Edition Archive",
+  title: "Past Issues",
   description:
-    "Browse and download past issues of the Linden Herald. Search by date or keyword, filter by year, and read the full page-for-page edition.",
+    "Browse and download past issues of the Linden Herald as PDFs. Search by date or keyword and filter by year. Bound volumes since 1959 are held at the Stockton Public Library.",
   alternates: { canonical: "/archive" },
   openGraph: {
     images: [{ url: "/og/archive.jpg", width: 1200, height: 630 }],
@@ -20,9 +20,9 @@ export default function ArchivePage() {
   return (
     <div className="wrap py-10">
       <PageHeader
-        kicker="Digital Edition"
-        title="The Herald E-Edition"
-        blurb="Every issue, page for page, posted the morning it reaches mailboxes. Search by keyword, filter by year, and download the pages you want to keep."
+        kicker="The Archive"
+        title="Past Issues"
+        blurb="Back issues are posted here as PDFs, free to download, page for page as they were printed. Search by keyword or filter by year."
       />
 
       <div className="mb-14">

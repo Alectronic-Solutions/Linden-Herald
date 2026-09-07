@@ -10,6 +10,7 @@ import {
   EARLIEST_DATE,
   type PublicationDate,
 } from "@/lib/issues";
+import { issueHeadlines } from "@/data/archive";
 import { site } from "@/data/site";
 import { asset, cn, formatDate } from "@/lib/utils";
 
@@ -120,7 +121,7 @@ export default function OnThisDate() {
                   {result.match.digitized && result.match.issue ? (
                     <>
                       <ul className="mt-4 space-y-1.5 font-body text-[0.96rem] text-ink-muted">
-                        {result.match.issue.highlights.map((h) => (
+                        {issueHeadlines(result.match.issue).map((h: string) => (
                           <li key={h} className="flex gap-2">
                             <span aria-hidden className="text-harvest">
                               &#9670;
