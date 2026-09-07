@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
 import HeraldForm from "@/components/HeraldForm";
 import ContactCard from "@/components/ContactCard";
 import AdSizePreviewer from "@/components/AdSizePreviewer";
@@ -25,51 +24,53 @@ export default function AdvertisePage() {
       <PageHeader
         kicker="Reach the district"
         title="Advertise in the Herald"
-        blurb="The Herald reaches households across the Linden school district every week, in print, where readers actually sit down with it. Pick a size, and we will help you fill it."
+        blurb="The Herald goes to households across the Linden school district every week. Pick a size below and we will help you fill it."
       />
 
       <section className="grid gap-6 border-b-[3px] border-ink pb-8 sm:grid-cols-3">
         {[
-          { figure: site.reach.districtResidents, label: "Residents in the school district" },
-          { figure: site.reach.townResidents, label: "Residents inside town limits" },
+          {
+            figure: site.reach.districtResidents,
+            label: "Residents in the school district",
+          },
+          {
+            figure: site.reach.townResidents,
+            label: "Residents inside town limits",
+          },
           {
             figure: `${new Date().getFullYear() - site.founded}`,
             label: "Years publishing weekly",
           },
-        ].map((stat, i) => (
-          <Reveal key={stat.label} delay={i * 0.08}>
-            <div>
-              <p className="font-display text-5xl font-black leading-none text-herald">
-                {stat.figure}
-              </p>
-              <p className="mt-2 font-label text-[0.78rem] uppercase tracking-[0.16em] text-ink-muted">
-                {stat.label}
-              </p>
-            </div>
-          </Reveal>
+        ].map((stat) => (
+          <div key={stat.label}>
+            <p className="font-display text-5xl font-black leading-none text-herald">
+              {stat.figure}
+            </p>
+            <p className="mt-2 font-label text-[0.78rem] uppercase tracking-[0.16em] text-ink-muted">
+              {stat.label}
+            </p>
+          </div>
         ))}
       </section>
 
-      {/* Legal notices moved to their own page — it is a distinct service with
-          its own audience, and burying it in an anchor here hid it. */}
+      {/* Legal notices moved to their own page. It is a distinct service with its
+          own audience, and burying it in an anchor here hid it. */}
       <section className="mt-14">
-        <Reveal>
-          <div className="border-l-4 border-herald bg-newsprint-white p-6 sm:p-8">
-            <p className="kicker text-herald">Looking to publish a legal notice?</p>
-            <p className="mt-3 max-w-3xl font-display text-xl leading-relaxed sm:text-2xl">
-              We are an adjudicated newspaper of general circulation, and we file your proof of
-              publication at no extra cost.
-            </p>
-            <p className="mt-4 max-w-3xl font-body text-[1rem] leading-relaxed text-ink-muted">
-              Fictitious business names from {legalNoticeRates[0].price}. Name changes, summons,
-              family law and bulk sale transfers all have published rates, and there is a cost
-              estimator that works out your deadline and first publication date.
-            </p>
-            <Link href="/legal-notices" className="btn-primary mt-6 text-xs">
-              Legal Notice Rates &amp; Estimator
-            </Link>
-          </div>
-        </Reveal>
+        <div className="border-l-4 border-herald bg-newsprint-white p-6 sm:p-8">
+          <p className="kicker text-herald">Looking to publish a legal notice?</p>
+          <p className="mt-3 max-w-3xl font-display text-xl leading-relaxed sm:text-2xl">
+            We are an adjudicated newspaper of general circulation, and we file your proof of
+            publication at no extra cost.
+          </p>
+          <p className="mt-4 max-w-3xl font-body text-[1rem] leading-relaxed text-ink-muted">
+            Fictitious business names from {legalNoticeRates[0].price}. Name changes, summons,
+            family law and bulk sale transfers all have published rates, and there is a cost
+            estimator that works out your deadline and first publication date.
+          </p>
+          <Link href="/legal-notices" className="btn-primary mt-6 text-xs">
+            Legal Notice Rates &amp; Estimator
+          </Link>
+        </div>
       </section>
 
       {/* Ad previewer */}
@@ -80,7 +81,7 @@ export default function AdvertisePage() {
       <section className="mt-10">
         <p className="max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
           Linden sits fifteen miles east of Stockton, an hour south of Sacramento and two hours east
-          of the Bay Area. Readers here shop locally, and they read the paper cover to cover.
+          of the Bay Area. Most of what our readers buy, they buy close to home.
         </p>
         <div className="mt-6 grid gap-4 border-t border-rule pt-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
@@ -142,7 +143,7 @@ export default function AdvertisePage() {
             <p className="kicker text-harvest">We can build the ad</p>
             <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
               Send a logo and the details and we will set the ad for you at no charge. Camera-ready
-              artwork is welcome too &mdash; PDF or high-resolution JPEG at the size you booked.
+              artwork is welcome too. Send a PDF or a high-resolution JPEG at the size you booked.
             </p>
           </div>
         </aside>

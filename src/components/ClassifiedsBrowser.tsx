@@ -58,7 +58,7 @@ export default function ClassifiedsBrowser() {
         {results.length} {results.length === 1 ? "listing" : "listings"}
       </p>
 
-      {/* Set in narrow measures, the way classifieds actually run. */}
+      {/* Narrow measures, the way classifieds are set in the paper. */}
       <div className="mt-5 gap-x-8 sm:columns-2 lg:columns-3">
         <AnimatePresence mode="popLayout">
           {results.map((c) => {

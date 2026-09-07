@@ -20,14 +20,12 @@ export const site = {
   founded: 1959,
   domain: "lindenherald.com",
   description:
-    "The Linden Herald is a weekly print newspaper published in Linden, California since 1959. Subscribe for $42 a year, publish a legal notice in an adjudicated newspaper of general circulation, advertise to the Linden school district, or download past issues as PDFs.",
+    "The Linden Herald is a weekly print newspaper published in Linden, California since 1959. Subscriptions are $42 a year. We publish legal notices for San Joaquin County and post past issues here as PDFs.",
   /**
-   * The Herald does not publish stories online and never has. Every page that
+   * The Herald does not publish stories online and never has. Any page that
    * could be mistaken for a newsroom should say so.
    */
-  printOnly: "The Herald is a print newspaper. We don't publish our stories online.",
-  printOnlyLong:
-    "The Linden Herald is written, edited and printed for the page. Stories run in the weekly edition and nowhere else — subscribe to get it in your mailbox, or download a past issue as a PDF.",
+  printOnly: "We are a print newspaper. Our stories run in the paper and are not posted online.",
   phone: "(209) 772-8854",
   phoneHref: "tel:+12097728854",
   phoneNote: "Answered 24 hours a day, seven days a week",
@@ -38,7 +36,7 @@ export const site = {
     zip: "95236",
   },
   // Routed through FormSubmit so the paper receives submissions by email with no server to run.
-  // VERIFY: this address is a guess — the Herald publishes only a phone number
+  // VERIFY: this address is a guess. The Herald publishes only a phone number
   // and a PO Box. Every form on the site fails silently if it is wrong.
   formEndpoint: "https://formsubmit.co/news@lindenherald.com",
   // Court decree establishing the paper as a newspaper of general circulation.
@@ -78,41 +76,13 @@ export const mailingAddressLines = [
 ];
 
 export const sections = [
-  {
-    slug: "news",
-    name: "Local News",
-    blurb: "City council, water districts, roads and the decisions that shape the valley floor.",
-  },
-  {
-    slug: "agriculture",
-    name: "Agriculture",
-    blurb: "Cherries, walnuts, water and the growing season, reported from the orchard rows.",
-  },
-  {
-    slug: "sports",
-    name: "Sports",
-    blurb: "Linden High athletics, youth leagues and the scores that fill the back page.",
-  },
-  {
-    slug: "schools",
-    name: "Schools",
-    blurb: "Board meetings, bond measures, honor rolls and classroom milestones.",
-  },
-  {
-    slug: "public-safety",
-    name: "Sheriff & Fire",
-    blurb: "Calls for service, road closures and public safety notices across the district.",
-  },
-  {
-    slug: "opinion",
-    name: "Opinion",
-    blurb: "Editorials, letters to the editor and columns from your neighbors.",
-  },
-  {
-    slug: "history",
-    name: "History",
-    blurb: "Photographs and stories from the Herald morgue, going back to 1959.",
-  },
+  { slug: "news", name: "Local News" },
+  { slug: "agriculture", name: "Agriculture" },
+  { slug: "sports", name: "Sports" },
+  { slug: "schools", name: "Schools" },
+  { slug: "public-safety", name: "Sheriff & Fire" },
+  { slug: "opinion", name: "Opinion" },
+  { slug: "history", name: "History" },
 ] as const;
 
 export type SectionSlug = (typeof sections)[number]["slug"];

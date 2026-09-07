@@ -50,7 +50,10 @@ export default function OnThisDate() {
     <section aria-labelledby="on-this-date" className="border-[3px] border-ink bg-newsprint-white">
       <div className="border-b border-rule bg-ink px-6 py-4 text-newsprint-white sm:px-8">
         <p className="kicker text-harvest-light">Search 67 years</p>
-        <h2 id="on-this-date" className="mt-1 font-display text-3xl font-black text-newsprint-white sm:text-4xl">
+        <h2
+          id="on-this-date"
+          className="mt-1 font-display text-3xl font-black text-newsprint-white sm:text-4xl"
+        >
           On This Date
         </h2>
         <p className="mt-2 max-w-2xl font-body text-[0.98rem] leading-relaxed text-newsprint-deep/80">
@@ -130,10 +133,7 @@ export default function OnThisDate() {
                           </li>
                         ))}
                       </ul>
-                      <a
-                        href={asset(result.match.issue.file)}
-                        className="btn-primary mt-5 text-xs"
-                      >
+                      <a href={asset(result.match.issue.file)} className="btn-primary mt-5 text-xs">
                         Read this issue &middot; PDF {result.match.issue.sizeMb} MB
                       </a>
                     </>
@@ -167,7 +167,7 @@ export default function OnThisDate() {
           </p>
         )}
 
-        {/* Coverage by decade. Doubles as the case for digitising the back catalogue. */}
+        {/* Coverage by decade. Also shows how much of the back catalogue is scanned. */}
         {dates && (
           <div className="mt-9 border-t border-rule pt-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">

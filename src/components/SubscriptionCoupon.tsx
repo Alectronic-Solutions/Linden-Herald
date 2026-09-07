@@ -4,8 +4,8 @@ import { site, mailingAddressLines } from "@/data/site";
 /**
  * A mail-in order form, printable on one sheet.
  *
- * The Herald takes subscriptions by check to the PO Box — that is how most of
- * them arrive — so the site should hand a reader something they can fill in and
+ * The Herald takes subscriptions by check to the PO Box. That is how most of
+ * them arrive, so the site should hand a reader something they can fill in and
  * post, not just a web form.
  */
 export default function SubscriptionCoupon() {
@@ -56,7 +56,7 @@ export default function SubscriptionCoupon() {
               <span>
                 <strong className="font-display font-bold">{rate.name}</strong>{" "}
                 <span className="font-display font-black text-herald">${rate.price}</span>{" "}
-                <span className="text-ink-muted">&mdash; {rate.unit}</span>
+                <span className="text-ink-muted">{rate.unit}</span>
               </span>
             </li>
           ))}
@@ -85,8 +85,8 @@ export default function SubscriptionCoupon() {
       </div>
 
       <p className="mt-6 border-t border-rule pt-4 font-body text-[0.85rem] leading-relaxed text-ink-muted">
-        Questions? Call {site.phone} &mdash; {site.phoneNote.toLowerCase()}. Delivery begins with
-        the next Thursday edition after we receive your order.
+        Questions? Call {site.phone}, {site.phoneNote.toLowerCase()}. Delivery begins with the next
+        Thursday edition after we receive your order.
       </p>
     </div>
   );

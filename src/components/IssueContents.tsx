@@ -41,7 +41,7 @@ export default function IssueContents({
           <div className="min-w-0">
             <p className="font-label text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-herald">
               {sectionName(item.section)}
-              {item.page && <span className="sr-only"> — page {item.page}</span>}
+              {item.page && <span className="sr-only">, page {item.page}</span>}
             </p>
             <p className="mt-1 font-display text-lg font-bold leading-snug">{item.title}</p>
             {item.deck && (

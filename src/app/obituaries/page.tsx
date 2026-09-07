@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
 import HeraldForm from "@/components/HeraldForm";
 import { Field, TextArea } from "@/components/Field";
 import { obituaries } from "@/data/obituaries";
@@ -10,7 +9,7 @@ import { formatDate } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Obituaries",
   description:
-    "Obituary notices published in the Linden Herald, and how to submit a notice for a family member.",
+    "Obituary notices published in the Linden Herald, and how to submit one for a family member.",
 };
 
 export default function ObituariesPage() {
@@ -25,30 +24,28 @@ export default function ObituariesPage() {
       <div className="grid gap-12 lg:grid-cols-12">
         <section className="lg:col-span-7">
           <div className="space-y-8">
-            {obituaries.map((o, i) => (
-              <Reveal key={o.slug} delay={i * 0.07}>
-                <article className="border-t-2 border-ink bg-newsprint-white p-6">
-                  <h2 className="font-display text-2xl font-bold leading-tight">{o.name}</h2>
-                  <p className="mt-1 font-label text-[0.78rem] uppercase tracking-[0.16em] text-ink-faint">
-                    {o.years} &middot; {o.town}, California
-                  </p>
-                  <p className="mt-4 font-body text-[1rem] leading-relaxed text-ink-muted">
-                    {o.summary}
-                  </p>
-                  {o.serviceDate && (
-                    <div className="mt-5 border-l-4 border-harvest bg-newsprint py-3 pl-4">
-                      <p className="kicker text-harvest">Services</p>
-                      <p className="mt-1 font-body text-[0.95rem] text-ink-muted">
-                        {o.serviceDate}
-                        {o.serviceLocation ? `, ${o.serviceLocation}` : ""}
-                      </p>
-                    </div>
-                  )}
-                  <p className="mt-5 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
-                    Published {formatDate(o.published)}
-                  </p>
-                </article>
-              </Reveal>
+            {obituaries.map((o) => (
+              <article key={o.slug} className="border-t-2 border-ink bg-newsprint-white p-6">
+                <h2 className="font-display text-2xl font-bold leading-tight">{o.name}</h2>
+                <p className="mt-1 font-label text-[0.78rem] uppercase tracking-[0.16em] text-ink-faint">
+                  {o.years} &middot; {o.town}, California
+                </p>
+                <p className="mt-4 font-body text-[1rem] leading-relaxed text-ink-muted">
+                  {o.summary}
+                </p>
+                {o.serviceDate && (
+                  <div className="mt-5 border-l-4 border-harvest bg-newsprint py-3 pl-4">
+                    <p className="kicker text-harvest">Services</p>
+                    <p className="mt-1 font-body text-[0.95rem] text-ink-muted">
+                      {o.serviceDate}
+                      {o.serviceLocation ? `, ${o.serviceLocation}` : ""}
+                    </p>
+                  </div>
+                )}
+                <p className="mt-5 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+                  Published {formatDate(o.published)}
+                </p>
+              </article>
             ))}
           </div>
 
@@ -93,7 +90,7 @@ export default function ObituariesPage() {
                   label="The notice"
                   required
                   rows={7}
-                  placeholder="Family, work, service, the things people should know. Write it however it comes, and we will edit gently."
+                  placeholder="Family, work, service, and anything else people should know. Write it however it comes and we will help with the rest."
                 />
               </HeraldForm>
             </div>

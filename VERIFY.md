@@ -2,16 +2,16 @@
 
 Everything on this site that is **not** confirmed from lindenherald.com or the
 paper itself. Sample data is realistic on purpose so the site can be demoed, but
-none of it should go live unchecked — several items below are prices.
+none of it should go live unchecked. Several items below are prices.
 
 Sorted by consequence. Anything in the first section is a number a customer
 could act on.
 
 ---
 
-## 1. Prices and legal claims — must be confirmed
+## 1. Prices and legal claims, all of which must be confirmed
 
-### Fictitious business name, additional entities — genuinely ambiguous
+### Fictitious business name, additional entities. Genuinely ambiguous
 `src/data/rates.ts` (`fbn-entity`)
 
 The Herald's advertise page reads:
@@ -23,14 +23,14 @@ The Herald's advertise page reads:
 currently show **$145 as a flat total**. This drives the on-site estimator, so
 if it is wrong every quote for an entity filing is wrong. **Ask directly.**
 
-### Out-of-county subscription rate — not published anywhere
+### Out-of-county subscription rate. Not published anywhere
 `src/data/rates.ts` (`subscriptionRates[1]`)
 
 We show **$52/year**. The Herald's subscribe page states only the in-county rate
 ($42 for 52 issues, effective Jan 1 2023) and says nothing about out-of-county.
 This figure is invented.
 
-### Gift subscription tier — invented
+### Gift subscription tier. Invented
 `src/data/rates.ts` (`subscriptionRates[2]`)
 
 We show a $42 gift subscription with a card mailed alongside the first issue.
@@ -43,15 +43,15 @@ We say "priced by column inch, competitive with the county's larger papers" and
 list a three-week run. The Herald lists trustee sales as something they publish
 but gives no rate or run length. Confirm both.
 
-### Display advertising — entirely invented
+### Display advertising. Entirely invented
 `src/data/rates.ts` (`displayAdSizes`, `PAGE_WIDTH_IN`, `PAGE_HEIGHT_IN`)
 
 Ad names, dimensions, the 10 × 13 inch page, and which sizes exist are all
-assumptions. The Herald publishes no display rate card — only "please contact us
-for competitive advertising rates." The `AdSizePreviewer` draws these to scale,
+assumptions. The Herald publishes no display rate card. Their page says only
+"please contact us for competitive advertising rates." The `AdSizePreviewer` draws these to scale,
 so wrong dimensions are visibly wrong. **Get the real rate card.**
 
-### Deadlines — invented
+### Deadlines. Invented
 `src/data/site.ts` (`deadlines`)
 
 Display "Friday at 5 p.m. for the following Thursday edition"; classified, legal
@@ -78,7 +78,7 @@ Invented.
 We assume the Herald prints **Thursdays**, and generate ~3,500 publication dates
 from 1959 on that basis. This drives `OnThisDate` and the legal notice
 estimator's deadline maths. Their archive PDFs are dated Thursdays, which
-supports it, but confirm — and confirm whether the run has ever been
+supports it, but confirm it. Confirm also whether the run has ever been
 interrupted.
 
 ### Volume numbering
@@ -99,19 +99,19 @@ real names and roles, or the masthead section should be removed.
 `src/data/site.ts` (`formEndpoint`)
 
 All six forms post to `https://formsubmit.co/news@lindenherald.com`. **That
-address is a guess** — the Herald publishes a phone number and a PO Box, no
+address is a guess.** The Herald publishes a phone number and a PO Box, no
 email. Every form on the site silently fails if it is wrong. FormSubmit also
 requires a one-time email confirmation before it will deliver.
 
 ---
 
-## 3. Sample content — replace or remove
+## 3. Sample content, to replace or remove
 
 ### Issue archive
 `src/data/archive.ts`
 
 32 issues. **Only the 7 most recent mirror the Herald's real archive**
-(2026-09-03, 08-06, 07-30, 07-23, 07-09, 07-02, 06-18) — those dates and file
+(2026-09-03, 08-06, 07-30, 07-23, 07-09, 07-02, 06-18). Those dates and file
 sizes came from their site. The other 25 issues are invented to demonstrate year
 filtering.
 
@@ -123,17 +123,17 @@ The PDFs in `public/issues/` are generated placeholders
 (`scripts/build_issue_pdfs.py`), not real scans.
 
 ### Obituaries
-`src/data/obituaries.ts` — six entries, all named "Sample Notice."
+`src/data/obituaries.ts` holds six entries, all named "Sample Notice."
 
 ### Community calendar
-`src/data/events.ts` — 24 invented events.
+`src/data/events.ts` holds 24 invented events.
 
 ### Classifieds
-`src/data/classifieds.ts` — 24 invented listings.
+`src/data/classifieds.ts` holds 24 invented listings.
 
 ### Policy pages
-`src/data/policies.ts` — privacy, terms, accessibility and corrections policies
-were written for this build. **These are legal-adjacent and should be reviewed
+`src/data/policies.ts` holds the privacy, terms, accessibility and corrections
+policies, all written for this build. **These are legal-adjacent and should be reviewed
 by the Herald before publishing**, particularly the corrections policy, which
 describes a process the paper may not follow.
 

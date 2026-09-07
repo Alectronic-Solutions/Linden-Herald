@@ -164,7 +164,7 @@ export const events: CommunityEvent[] = [
     title: "Football, senior night",
     location: "Linden High School",
     category: "sports",
-    detail: "Families recognised before kickoff. Booster barbecue in the lot from 5:00.",
+    detail: "Families recognized before kickoff. Booster barbecue in the lot from 5:00.",
   },
   {
     id: "e17",

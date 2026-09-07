@@ -53,8 +53,8 @@ export default function LegalNoticeEstimator() {
           What will my notice cost?
         </h2>
         <p className="mt-2 max-w-2xl font-body text-[0.98rem] leading-relaxed text-newsprint-deep/85">
-          Three questions and you will have the price, the publication schedule, and the list of
-          documents to bring.
+          Answer three questions and you will have the price, the dates it runs, and the documents
+          to bring.
         </p>
       </div>
 
@@ -174,7 +174,7 @@ export default function LegalNoticeEstimator() {
                     : ""}
                   .{" "}
                   {total === null
-                    ? "Trustee sales are priced by column inch. Call and we will quote it same day."
+                    ? "Trustee sales are priced by the column inch. Call and we will quote it the same day."
                     : notice.runWeeks + "."}
                 </p>
 

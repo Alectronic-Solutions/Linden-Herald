@@ -5,7 +5,7 @@ export const subscriptionRates = [
     name: "In-County Annual",
     price: 42,
     unit: "per year",
-    detail: "52 issues delivered weekly within San Joaquin County.",
+    detail: "Fifty-two issues, delivered by mail within San Joaquin County.",
     note: "Rate effective January 1, 2023.",
     featured: true,
   },
@@ -13,7 +13,7 @@ export const subscriptionRates = [
     name: "Out-of-County Annual",
     price: 52,
     unit: "per year",
-    detail: "52 issues mailed anywhere in the United States outside the county.",
+    detail: "Fifty-two issues, mailed anywhere in the United States outside the county.",
     note: "Call the office to confirm current postage.",
     featured: false,
   },
@@ -21,8 +21,8 @@ export const subscriptionRates = [
     name: "Gift Subscription",
     price: 42,
     unit: "per year",
-    detail: "Send the Herald to a family member who moved away. We mail a card with the first issue.",
-    note: "Popular with graduating seniors and grandparents.",
+    detail: "For a family member who moved away. We mail a card with the first issue.",
+    note: "Ordered most often for graduating seniors.",
     featured: false,
   },
 ];
@@ -44,12 +44,12 @@ export const legalNoticeRates: LegalNotice[] = [
     type: "Fictitious Business Name",
     price: "$105",
     numericPrice: 105,
-    detail: "Single owner, one business name. Proof of publication filed at no additional cost.",
+    detail: "Single owner, one business name. We file the proof of publication at no extra cost.",
     runWeeks: "Four consecutive weeks",
     filedFor: true,
     bring: [
       "Your stamped FBN statement from the County Clerk",
-      "The exact business name as filed",
+      "The business name exactly as it is filed",
       "Owner name and mailing address",
     ],
   },
@@ -58,9 +58,9 @@ export const legalNoticeRates: LegalNotice[] = [
     type: "Fictitious Business Name, additional entities",
     price: "$145",
     numericPrice: 145,
-    // VERIFY: their page reads "$145 more for corp., LLC, partnerships" — that
+    // VERIFY: their page reads "$145 more for corp., LLC, partnerships". That
     // may mean $145 total (as shown) or $105 + $145. This drives the estimator.
-    detail: "Corporations, LLCs, partnerships, husband and wife. Additional names $10 each.",
+    detail: "Corporations, LLCs, partnerships, husband and wife. Each additional name is $10.",
     runWeeks: "Four consecutive weeks",
     filedFor: true,
     bring: [
@@ -74,13 +74,13 @@ export const legalNoticeRates: LegalNotice[] = [
     type: "Change of Name Petition",
     price: "$425",
     numericPrice: 425,
-    detail: "Four-week publication as required by the court.",
+    detail: "Four weeks of publication, as the court requires.",
     runWeeks: "Four consecutive weeks",
     filedFor: true,
     bring: [
       "The signed Order to Show Cause from the court",
       "Case number and assigned hearing date",
-      "Current and proposed names, spelled exactly as filed",
+      "Both names, spelled exactly as filed",
     ],
   },
   {
@@ -88,13 +88,13 @@ export const legalNoticeRates: LegalNotice[] = [
     type: "Family Law (Dissolution)",
     price: "$425",
     numericPrice: 425,
-    detail: "Summons publication for dissolution proceedings.",
+    detail: "Summons publication in a dissolution proceeding.",
     runWeeks: "Four consecutive weeks",
     filedFor: true,
     bring: [
       "The court order permitting service by publication",
       "Case number and the filed summons",
-      "Names of both parties as they appear on the filing",
+      "Both parties, named as they appear on the filing",
     ],
   },
   {
@@ -102,12 +102,12 @@ export const legalNoticeRates: LegalNotice[] = [
     type: "Summons",
     price: "$425",
     numericPrice: 425,
-    detail: "Civil summons publication, four consecutive weeks.",
+    detail: "Civil summons. Runs four consecutive weeks.",
     runWeeks: "Four consecutive weeks",
     filedFor: true,
     bring: [
       "The court order for service by publication",
-      "The filed summons and complaint caption",
+      "The filed summons and the complaint caption",
       "Case number and court branch",
     ],
   },
@@ -116,13 +116,13 @@ export const legalNoticeRates: LegalNotice[] = [
     type: "Bulk Sale Transfer",
     price: "$425",
     numericPrice: 425,
-    detail: "Notice to creditors of bulk sale and intent to transfer.",
+    detail: "Notice to creditors of a bulk sale and intent to transfer.",
     runWeeks: "Once, at least twelve business days before transfer",
     filedFor: true,
     bring: [
-      "Names and addresses of seller and buyer",
-      "Address of the business assets being transferred",
-      "The anticipated transfer date and escrow holder",
+      "Names and addresses of the seller and the buyer",
+      "Address of the assets being transferred",
+      "The expected transfer date and the escrow holder",
     ],
   },
   {
@@ -131,11 +131,11 @@ export const legalNoticeRates: LegalNotice[] = [
     price: "Call for quote",
     numericPrice: null,
     // VERIFY: the Herald publishes no trustee sale rate or run length.
-    detail: "Priced by column inch. Competitive with the county's larger papers.",
+    detail: "Priced by the column inch. Call for a quote.",
     runWeeks: "Three consecutive weeks",
     filedFor: true,
     bring: [
-      "The notice of sale as prepared by the trustee",
+      "The notice of sale, as the trustee prepared it",
       "Trustee sale number and property address",
       "The scheduled sale date",
     ],
@@ -154,8 +154,8 @@ export type AdSize = {
 };
 
 /**
- * VERIFY: the Herald publishes no display rate card — every size, dimension and
- * the page size itself are assumptions. AdSizePreviewer draws these to scale,
+ * VERIFY: the Herald publishes no display rate card. Every size, dimension and
+ * the page size itself is an assumption. AdSizePreviewer draws these to scale,
  * so wrong numbers are visibly wrong. See VERIFY.md.
  *
  * The Herald prints a 10 x 13 inch page.
@@ -170,7 +170,7 @@ export const displayAdSizes: AdSize[] = [
     size: '3.25" x 2"',
     widthIn: 3.25,
     heightIn: 2,
-    best: "Ongoing local presence",
+    best: "A steady weekly presence",
     placement: "block",
   },
   {
@@ -179,7 +179,7 @@ export const displayAdSizes: AdSize[] = [
     size: '5" x 6.5"',
     widthIn: 5,
     heightIn: 6.5,
-    best: "Sales, events, seasonal promotions",
+    best: "A sale or a seasonal promotion",
     placement: "block",
   },
   {
@@ -188,7 +188,7 @@ export const displayAdSizes: AdSize[] = [
     size: '10" x 6.5"',
     widthIn: 10,
     heightIn: 6.5,
-    best: "Grand openings and anniversaries",
+    best: "A grand opening or an anniversary",
     placement: "block",
   },
   {
@@ -206,7 +206,7 @@ export const displayAdSizes: AdSize[] = [
     size: '10" x 2"',
     widthIn: 10,
     heightIn: 2,
-    best: "Maximum visibility, limited inventory",
+    best: "The most visible spot. Limited to one an issue",
     placement: "top",
   },
   {
@@ -215,7 +215,7 @@ export const displayAdSizes: AdSize[] = [
     size: "Per line",
     widthIn: 2.4,
     heightIn: 1.1,
-    best: "Equipment, services, help wanted",
+    best: "Equipment, services and help wanted",
     placement: "block",
   },
 ];

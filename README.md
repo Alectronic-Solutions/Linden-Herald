@@ -14,8 +14,8 @@ A complete, static site built to replace the current PHP site.
 **It is not a news website, on purpose.** The Herald's own About page says it plainly: *"We are a
 print-only newspaper written and reported in the traditional journalism manner."* Stories run in
 the weekly edition and nowhere else. So this site does the five things the Herald's site actually
-does for the business — sell subscriptions, sell legal notices, sell advertising, hand out issue
-PDFs, and say who and where they are — and it does them properly.
+does for the business. It sells subscriptions, sells legal notices, sells advertising, hands out
+issue PDFs, and says who and where the paper is.
 
 The **issue** is the primary entity here, not the article. The site lists what ran in each
 edition, as a table of contents, and points readers at the PDF or a subscription. It never carries
@@ -115,8 +115,8 @@ Everything the newsroom would change lives in `src/data/`. No component edits re
 
 **See [VERIFY.md](VERIFY.md)** for the full list of everything on this site that is not confirmed
 from lindenherald.com or the paper itself, sorted by consequence. Several items there are prices a
-customer could act on — in particular the fictitious business name entity rate, which is genuinely
-ambiguous in the Herald's published copy and drives the on-site estimator.
+customer could act on. The fictitious business name entity rate is the one to check first. It is
+genuinely ambiguous in the Herald's published copy, and it drives the on-site estimator.
 
 The short version:
 

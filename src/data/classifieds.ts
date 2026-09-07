@@ -191,7 +191,7 @@ export const classifieds: Classified[] = [
     id: "c21",
     category: "livestock",
     title: "Oat hay, barn stored",
-    body: "Good colour, no rain. Priced by the ton with delivery available inside the district.",
+    body: "Good color, no rain. Priced by the ton. Delivery available inside the district.",
     contact: "Call the Herald office for the grower",
     runsUntil: "2026-10-08",
   },

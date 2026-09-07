@@ -397,7 +397,7 @@ export const issues: Issue[] = [
       {
         title: "Senior night set for the last home game",
         section: "sports",
-        deck: "Families will be recognised before kickoff, and the boosters are running a barbecue beforehand.",
+        deck: "Families are recognized before kickoff. The boosters run a barbecue beforehand.",
         page: 14,
       },
       {

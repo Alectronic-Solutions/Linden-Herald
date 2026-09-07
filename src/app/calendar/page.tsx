@@ -3,14 +3,13 @@ import PageHeader from "@/components/PageHeader";
 import CalendarBrowser from "@/components/CalendarBrowser";
 import HeraldForm from "@/components/HeraldForm";
 import ContactCard from "@/components/ContactCard";
-import Reveal from "@/components/Reveal";
 import { Field, Select, TextArea } from "@/components/Field";
 import { eventCategories } from "@/data/events";
 
 export const metadata: Metadata = {
   title: "Community Calendar",
   description:
-    "Board meetings, games, fundraisers, fair week and everything else happening around Linden, California.",
+    "Community events around Linden, California. Board meetings, home games, fundraisers and fair week.",
 };
 
 export default function CalendarPage() {
@@ -19,7 +18,7 @@ export default function CalendarPage() {
       <PageHeader
         kicker="What is happening"
         title="Community Calendar"
-        blurb="Board meetings, home games, fundraisers and fair week. If it is on the calendar here, it is in the paper too."
+        blurb="If it is on the calendar here, it is in the paper too. There is no charge to list a community event."
       />
 
       <CalendarBrowser />
@@ -59,26 +58,22 @@ export default function CalendarPage() {
                 label="Details"
                 required
                 rows={4}
-                placeholder="What people should know: admission, what to bring, who to call."
+                placeholder="Admission, what to bring, and who to call for more information."
               />
             </HeraldForm>
           </div>
         </div>
 
         <aside className="lg:col-span-5">
-          <Reveal>
-            <div className="border-l-4 border-harvest bg-newsprint-white p-6">
-              <p className="kicker text-harvest">Public meeting notices</p>
-              <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
-                The Herald carries agendas for the school board, the water district and the fire
-                board as they are posted. If your agency needs a meeting noticed, call the office
-                and we will make sure it runs on time.
-              </p>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <ContactCard variant="compact" heading="Tell us about it" className="mt-6" />
-          </Reveal>
+          <div className="border-l-4 border-harvest bg-newsprint-white p-6">
+            <p className="kicker text-harvest">Public meeting notices</p>
+            <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
+              The Herald carries agendas for the school board, the water district and the fire board
+              as they are posted. If your agency needs a meeting noticed, call the office and we
+              will make sure it runs on time.
+            </p>
+          </div>
+          <ContactCard variant="compact" heading="Tell us about it" className="mt-6" />
         </aside>
       </section>
     </div>

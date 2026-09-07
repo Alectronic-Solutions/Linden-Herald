@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
 import HeraldForm from "@/components/HeraldForm";
 import { Field, Select, TextArea } from "@/components/Field";
 import ContactCard from "@/components/ContactCard";
@@ -13,7 +12,7 @@ import { cn } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Subscribe",
   description:
-    "Subscribe to the Linden Herald for $42 a year and receive 52 issues delivered weekly within San Joaquin County.",
+    "Subscribe to the Linden Herald. $42 a year for 52 issues, delivered by mail within San Joaquin County.",
   alternates: { canonical: "/subscribe" },
   openGraph: {
     images: [{ url: "/og/subscribe.jpg", width: 1200, height: 630 }],
@@ -26,38 +25,37 @@ export default function SubscribePage() {
       <PageHeader
         kicker="Fifty-two issues a year"
         title="Subscribe to the Herald"
-        blurb="The Herald arrives by mail every Thursday. A subscription is what keeps a reporter in the room at the school board, the water district and the fire board."
+        blurb="The Herald arrives by mail every Thursday. Subscriptions and advertising are what pay for the reporting."
       />
 
       <section className="grid gap-6 md:grid-cols-3">
-        {subscriptionRates.map((rate, i) => (
-          <Reveal key={rate.name} delay={i * 0.08}>
-            <div
-              className={cn(
-                "flex h-full flex-col border bg-newsprint-white p-7",
-                rate.featured ? "border-[3px] border-ink shadow-page" : "border-rule-strong",
-              )}
-            >
-              {rate.featured && (
-                <span className="mb-3 self-start bg-cherry px-2.5 py-1 font-label text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-newsprint-white">
-                  Most Subscribers
-                </span>
-              )}
-              <h2 className="font-display text-xl font-bold">{rate.name}</h2>
-              <p className="mt-3 font-display text-5xl font-black leading-none">
-                ${rate.price}
-                <span className="ml-2 font-label text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-ink-faint">
-                  {rate.unit}
-                </span>
-              </p>
-              <p className="mt-4 font-body text-[0.98rem] leading-relaxed text-ink-muted">
-                {rate.detail}
-              </p>
-              <p className="mt-auto pt-5 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
-                {rate.note}
-              </p>
-            </div>
-          </Reveal>
+        {subscriptionRates.map((rate) => (
+          <div
+            key={rate.name}
+            className={cn(
+              "flex h-full flex-col border bg-newsprint-white p-7",
+              rate.featured ? "border-[3px] border-ink shadow-page" : "border-rule-strong",
+            )}
+          >
+            {rate.featured && (
+              <span className="mb-3 self-start bg-cherry px-2.5 py-1 font-label text-[0.68rem] font-semibold uppercase tracking-[0.16em] text-newsprint-white">
+                Most Subscribers
+              </span>
+            )}
+            <h2 className="font-display text-xl font-bold">{rate.name}</h2>
+            <p className="mt-3 font-display text-5xl font-black leading-none">
+              ${rate.price}
+              <span className="ml-2 font-label text-[0.8rem] font-semibold uppercase tracking-[0.14em] text-ink-faint">
+                {rate.unit}
+              </span>
+            </p>
+            <p className="mt-4 font-body text-[0.98rem] leading-relaxed text-ink-muted">
+              {rate.detail}
+            </p>
+            <p className="mt-auto pt-5 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+              {rate.note}
+            </p>
+          </div>
         ))}
       </section>
 
@@ -67,9 +65,9 @@ export default function SubscribePage() {
         <div className="rule-double mb-6" />
         <h2 className="font-display text-3xl font-black">Two ways to subscribe</h2>
         <p className="mt-3 max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
-          Most subscriptions arrive as a check in the mail, and that still works exactly as it
-          always has. If you would rather start it online, the form below reaches the office by
-          email and we will call you to confirm delivery and take payment.
+          Most subscriptions arrive as a check in the mail. That still works the way it always
+          has. If you would rather start it online, the form below reaches the office by email and
+          we will call you to confirm the delivery address and take payment.
         </p>
       </section>
 
@@ -87,9 +85,9 @@ export default function SubscribePage() {
             <ul className="mt-4 space-y-3 font-body text-[0.98rem] leading-relaxed text-ink-muted">
               {[
                 "Fifty-two printed editions a year, delivered through the postal system.",
-                "Local news, sports, club photographs and agricultural reporting written here.",
-                "School board, water district, sheriff and fire coverage nobody else carries.",
-                "Editorials, letters, history from the Herald morgue, and the legal notices of record.",
+                "Local news, sports, club photographs and agricultural news, written here.",
+                "School board, water district, sheriff and fire calls that nobody else covers.",
+                "Editorials, letters to the editor, local history and the legal notices.",
               ].map((line) => (
                 <li key={line} className="flex gap-2.5">
                   <span aria-hidden className="text-harvest">
@@ -100,8 +98,8 @@ export default function SubscribePage() {
               ))}
             </ul>
             <p className="mt-6 border-t border-rule pt-5 font-body text-[0.92rem] italic leading-relaxed text-ink-muted">
-              {site.printOnly} Past editions are posted as free PDFs in the archive, but the
-              current week belongs to subscribers.
+              {site.printOnly} Past editions are posted as free PDFs in the archive. The current
+              week goes to subscribers.
             </p>
           </div>
         </aside>
@@ -112,8 +110,8 @@ export default function SubscribePage() {
           <div className="rule-double mb-6" />
           <h3 className="font-display text-2xl font-bold">2. Or start it online</h3>
           <p className="mt-3 max-w-xl font-body text-[1rem] leading-relaxed text-ink-muted">
-            Fill this out and the office will call you to confirm delivery and take payment. Or
-            call {site.phone} any hour and we will take it over the phone.
+            Fill this out and the office will call you to confirm the delivery address and take
+            payment. Or call {site.phone} at any hour and we will take the order over the phone.
           </p>
 
           <div className="mt-8">
@@ -143,7 +141,7 @@ export default function SubscribePage() {
                 name="notes"
                 label="Notes"
                 rows={3}
-                placeholder="Gift subscription, start date, seasonal address, anything else we should know."
+                placeholder="A gift subscription, a start date, a seasonal address, or anything else we should know."
               />
             </HeraldForm>
           </div>
@@ -170,9 +168,9 @@ export default function SubscribePage() {
           <div className="mt-6 border-l-4 border-cherry bg-newsprint-white p-6">
             <p className="kicker text-cherry">Why it matters</p>
             <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
-              The Herald has published every week since {site.founded}. There is no wire service
-              covering a Linden Unified board meeting or a fire district budget hearing. If the
-              Herald does not write it down, it does not get written down.
+              The Herald has published every week since {site.founded}. No wire service covers a
+              Linden Unified board meeting or a fire district budget hearing. If we do not write it
+              down, it does not get written down.
             </p>
           </div>
         </aside>

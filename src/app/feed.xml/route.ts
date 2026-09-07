@@ -25,7 +25,7 @@ export async function GET() {
       const contents = issue.contents
         .map((c) => `${sectionName(c.section)}: ${c.title}`)
         .join(" • ");
-      const description = `Vol. ${issue.volume}, No. ${issue.number} — ${issue.pages} pages. ${contents}`;
+      const description = `Vol. ${issue.volume}, No. ${issue.number}. ${issue.pages} pages. ${contents}`;
 
       return `    <item>
       <title>${escapeXml(`${site.name}, ${issue.label}`)}</title>

@@ -9,7 +9,7 @@ import { issues } from "@/data/archive";
 export const metadata: Metadata = {
   title: "Past Issues",
   description:
-    "Browse and download past issues of the Linden Herald as PDFs. Search by date or keyword and filter by year. Bound volumes since 1959 are held at the Stockton Public Library.",
+    "Past issues of the Linden Herald, posted as PDFs and free to download. Search by date or keyword, or filter by year. Copies going back to 1959 are held at the Stockton Public Library.",
   alternates: { canonical: "/archive" },
   openGraph: {
     images: [{ url: "/og/archive.jpg", width: 1200, height: 630 }],
@@ -22,7 +22,7 @@ export default function ArchivePage() {
       <PageHeader
         kicker="The Archive"
         title="Past Issues"
-        blurb="Back issues are posted here as PDFs, free to download, page for page as they were printed. Search by keyword or filter by year."
+        blurb="Back issues are posted here as PDFs, free to download, page for page as they were printed. Search by keyword, or filter by year."
       />
 
       <div className="mb-14">
@@ -35,8 +35,8 @@ export default function ArchivePage() {
         <div>
           <h2 className="font-display text-xl font-bold">Going back to {site.founded}</h2>
           <p className="mt-2 font-body text-[0.95rem] leading-relaxed text-ink-muted">
-            {issues.length} issues are posted here so far. Bound volumes of every edition since{" "}
-            {site.founded} remain available for review at the Stockton Public Library.
+            {issues.length} issues are posted here so far. Copies going back to {site.founded} can
+            be reviewed at the Stockton Public Library.
           </p>
         </div>
         <div>
@@ -46,7 +46,7 @@ export default function ArchivePage() {
             <a href={site.phoneHref} className="underline link-underline">
               {site.phone}
             </a>{" "}
-            and we will pull it. Reprints of photographs and back issues are available on request.
+            and we will pull it. Photograph reprints are available on request.
           </p>
         </div>
         <div>

@@ -3,7 +3,6 @@ import PageHeader from "@/components/PageHeader";
 import ClassifiedsBrowser from "@/components/ClassifiedsBrowser";
 import HeraldForm from "@/components/HeraldForm";
 import ContactCard from "@/components/ContactCard";
-import Reveal from "@/components/Reveal";
 import { Field, Select, TextArea } from "@/components/Field";
 import { classifiedRates, classifiedCategories } from "@/data/classifieds";
 import { site } from "@/data/site";
@@ -11,7 +10,7 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "Classifieds",
   description:
-    "Farm equipment, help wanted, services, rentals and livestock listings from around the Linden district, published weekly in the Linden Herald.",
+    "Classified listings from around the Linden district, published weekly in the Linden Herald. Equipment, help wanted, services, rentals and livestock.",
 };
 
 export default function ClassifiedsPage() {
@@ -20,7 +19,7 @@ export default function ClassifiedsPage() {
       <PageHeader
         kicker="Bought and sold locally"
         title="Classifieds"
-        blurb="Equipment, work, services and stock, listed by your neighbors. In print every Thursday and posted here the same morning."
+        blurb="Equipment, work, services and stock. In print every Thursday, and posted here the same morning."
       />
 
       <ClassifiedsBrowser />
@@ -64,25 +63,21 @@ export default function ClassifiedsPage() {
         </div>
 
         <aside className="lg:col-span-5">
-          <Reveal>
-            <div className="border border-ink bg-newsprint-white p-7">
-              <p className="kicker text-herald">Classified rates</p>
-              <dl className="mt-4 divide-y divide-rule">
-                {classifiedRates.map((r) => (
-                  <div key={r.lines} className="py-3">
-                    <div className="flex items-baseline justify-between gap-4">
-                      <dt className="font-display text-[1rem] font-bold">{r.lines}</dt>
-                      <dd className="font-display text-xl font-black text-herald">{r.price}</dd>
-                    </div>
-                    <p className="mt-1 font-body text-[0.9rem] text-ink-muted">{r.detail}</p>
+          <div className="border border-ink bg-newsprint-white p-7">
+            <p className="kicker text-herald">Classified rates</p>
+            <dl className="mt-4 divide-y divide-rule">
+              {classifiedRates.map((r) => (
+                <div key={r.lines} className="py-3">
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="font-display text-[1rem] font-bold">{r.lines}</dt>
+                    <dd className="font-display text-xl font-black text-herald">{r.price}</dd>
                   </div>
-                ))}
-              </dl>
-            </div>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <ContactCard variant="compact" heading="Rather call it in?" className="mt-6" />
-          </Reveal>
+                  <p className="mt-1 font-body text-[0.9rem] text-ink-muted">{r.detail}</p>
+                </div>
+              ))}
+            </dl>
+          </div>
+          <ContactCard variant="compact" heading="Rather call it in?" className="mt-6" />
         </aside>
       </section>
     </div>

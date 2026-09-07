@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
 import HeraldForm from "@/components/HeraldForm";
 import ContactCard from "@/components/ContactCard";
 import LegalNoticeEstimator from "@/components/LegalNoticeEstimator";
@@ -12,7 +11,7 @@ import { site } from "@/data/site";
 export const metadata: Metadata = {
   title: "Legal Notices",
   description:
-    "Publish legal notices in the Linden Herald, an adjudicated newspaper of general circulation in San Joaquin County since 1960. Fictitious business names, name changes, summons, family law and trustee sales. Proof of publication filed at no extra cost.",
+    "Publish a legal notice in the Linden Herald, an adjudicated newspaper of general circulation in San Joaquin County since 1960. Fictitious business names from $105. We file the proof of publication at no extra cost.",
   alternates: { canonical: "/legal-notices" },
   openGraph: {
     images: [{ url: "/og/advertise.jpg", width: 1200, height: 630 }],
@@ -25,48 +24,45 @@ export default function LegalNoticesPage() {
       <PageHeader
         kicker="Newspaper of general circulation"
         title="Legal Notices"
-        blurb="We publish most legal notices for San Joaquin County at competitive rates, and file your proof of publication with the court or recorder at no additional cost."
+        blurb="We publish most legal notices for San Joaquin County. Our prices are competitive, and we file your proof of publication with the court or the recorder at no extra cost."
       />
 
-      {/* The credential, stated first — it is the thing that qualifies us to
-          run the notice at all, and the first thing an attorney checks. */}
+      {/* The credential goes first. It is what qualifies us to run the notice at
+          all, and it is the first thing an attorney checks. */}
       <section className="border-b-[3px] border-ink pb-10">
-        <Reveal>
-          <div className="border-l-4 border-herald bg-newsprint-white p-6 sm:p-8">
-            <p className="kicker text-herald">Adjudicated {site.adjudication.date}</p>
-            <p className="mt-3 max-w-3xl font-display text-xl leading-relaxed sm:text-2xl">
-              The {site.adjudication.court} issued decree {site.adjudication.decree} establishing
-              The Linden Herald as a newspaper of general circulation.
-            </p>
-            <p className="mt-4 max-w-3xl font-body text-[1rem] leading-relaxed text-ink-muted">
-              That decree is what allows a notice published here to satisfy the publication
-              requirement in your filing. We have been publishing weekly, without interruption,
-              since {site.founded}.
-            </p>
-          </div>
-        </Reveal>
+        <div className="border-l-4 border-herald bg-newsprint-white p-6 sm:p-8">
+          <p className="kicker text-herald">Adjudicated {site.adjudication.date}</p>
+          <p className="mt-3 max-w-3xl font-display text-xl leading-relaxed sm:text-2xl">
+            The {site.adjudication.court} issued decree {site.adjudication.decree} establishing The
+            Linden Herald as a newspaper of general circulation.
+          </p>
+          <p className="mt-4 max-w-3xl font-body text-[1rem] leading-relaxed text-ink-muted">
+            A notice published here satisfies the publication requirement in your filing. We have
+            published every week since {site.founded}.
+          </p>
+        </div>
 
         <div className="mt-8 grid gap-6 sm:grid-cols-3">
           {[
             {
               title: "Proof filed for you",
-              body: "We file the proof of publication with the San Joaquin County Court or the County Recorder at no additional cost, then issue another copy to the petitioner or registrant.",
+              body: "We file the proof with the San Joaquin County Court or the County Recorder at no extra cost. We then issue another copy to the petitioner or registrant.",
             },
             {
               title: "Competitive rates",
-              body: "Every rate we charge is published below. Nothing is quoted only on request except trustee sales, which are priced by column inch.",
+              body: "Every rate we charge is published below. The only exception is trustee sales, which are priced by the column inch.",
             },
             {
               title: `Deadline: ${site.deadlines.legal}`,
-              body: "Copy received by the deadline runs in that Thursday's edition. Call if your court date is tight and we will work backward from it.",
+              body: "Copy received by the deadline runs in that Thursday's edition. If your court date is tight, call us and we will work backward from it.",
             },
-          ].map((item, i) => (
-            <Reveal key={item.title} delay={i * 0.08}>
+          ].map((item) => (
+            <div key={item.title}>
               <h2 className="font-display text-lg font-bold leading-tight">{item.title}</h2>
               <p className="mt-2 font-body text-[0.94rem] leading-relaxed text-ink-muted">
                 {item.body}
               </p>
-            </Reveal>
+            </div>
           ))}
         </div>
       </section>
@@ -81,7 +77,7 @@ export default function LegalNoticesPage() {
         <div className="rule-double mb-6" />
         <h2 className="font-display text-3xl font-black">Every notice we publish</h2>
         <p className="mt-3 max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
-          If what you need is not listed, call {site.phone} &mdash; the phone is answered{" "}
+          If what you need is not listed, call {site.phone}. The phone is{" "}
           {site.phoneNote.toLowerCase()}.
         </p>
 
@@ -126,35 +122,33 @@ export default function LegalNoticesPage() {
         </p>
       </section>
 
-      {/* What to bring — already in the data, previously never rendered. */}
+      {/* What to bring. Already in the data, previously never rendered. */}
       <section className="mt-16">
         <div className="rule-double mb-6" />
         <h2 className="font-display text-3xl font-black">What to have in front of you</h2>
         <p className="mt-3 max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
-          Notices get rejected over small mismatches &mdash; a name spelled differently than the
-          filing, a missing case number. Have these ready and we can usually start the run the same
-          week.
+          Notices are rejected for small mistakes. A name spelled differently than the filing will
+          do it, or a missing case number. Have these ready and we can usually start the run the
+          same week.
         </p>
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {legalNoticeRates.map((r, i) => (
-            <Reveal key={r.id} delay={(i % 3) * 0.08}>
-              <div className="h-full border-t-2 border-ink bg-newsprint-white p-5">
-                <h3 className="font-display text-lg font-bold leading-tight">{r.type}</h3>
-                <p className="mt-1 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
-                  {r.price} &middot; {r.runWeeks}
-                </p>
-                <ul className="mt-4 space-y-2 border-t border-rule pt-4 font-body text-[0.92rem] leading-relaxed text-ink-muted">
-                  {r.bring.map((b) => (
-                    <li key={b} className="flex gap-2">
-                      <span aria-hidden className="text-harvest">
-                        &#9670;
-                      </span>
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Reveal>
+          {legalNoticeRates.map((r) => (
+            <div key={r.id} className="h-full border-t-2 border-ink bg-newsprint-white p-5">
+              <h3 className="font-display text-lg font-bold leading-tight">{r.type}</h3>
+              <p className="mt-1 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+                {r.price} &middot; {r.runWeeks}
+              </p>
+              <ul className="mt-4 space-y-2 border-t border-rule pt-4 font-body text-[0.92rem] leading-relaxed text-ink-muted">
+                {r.bring.map((b) => (
+                  <li key={b} className="flex gap-2">
+                    <span aria-hidden className="text-harvest">
+                      &#9670;
+                    </span>
+                    <span>{b}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
       </section>
@@ -165,8 +159,8 @@ export default function LegalNoticesPage() {
           <div className="rule-double mb-6" />
           <h2 className="font-display text-3xl font-black">Start a notice</h2>
           <p className="mt-3 max-w-xl font-body text-[1rem] leading-relaxed text-ink-muted">
-            Tell us what you are filing and we will confirm the quote and the publication schedule.
-            If you are working against a court date, say so and we will work backward from it.
+            Tell us what you are filing and we will confirm the price and the publication dates. If
+            you are working against a court date, say so and we will work backward from it.
           </p>
           <div className="mt-8">
             <HeraldForm subject="Legal notice request" submitLabel="Send Request">
@@ -202,15 +196,15 @@ export default function LegalNoticesPage() {
             <p className="kicker text-harvest">Proof of publication, filed for you</p>
             <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
               We file the proof with the San Joaquin County Court or the County Recorder at no
-              additional cost, and issue another copy to the petitioner or registrant. One less
+              extra cost, and issue another copy to the petitioner or registrant. That is one less
               errand on a filing deadline.
             </p>
           </div>
           <div className="mt-6 border border-rule bg-newsprint-white p-6">
             <p className="kicker text-cherry">Also advertising?</p>
             <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
-              Display and classified advertising rates, sizes and deadlines are on the advertising
-              page.
+              Display and classified advertising rates are on the advertising page, along with the
+              sizes and the deadlines.
             </p>
             <Link
               href="/advertise"

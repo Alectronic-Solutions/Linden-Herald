@@ -54,7 +54,9 @@ export const metadata: Metadata = {
   ],
   alternates: {
     canonical: "/",
-    types: { "application/rss+xml": [{ url: "/feed.xml", title: `${site.name} issue feed` }] },
+    types: {
+      "application/rss+xml": [{ url: "/feed.xml", title: `${site.name} issue feed` }],
+    },
   },
   icons: {
     icon: [
@@ -89,7 +91,12 @@ export const metadata: Metadata = {
   },
   // Kept out of search until this reaches the Herald's own domain.
   robots: ALLOW_INDEXING
-    ? { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 }
+    ? {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      }
     : { index: false, follow: false, nocache: true },
   category: "news",
 };
@@ -131,7 +138,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${label.variable}`}>
       <body className="min-h-screen antialiased no-js">
-        {/* Reveal animations need JS. Drop the flag so the CSS fallback stops applying. */}
+        {/* Progressive-enhancement flag, cleared once React has hydrated. */}
         <script
           dangerouslySetInnerHTML={{
             __html: "document.body.classList.remove('no-js')",
