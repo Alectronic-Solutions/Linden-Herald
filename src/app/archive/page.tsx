@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import ArchiveBrowser from "@/components/ArchiveBrowser";
 import OnThisDate from "@/components/OnThisDate";
@@ -6,15 +7,13 @@ import PageHeader from "@/components/PageHeader";
 import { site } from "@/data/site";
 import { issues } from "@/data/archive";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Past Issues",
   description:
     "Past issues of the Linden Herald, posted as PDFs and free to download. Search by date or keyword, or filter by year. Copies going back to 1959 are held at the Stockton Public Library.",
-  alternates: { canonical: "/archive" },
-  openGraph: {
-    images: [{ url: "/og/archive.jpg", width: 1200, height: 630 }],
-  },
-};
+  path: "/archive",
+  image: "/og/archive.jpg",
+});
 
 export default function ArchivePage() {
   return (

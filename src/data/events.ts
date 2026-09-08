@@ -29,7 +29,8 @@ export const events: CommunityEvent[] = [
     title: "Linden Unified board meeting",
     location: "District office board room",
     category: "government",
-    detail: "Facilities bond discussion continues. Agenda posted 72 hours ahead at the district office.",
+    detail:
+      "Facilities bond discussion continues. Agenda posted 72 hours ahead at the district office.",
   },
   {
     id: "e2",
@@ -110,7 +111,8 @@ export const events: CommunityEvent[] = [
     title: "Free CPR and defibrillator class",
     location: "Fire Station 1",
     category: "community",
-    detail: "Certification available. Registration by phone, the evening session usually fills first.",
+    detail:
+      "Certification available. Registration by phone, the evening session usually fills first.",
   },
   {
     id: "e11",

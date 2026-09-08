@@ -14,10 +14,22 @@ export type Classified = {
 };
 
 export const classifiedCategories: ClassifiedCategory[] = [
-  { slug: "farm", name: "Farm & Equipment", blurb: "Tractors, implements, irrigation pipe, trailers." },
-  { slug: "help-wanted", name: "Help Wanted", blurb: "Seasonal crews, drivers, office and trade work." },
+  {
+    slug: "farm",
+    name: "Farm & Equipment",
+    blurb: "Tractors, implements, irrigation pipe, trailers.",
+  },
+  {
+    slug: "help-wanted",
+    name: "Help Wanted",
+    blurb: "Seasonal crews, drivers, office and trade work.",
+  },
   { slug: "services", name: "Services", blurb: "Hauling, welding, tree work, bookkeeping." },
-  { slug: "real-estate", name: "Real Estate & Rentals", blurb: "Acreage, houses, shop space and pasture." },
+  {
+    slug: "real-estate",
+    name: "Real Estate & Rentals",
+    blurb: "Acreage, houses, shop space and pasture.",
+  },
   { slug: "livestock", name: "Livestock & Feed", blurb: "Stock, hay, tack and fair projects." },
   { slug: "for-sale", name: "For Sale", blurb: "Household, vehicles, tools and everything else." },
 ];

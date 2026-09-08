@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import PageHeader from "@/components/PageHeader";
 import HeraldForm from "@/components/HeraldForm";
 import { Field, Select, TextArea } from "@/components/Field";
 import ContactCard from "@/components/ContactCard";
 import { site } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description:
     "Reach the Linden Herald newsroom. Call (209) 772-8854 at any hour, or send a note through this page.",
-};
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (
@@ -31,10 +33,24 @@ export default function ContactPage() {
           <div className="mt-8">
             <HeraldForm subject="Message from lindenherald.com" submitLabel="Send Message">
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="name" label="Name" required />
-                <Field name="phone" label="Phone" type="tel" placeholder="209-555-0100" />
+                <Field name="name" autoComplete="name" label="Name" required />
+                <Field
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  label="Phone"
+                  type="tel"
+                  placeholder="209-555-0100"
+                />
               </div>
-              <Field name="email" label="Email" type="email" required />
+              <Field
+                name="email"
+                autoComplete="email"
+                inputMode="email"
+                label="Email"
+                type="email"
+                required
+              />
               <Select
                 name="topic"
                 label="What is this about?"

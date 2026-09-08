@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import PageHeader from "@/components/PageHeader";
 import HeraldForm from "@/components/HeraldForm";
 import { Field, Select, TextArea } from "@/components/Field";
@@ -9,15 +10,13 @@ import { subscriptionRates } from "@/data/rates";
 import { site, mailingAddressLines } from "@/data/site";
 import { cn } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Subscribe",
   description:
     "Subscribe to the Linden Herald. $42 a year for 52 issues, delivered by mail within San Joaquin County.",
-  alternates: { canonical: "/subscribe" },
-  openGraph: {
-    images: [{ url: "/og/subscribe.jpg", width: 1200, height: 630 }],
-  },
-};
+  path: "/subscribe",
+  image: "/og/subscribe.jpg",
+});
 
 export default function SubscribePage() {
   return (
@@ -65,9 +64,9 @@ export default function SubscribePage() {
         <div className="rule-double mb-6" />
         <h2 className="font-display text-3xl font-black">Two ways to subscribe</h2>
         <p className="mt-3 max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
-          Most subscriptions arrive as a check in the mail. That still works the way it always
-          has. If you would rather start it online, the form below reaches the office by email and
-          we will call you to confirm the delivery address and take payment.
+          Most subscriptions arrive as a check in the mail. That still works the way it always has.
+          If you would rather start it online, the form below reaches the office by email and we
+          will call you to confirm the delivery address and take payment.
         </p>
       </section>
 
@@ -75,7 +74,7 @@ export default function SubscribePage() {
         <div className="lg:col-span-7">
           <div className="mb-4 flex flex-wrap items-baseline justify-between gap-3">
             <h3 className="font-display text-2xl font-bold">1. Print and mail this form</h3>
-            <PrintButton label="Print this form" />
+            <PrintButton label="Print this form" sheetOnly />
           </div>
           <SubscriptionCoupon />
         </div>
@@ -121,15 +120,47 @@ export default function SubscribePage() {
               note="We never sell or share subscriber information."
             >
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="name" label="Subscriber name" required />
-                <Field name="phone" label="Phone" type="tel" required placeholder="209-555-0100" />
+                <Field name="name" autoComplete="name" label="Subscriber name" required />
+                <Field
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  label="Phone"
+                  type="tel"
+                  required
+                  placeholder="209-555-0100"
+                />
               </div>
-              <Field name="email" label="Email" type="email" placeholder="Optional" />
-              <Field name="address" label="Delivery address" required />
+              <Field
+                name="email"
+                autoComplete="email"
+                inputMode="email"
+                label="Email"
+                type="email"
+                placeholder="Optional"
+              />
+              <Field
+                name="address"
+                autoComplete="street-address"
+                label="Delivery address"
+                required
+              />
               <div className="grid gap-4 sm:grid-cols-3">
-                <Field name="city" label="City" required />
-                <Field name="state" label="State" required placeholder="CA" />
-                <Field name="zip" label="ZIP" required />
+                <Field name="city" autoComplete="address-level2" label="City" required />
+                <Field
+                  name="state"
+                  autoComplete="address-level1"
+                  label="State"
+                  required
+                  placeholder="CA"
+                />
+                <Field
+                  name="zip"
+                  autoComplete="postal-code"
+                  inputMode="numeric"
+                  label="ZIP"
+                  required
+                />
               </div>
               <Select
                 name="subscription_type"

@@ -1,0 +1,42 @@
+name: Rate or deadline change
+description: A price, deadline or ad size has changed, or the Herald has confirmed one we guessed.
+title: "Rate change: "
+labels: ["content", "rates"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Prices on this site are load-bearing: the legal notice estimator quotes
+        a number a customer can act on. Mention `@claude` and it will apply the
+        change and strike the matching VERIFY.md entry, per the `update-rates`
+        skill.
+  - type: dropdown
+    id: what
+    attributes:
+      label: What changed
+      options:
+        - Subscription rate
+        - Legal notice price
+        - Display ad size or rate
+        - Classified line rate
+        - Copy deadline
+        - Contact details
+        - Something else
+    validations:
+      required: true
+  - type: textarea
+    id: detail
+    attributes:
+      label: The change
+      description: Quote the Herald's own wording where you can, including any ambiguity.
+      placeholder: |
+        Out-of-county subscription is $55/year, not the $52 we assumed.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Who confirmed it
+      placeholder: Phone call with the office, 12 Sept
+    validations:
+      required: true

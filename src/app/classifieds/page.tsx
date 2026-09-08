@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import PageHeader from "@/components/PageHeader";
 import ClassifiedsBrowser from "@/components/ClassifiedsBrowser";
 import HeraldForm from "@/components/HeraldForm";
@@ -7,11 +8,12 @@ import { Field, Select, TextArea } from "@/components/Field";
 import { classifiedRates, classifiedCategories } from "@/data/classifieds";
 import { site } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Classifieds",
   description:
     "Classified listings from around the Linden district, published weekly in the Linden Herald. Equipment, help wanted, services, rentals and livestock.",
-};
+  path: "/classifieds",
+});
 
 export default function ClassifiedsPage() {
   return (
@@ -35,10 +37,23 @@ export default function ClassifiedsPage() {
           <div className="mt-8">
             <HeraldForm subject="Classified listing" submitLabel="Submit Listing">
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="name" label="Your name" required />
-                <Field name="phone" label="Phone" type="tel" required />
+                <Field name="name" autoComplete="name" label="Your name" required />
+                <Field
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  label="Phone"
+                  type="tel"
+                  required
+                />
               </div>
-              <Field name="email" label="Email" type="email" />
+              <Field
+                name="email"
+                autoComplete="email"
+                inputMode="email"
+                label="Email"
+                type="email"
+              />
               <Select
                 name="category"
                 label="Category"
@@ -67,12 +82,13 @@ export default function ClassifiedsPage() {
             <p className="kicker text-herald">Classified rates</p>
             <dl className="mt-4 divide-y divide-rule">
               {classifiedRates.map((r) => (
-                <div key={r.lines} className="py-3">
-                  <div className="flex items-baseline justify-between gap-4">
-                    <dt className="font-display text-[1rem] font-bold">{r.lines}</dt>
-                    <dd className="font-display text-xl font-black text-herald">{r.price}</dd>
-                  </div>
-                  <p className="mt-1 font-body text-[0.9rem] text-ink-muted">{r.detail}</p>
+                <div
+                  key={r.lines}
+                  className="flex flex-wrap items-baseline justify-between gap-x-4 py-3"
+                >
+                  <dt className="font-display text-[1rem] font-bold">{r.lines}</dt>
+                  <dd className="font-display text-xl font-black text-herald">{r.price}</dd>
+                  <dd className="mt-1 w-full font-body text-[0.9rem] text-ink-muted">{r.detail}</dd>
                 </div>
               ))}
             </dl>

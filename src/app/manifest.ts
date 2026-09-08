@@ -7,8 +7,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "The Linden Herald",
     short_name: "Linden Herald",
-    description:
-      "A weekly newspaper serving Linden and eastern San Joaquin County since 1959.",
+    description: "A weekly newspaper serving Linden and eastern San Joaquin County since 1959.",
     start_url: asset("/"),
     display: "standalone",
     background_color: "#FAF7F0",

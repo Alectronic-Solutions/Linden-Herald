@@ -60,7 +60,9 @@ changing one updates the preview automatically.
 - **Next.js 14** (App Router) with **static export**. No server, no database, no PHP
 - **TypeScript**
 - **Tailwind CSS** with a custom heritage-broadsheet design system
-- **Framer Motion** for scroll reveals and layout transitions
+- No animation library. Motion is CSS transitions; Framer Motion was removed
+  because importing it in `SiteHeader` and `BackToTop` put it in the root layout
+  chunk, so all twenty routes paid 37 KB gzipped for it
 - **FormSubmit** for all six forms, so submissions arrive by email with nothing to maintain
 
 ## Getting started
@@ -68,8 +70,26 @@ changing one updates the preview automatically.
 ```bash
 npm install
 npm run dev      # http://localhost:3000
-npm run build    # static export to ./out
+npm run check    # lint + typecheck + src/data validation
+npm run build    # static export to ./out (validates first)
+npm run test:e2e # axe, no-JavaScript and metadata checks against the export
 ```
+
+### Checks
+
+`npm run validate` (`scripts/validate-data.ts`) is the one worth knowing about.
+`src/data` is the whole newsroom interface and nothing used to check it, so a
+wrong PDF filename still built a page and a 404 download, and a non-Thursday
+date made an issue invisible to On This Date while it still listed on
+`/archive`. It enforces PDF existence, real file sizes, Thursday-only dates,
+unique and descending dates, the four fields derivable from the cover date, page
+numbers within the page count, and category and id integrity across classifieds,
+events and obituaries. It runs as a `prebuild` step, so a bad edit cannot reach
+a deploy.
+
+`npm run budget` fails if the JavaScript shared by every route grows past
+105 KB gzipped. It is 101.7 KB today and was 139 KB before Framer Motion came
+out.
 
 The build writes a fully static site to `out/`. Nothing in it requires a runtime.
 
@@ -154,7 +174,9 @@ as an enclosure.
 
 - One `h1` per page, ordered headings, skip-to-content link
 - Visible focus rings, `aria-pressed` on all filter controls, labelled form fields
-- Reduced-motion support, and a no-JavaScript fallback so scroll-revealed content stays visible
+- Reduced-motion support. Nothing is hidden behind an entry animation, so every
+  page renders its content with JavaScript unavailable — enforced by a Playwright
+  project that runs the whole suite with scripting disabled
 - No horizontal overflow at 390px
 - Mobile navigation is a real dialog: focus moves into it, Tab is trapped, Escape closes and
   restores focus to the toggle, and the page behind it is scroll-locked

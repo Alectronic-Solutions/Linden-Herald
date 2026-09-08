@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import HeraldForm from "@/components/HeraldForm";
@@ -8,15 +9,13 @@ import { Field, Select, TextArea } from "@/components/Field";
 import { displayAdSizes, legalNoticeRates } from "@/data/rates";
 import { site } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Advertise",
   description:
     "Display and classified advertising in the Linden Herald, a weekly print newspaper reaching the Linden school district across eastern San Joaquin County since 1959. See ad sizes at true proportion.",
-  alternates: { canonical: "/advertise" },
-  openGraph: {
-    images: [{ url: "/og/advertise.jpg", width: 1200, height: 630 }],
-  },
-};
+  path: "/advertise",
+  image: "/og/advertise.jpg",
+});
 
 export default function AdvertisePage() {
   return (
@@ -109,12 +108,26 @@ export default function AdvertisePage() {
           <div className="mt-8">
             <HeraldForm subject="Advertising request" submitLabel="Send Request">
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="name" label="Your name" required />
-                <Field name="business" label="Business or firm" />
+                <Field name="name" autoComplete="name" label="Your name" required />
+                <Field name="business" autoComplete="organization" label="Business or firm" />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="phone" label="Phone" type="tel" required />
-                <Field name="email" label="Email" type="email" required />
+                <Field
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  label="Phone"
+                  type="tel"
+                  required
+                />
+                <Field
+                  name="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  label="Email"
+                  type="email"
+                  required
+                />
               </div>
               <Select
                 name="request_type"

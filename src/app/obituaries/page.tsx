@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import PageHeader from "@/components/PageHeader";
 import HeraldForm from "@/components/HeraldForm";
 import { Field, TextArea } from "@/components/Field";
@@ -6,11 +7,12 @@ import { obituaries } from "@/data/obituaries";
 import { site } from "@/data/site";
 import { formatDate } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Obituaries",
   description:
     "Obituary notices published in the Linden Herald, and how to submit one for a family member.",
-};
+  path: "/obituaries",
+});
 
 export default function ObituariesPage() {
   return (
@@ -76,7 +78,14 @@ export default function ObituariesPage() {
               >
                 <Field name="contact_name" label="Your name" required />
                 <div className="grid gap-4 sm:grid-cols-2">
-                  <Field name="phone" label="Phone" type="tel" required />
+                  <Field
+                    name="phone"
+                    autoComplete="tel"
+                    inputMode="tel"
+                    label="Phone"
+                    type="tel"
+                    required
+                  />
                   <Field name="relationship" label="Relationship" placeholder="Daughter, son" />
                 </div>
                 <Field name="deceased_name" label="Name of the deceased" required />

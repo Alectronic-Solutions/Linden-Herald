@@ -15,6 +15,16 @@ export function formatShortDate(iso: string) {
   return formatDate(iso, { month: "short", day: "numeric", year: "numeric" });
 }
 
+/**
+ * Human file size for a PDF. Sizes are stored as real bytes taken from disk, so
+ * this has to read sensibly for both a 9 KB placeholder and a 14 MB scan.
+ */
+export function formatFileSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1_048_576) return `${Math.round(bytes / 1024)} KB`;
+  return `${(bytes / 1_048_576).toFixed(1)} MB`;
+}
+
 /** Issue number counted from the paper's founding year. */
 export function volumeFor(iso: string, founded = 1959) {
   return Number(iso.slice(0, 4)) - founded + 1;

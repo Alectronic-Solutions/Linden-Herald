@@ -96,9 +96,9 @@ All four entries are literally `"Name to come"`. The About page says the team ha
 real names and roles, or the masthead section should be removed.
 
 ### Email address
-`src/data/site.ts` (`formEndpoint`)
+`src/data/site.ts` (`site.email`)
 
-All six forms post to `https://formsubmit.co/news@lindenherald.com`. **That
+All seven forms post to `https://formsubmit.co/ajax/news@lindenherald.com`. **That
 address is a guess.** The Herald publishes a phone number and a PO Box, no
 email. Every form on the site silently fails if it is wrong. FormSubmit also
 requires a one-time email confirmation before it will deliver.
@@ -138,6 +138,22 @@ by the Herald before publishing**, particularly the corrections policy, which
 describes a process the paper may not follow.
 
 ---
+
+## 3a. Fixed since this file was written
+
+These were wrong rather than unconfirmed, and have been corrected:
+
+- **File sizes.** `archive.ts` claimed 13.4-23.3 MB per issue while the
+  placeholder PDFs are around 8 KB, and that figure was published as the RSS
+  `<enclosure length>`. The field is now `sizeBytes`, taken from the file on
+  disk and enforced by `npm run validate`. It follows that the demo now shows
+  honest, very small file sizes; regenerate fuller placeholders with
+  `scripts/build_issue_pdfs.py` if that matters for a demo.
+- **The forms all reported failure.** They posted to FormSubmit’s non-AJAX
+  endpoint, which sends no CORS header, so `fetch` rejected and every visitor
+  was told their message had not gone through. Still blocked on the address
+  below being confirmed and activated.
+- **The folio date was the build date**, baked into all twenty pages.
 
 ## 4. Deployment
 

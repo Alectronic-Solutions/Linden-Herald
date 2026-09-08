@@ -27,6 +27,16 @@
     @apply outline-none ring-2 ring-herald ring-offset-2 ring-offset-newsprint;
   }
 
+  /* Tailwind's ring-* compiles to box-shadow, which is dropped in Windows High
+     Contrast. With outline-none already applied that left no focus indicator at
+     all, so put a real outline back for forced-colors users. */
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline: 2px solid CanvasText;
+      outline-offset: 2px;
+    }
+  }
+
   h1,
   h2,
   h3,
@@ -130,7 +140,6 @@
   }
 }
 
-
 @layer components {
   /*
    * Depth is carried by elevation and paper edges, not by shadows under body
@@ -138,20 +147,6 @@
    * The one place a text shadow earns its keep is the hero headline, which sits
    * over photography and needs to hold at any exposure.
    */
-  .lift {
-    @apply transition-[transform,box-shadow] duration-500;
-  }
-
-  .lift:hover {
-    transform: translateY(-3px);
-    box-shadow: theme("boxShadow.lift");
-  }
-
-  /* Image wells: a faint inner rule so photographs sit in the page, not on it */
-  .plate {
-    @apply relative overflow-hidden bg-newsprint-deep;
-    box-shadow: inset 0 0 0 1px rgba(20, 17, 15, 0.08);
-  }
 }
 
 @layer base {
@@ -202,31 +197,56 @@
 }
 
 @media print {
-  header nav,
+  @page {
+    margin: 0.5in;
+  }
+
+  /* The nav is a sibling of <header>, not a child, so the old "header nav"
+     selector matched nothing. These four cover the screen furniture. */
+  header,
+  nav,
   footer,
   .no-print {
     display: none !important;
   }
 
+  body {
+    background: #fff !important;
+  }
+
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.85em;
+    word-break: break-all;
+  }
+
   /* The mail-in coupon is the one thing on this site people actually print.
-     Give it the whole sheet and drop the screen furniture around it. */
+     Printing /subscribe used to emit the masthead, three rate cards, an aside
+     and the whole online form: four sheets for a one-sheet coupon. When the
+     page marks itself as printing a sheet, everything outside it goes away. */
+  .printing-sheet main > * {
+    display: none !important;
+  }
+
+  .printing-sheet .print-sheet,
+  .printing-sheet .print-sheet * {
+    display: revert !important;
+  }
+
+  .printing-sheet .print-sheet {
+    position: absolute !important;
+    inset: 0 !important;
+  }
+
   .print-sheet {
     border: 1px solid #000 !important;
     box-shadow: none !important;
     margin: 0 !important;
     padding: 1.25rem !important;
+    break-inside: avoid;
   }
 
   .print-sheet .field {
     border-bottom: 1px solid #000 !important;
-  }
-}
-
-
-/* Without JavaScript the reveal animation never runs, so force content visible. */
-@layer base {
-  .no-js [data-reveal] {
-    opacity: 1 !important;
-    transform: none !important;
   }
 }

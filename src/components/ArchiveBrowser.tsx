@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import Link from "next/link";
 import IssueCover from "@/components/IssueCover";
+import { FilterChip, FilterGroup, ResultCount } from "@/components/FilterChip";
 import { sortedIssues as issues, archiveYears, issueHeadlines } from "@/data/archive";
-import { asset, cn, formatDate } from "@/lib/utils";
+import { asset, formatDate, formatFileSize } from "@/lib/utils";
 
 export default function ArchiveBrowser() {
   const [year, setYear] = useState("all");
@@ -37,89 +37,68 @@ export default function ArchiveBrowser() {
           />
         </div>
         <div>
-          <span className="field-label">Filter by year</span>
-          <div className="flex flex-wrap gap-1.5">
-            <button
-              type="button"
-              onClick={() => setYear("all")}
-              aria-pressed={year === "all"}
-              className={cn(
-                "border px-3 py-1.5 font-label text-[0.76rem] font-semibold uppercase tracking-[0.14em] transition-colors",
-                year === "all"
-                  ? "border-ink bg-ink text-newsprint-white"
-                  : "border-rule-strong text-ink-muted hover:border-ink hover:text-ink",
-              )}
-            >
+          <span className="field-label" aria-hidden="true">
+            Filter by year
+          </span>
+          <FilterGroup label="Filter by year">
+            <FilterChip active={year === "all"} onClick={() => setYear("all")}>
               All years
-            </button>
+            </FilterChip>
             {archiveYears.map((y) => (
-              <button
-                key={y}
-                type="button"
-                onClick={() => setYear(y)}
-                aria-pressed={year === y}
-                className={cn(
-                  "border px-3 py-1.5 font-label text-[0.76rem] font-semibold uppercase tracking-[0.14em] transition-colors",
-                  year === y
-                    ? "border-ink bg-ink text-newsprint-white"
-                    : "border-rule-strong text-ink-muted hover:border-ink hover:text-ink",
-                )}
-              >
+              <FilterChip key={y} active={year === y} onClick={() => setYear(y)}>
                 {y}
-              </button>
+              </FilterChip>
             ))}
-          </div>
+          </FilterGroup>
         </div>
       </div>
 
-      <p className="mt-5 font-label text-[0.78rem] uppercase tracking-[0.16em] text-ink-faint">
+      <ResultCount>
         {results.length} {results.length === 1 ? "issue" : "issues"} available
-      </p>
+      </ResultCount>
 
+      {/*
+        These cards carried a framer-motion entry animation, which wrote
+        style="opacity:0" into the exported HTML. With JavaScript unavailable, or
+        before hydration, the whole archive rendered blank. The cards are the
+        same elements on every filter change, so the fade bought nothing and cost
+        a layout measure pass per keystroke.
+      */}
       <div className="mt-6 grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
-        <AnimatePresence mode="popLayout">
-          {results.map((issue) => (
-            <motion.article
-              key={issue.date}
-              layout
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.97 }}
-              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              className="group"
+        {results.map((issue) => (
+          <article key={issue.date} className="group">
+            <Link
+              href={`/archive/${issue.date}`}
+              className="block transition-transform duration-500 group-hover:-translate-y-1.5"
+              tabIndex={-1}
+              aria-hidden="true"
             >
-              <Link
-                href={`/archive/${issue.date}`}
-                className="block transition-transform duration-500 group-hover:-translate-y-1.5"
-                aria-label={`The ${issue.label} edition`}
-              >
-                <div className="shadow-page transition-shadow duration-500 group-hover:shadow-lift">
-                  <IssueCover date={issue.date} volume={issue.volume} number={issue.number} />
-                </div>
+              <div className="shadow-page transition-shadow duration-500 group-hover:shadow-lift">
+                <IssueCover date={issue.date} volume={issue.volume} number={issue.number} />
+              </div>
+            </Link>
+            <h3 className="mt-3 font-display text-lg font-bold leading-tight">
+              <Link href={`/archive/${issue.date}`} className="headline-link">
+                {formatDate(issue.date)}
               </Link>
-              <h3 className="mt-3 font-display text-lg font-bold leading-tight">
-                <Link href={`/archive/${issue.date}`} className="headline-link">
-                  {formatDate(issue.date)}
-                </Link>
-              </h3>
-              <p className="mt-1 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
-                {issue.pages} pages &middot;{" "}
-                <a
-                  href={asset(issue.file)}
-                  className="underline decoration-dotted underline-offset-2 hover:text-herald"
-                  download
-                >
-                  PDF {issue.sizeMb} MB
-                </a>
-              </p>
-              <ul className="mt-2 space-y-1 font-body text-[0.88rem] leading-snug text-ink-muted">
-                {issueHeadlines(issue, 2).map((h) => (
-                  <li key={h}>{h}</li>
-                ))}
-              </ul>
-            </motion.article>
-          ))}
-        </AnimatePresence>
+            </h3>
+            <p className="mt-1 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+              {issue.pages} pages &middot;{" "}
+              <a
+                href={asset(issue.file)}
+                className="underline decoration-dotted underline-offset-2 hover:text-herald"
+                download
+              >
+                PDF {formatFileSize(issue.sizeBytes)}
+              </a>
+            </p>
+            <ul className="mt-2 space-y-1 font-body text-[0.88rem] leading-snug text-ink-muted">
+              {issueHeadlines(issue, 2).map((h) => (
+                <li key={h}>{h}</li>
+              ))}
+            </ul>
+          </article>
+        ))}
       </div>
 
       {results.length === 0 && (

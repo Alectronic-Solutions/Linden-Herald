@@ -1,0 +1,28 @@
+# Nothing in this repo was telling anyone that ESLint 8 reached end of life, or
+# that Next, React, Tailwind and framer-motion are each a major behind.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 5
+    groups:
+      # eslint-config-next is pinned to the exact Next version, so these have to
+      # move together or the lint config stops resolving.
+      next:
+        patterns:
+          - "next"
+          - "eslint-config-next"
+      types:
+        patterns:
+          - "@types/*"
+      dev:
+        dependency-type: development
+        exclude-patterns:
+          - "eslint-config-next"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly

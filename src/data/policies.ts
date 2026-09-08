@@ -78,8 +78,7 @@ export const policies: Record<string, Policy> = {
     slug: "terms",
     title: "Terms of Use",
     kicker: "The ground rules",
-    blurb:
-      "What you can do with what you find here, and what we can promise about it.",
+    blurb: "What you can do with what you find here, and what we can promise about it.",
     updated: UPDATED,
     sections: [
       {
@@ -128,8 +127,7 @@ export const policies: Record<string, Policy> = {
     slug: "accessibility",
     title: "Accessibility",
     kicker: "Readable by everyone in the district",
-    blurb:
-      "Where we stand, and how to tell us we have fallen short.",
+    blurb: "Where we stand, and how to tell us we have fallen short.",
     updated: UPDATED,
     sections: [
       {
@@ -173,8 +171,7 @@ export const policies: Record<string, Policy> = {
     slug: "corrections",
     title: "Corrections & Ethics",
     kicker: "How we handle getting it wrong",
-    blurb:
-      "The standard we hold ourselves to.",
+    blurb: "The standard we hold ourselves to.",
     updated: UPDATED,
     sections: [
       {

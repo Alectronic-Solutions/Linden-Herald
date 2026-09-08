@@ -1,13 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import {
-  displayAdSizes,
-  PAGE_WIDTH_IN,
-  PAGE_HEIGHT_IN,
-  type AdSize,
-} from "@/data/rates";
+import { displayAdSizes, PAGE_WIDTH_IN, PAGE_HEIGHT_IN, type AdSize } from "@/data/rates";
 import { cn } from "@/lib/utils";
 
 /** Filler column lines so the ad reads against something page-like. */
@@ -35,8 +29,8 @@ export default function AdSizePreviewer() {
 
   const wPct = (selected.widthIn / PAGE_WIDTH_IN) * 100;
   const hPct = (selected.heightIn / PAGE_HEIGHT_IN) * 100;
-  const coverage = ((selected.widthIn * selected.heightIn) /
-    (PAGE_WIDTH_IN * PAGE_HEIGHT_IN)) * 100;
+  const coverage =
+    ((selected.widthIn * selected.heightIn) / (PAGE_WIDTH_IN * PAGE_HEIGHT_IN)) * 100;
 
   const position =
     selected.placement === "top"
@@ -49,7 +43,10 @@ export default function AdSizePreviewer() {
     <section aria-labelledby="ad-preview" className="border-[3px] border-ink bg-newsprint-white">
       <div className="border-b border-rule bg-ink px-6 py-4 text-newsprint-white sm:px-8">
         <p className="kicker text-harvest-light">See it before you buy it</p>
-        <h2 id="ad-preview" className="mt-1 font-display text-3xl font-black text-newsprint-white sm:text-4xl">
+        <h2
+          id="ad-preview"
+          className="mt-1 font-display text-3xl font-black text-newsprint-white sm:text-4xl"
+        >
           How big is my ad, really?
         </h2>
         <p className="mt-2 max-w-2xl font-body text-[0.98rem] leading-relaxed text-newsprint-deep/80">
@@ -94,10 +91,8 @@ export default function AdSizePreviewer() {
                 <PageFill />
               </div>
 
-              <motion.div
-                layout
-                transition={{ type: "spring", stiffness: 220, damping: 26 }}
-                className="absolute flex items-center justify-center border-2 border-cherry bg-cherry/12 backdrop-blur-[1px]"
+              <div
+                className="absolute flex items-center justify-center border-2 border-cherry bg-cherry/12 backdrop-blur-[1px] transition-all duration-300 ease-out motion-reduce:transition-none"
                 style={{ width: `${wPct}%`, height: `${hPct}%`, ...position }}
               >
                 <span className="px-2 text-center font-label text-[0.62rem] font-semibold uppercase leading-tight tracking-[0.12em] text-cherry">
@@ -105,7 +100,7 @@ export default function AdSizePreviewer() {
                   <br />
                   {selected.size}
                 </span>
-              </motion.div>
+              </div>
             </div>
           </div>
           <p className="mt-3 text-center font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
@@ -113,7 +108,7 @@ export default function AdSizePreviewer() {
           </p>
         </div>
 
-        <aside>
+        <aside aria-live="polite" aria-atomic="true">
           <div className="border-2 border-ink bg-newsprint p-6">
             <p className="kicker text-cherry">{selected.name}</p>
             <p className="mt-2 font-display text-4xl font-black leading-none">{selected.size}</p>
@@ -127,11 +122,9 @@ export default function AdSizePreviewer() {
               </p>
               <div className="mt-2 flex items-center gap-3">
                 <div className="h-2.5 flex-1 overflow-hidden bg-rule">
-                  <motion.div
-                    className="h-full bg-herald"
-                    initial={false}
-                    animate={{ width: `${coverage}%` }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                  <div
+                    className="h-full bg-herald transition-[width] duration-500 ease-out motion-reduce:transition-none"
+                    style={{ width: `${coverage}%` }}
                   />
                 </div>
                 <span className="font-display text-lg font-bold">{Math.round(coverage)}%</span>

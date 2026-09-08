@@ -1,5 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { site } from "@/data/site";
+
+/**
+ * Without its own metadata this page inherited the home page title and the root
+ * canonical, so a 404 announced itself to search engines as the front page.
+ */
+export const metadata: Metadata = {
+  title: "Page Not Found",
+  description: "That page is not in this edition of the Linden Herald.",
+  alternates: { canonical: undefined },
+  robots: { index: false, follow: true },
+};
 
 export default function NotFound() {
   return (

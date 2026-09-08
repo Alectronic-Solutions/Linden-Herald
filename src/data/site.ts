@@ -35,10 +35,13 @@ export const site = {
     state: "CA",
     zip: "95236",
   },
-  // Routed through FormSubmit so the paper receives submissions by email with no server to run.
+  // The newsroom address. Forms are routed here through FormSubmit, so the paper
+  // receives submissions by email with no server to run.
   // VERIFY: this address is a guess. The Herald publishes only a phone number
-  // and a PO Box. Every form on the site fails silently if it is wrong.
-  formEndpoint: "https://formsubmit.co/news@lindenherald.com",
+  // and a PO Box. Every form on the site fails if it is wrong, and FormSubmit
+  // needs a one-time confirmation click on the first submission before it
+  // will deliver anything.
+  email: "news@lindenherald.com",
   // Court decree establishing the paper as a newspaper of general circulation.
   adjudication: {
     court: "San Joaquin County Superior Court",
@@ -68,6 +71,21 @@ export const site = {
     { label: "Contact", href: "/contact" },
   ],
 } as const;
+
+/**
+ * FormSubmit has two endpoints per address. The plain one answers with an HTML
+ * thank-you page and no Access-Control-Allow-Origin header, so a fetch() from
+ * the browser is blocked and the form reports failure even though the mail went
+ * out. The /ajax/ one answers with JSON and the right header, and is the only
+ * correct target for a scripted submit.
+ */
+export const formEndpoint = `https://formsubmit.co/ajax/${site.email}`;
+
+/**
+ * The plain endpoint, used as the <form action> so a submit still works when
+ * JavaScript is unavailable. FormSubmit redirects to its own thank-you page.
+ */
+export const formEndpointNoScript = `https://formsubmit.co/${site.email}`;
 
 export const mailingAddressLines = [
   site.name,

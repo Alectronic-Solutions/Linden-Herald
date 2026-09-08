@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ContactCard from "@/components/ContactCard";
 import { site } from "@/data/site";
 import { staff } from "@/data/staff";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
     "The Linden Herald has published weekly in the farming community of Linden, California since 1959. Our correspondents live and work in the district.",
-};
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (
@@ -75,7 +77,7 @@ export default function AboutPage() {
               change of name petitions, family law matters, trustee sales and court summons, at
               rates that are competitive with the county&apos;s larger papers.
             </p>
-            <Link href="/advertise#legal-notices" className="btn-primary mt-6">
+            <Link href="/legal-notices" className="btn-primary mt-6">
               See Legal Notice Rates
             </Link>
           </section>

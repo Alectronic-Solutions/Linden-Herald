@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import PageHeader from "@/components/PageHeader";
 import CalendarBrowser from "@/components/CalendarBrowser";
 import HeraldForm from "@/components/HeraldForm";
@@ -6,11 +7,12 @@ import ContactCard from "@/components/ContactCard";
 import { Field, Select, TextArea } from "@/components/Field";
 import { eventCategories } from "@/data/events";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Community Calendar",
   description:
     "Community events around Linden, California. Board meetings, home games, fundraisers and fair week.",
-};
+  path: "/calendar",
+});
 
 export default function CalendarPage() {
   return (
@@ -38,8 +40,15 @@ export default function CalendarPage() {
               note="No charge for community events. We may edit for length."
             >
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="name" label="Your name" required />
-                <Field name="phone" label="Phone" type="tel" required />
+                <Field name="name" autoComplete="name" label="Your name" required />
+                <Field
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  label="Phone"
+                  type="tel"
+                  required
+                />
               </div>
               <Field name="event_title" label="Event name" required />
               <div className="grid gap-4 sm:grid-cols-2">

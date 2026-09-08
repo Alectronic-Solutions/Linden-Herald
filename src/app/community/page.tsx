@@ -1,15 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import ContactCard from "@/components/ContactCard";
 import { site } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Community",
   description:
     "Submit an obituary, list a community event, or place a classified ad in the Linden Herald. Obituaries and calendar listings are published at no charge.",
-  alternates: { canonical: "/community" },
-};
+  path: "/community",
+});
 
 const columns = "grid gap-8 divide-y divide-rule sm:grid-cols-3 sm:gap-0 sm:divide-x sm:divide-y-0";
 const column = "sm:px-6 sm:first:pl-0 sm:last:pr-0 pt-8 first:pt-0 sm:pt-0";

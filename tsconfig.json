@@ -1,9 +1,20 @@
 {
   "compilerOptions": {
+    "target": "ES2022",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
+
     "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": true,
+    "forceConsistentCasingInFileNames": true,
+    // noUncheckedIndexedAccess is off for now: it reports 45 errors, nearly all
+    // of them symptoms of data files typed as Record<string, T> or indexed
+    // positionally (policies, subscriptionRates). Turn it on with that work.
+
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import PageHeader from "@/components/PageHeader";
 import HeraldForm from "@/components/HeraldForm";
@@ -8,15 +9,13 @@ import { Field, Select, TextArea } from "@/components/Field";
 import { legalNoticeRates } from "@/data/rates";
 import { site } from "@/data/site";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Legal Notices",
   description:
     "Publish a legal notice in the Linden Herald, an adjudicated newspaper of general circulation in San Joaquin County since 1960. Fictitious business names from $105. We file the proof of publication at no extra cost.",
-  alternates: { canonical: "/legal-notices" },
-  openGraph: {
-    images: [{ url: "/og/advertise.jpg", width: 1200, height: 630 }],
-  },
-};
+  path: "/legal-notices",
+  image: "/og/advertise.jpg",
+});
 
 export default function LegalNoticesPage() {
   return (
@@ -165,12 +164,26 @@ export default function LegalNoticesPage() {
           <div className="mt-8">
             <HeraldForm subject="Legal notice request" submitLabel="Send Request">
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="name" label="Your name" required />
-                <Field name="business" label="Business or firm" />
+                <Field name="name" autoComplete="name" label="Your name" required />
+                <Field name="business" autoComplete="organization" label="Business or firm" />
               </div>
               <div className="grid gap-4 sm:grid-cols-2">
-                <Field name="phone" label="Phone" type="tel" required />
-                <Field name="email" label="Email" type="email" required />
+                <Field
+                  name="phone"
+                  autoComplete="tel"
+                  inputMode="tel"
+                  label="Phone"
+                  type="tel"
+                  required
+                />
+                <Field
+                  name="email"
+                  autoComplete="email"
+                  inputMode="email"
+                  label="Email"
+                  type="email"
+                  required
+                />
               </div>
               <Select
                 name="notice_type"
@@ -195,9 +208,9 @@ export default function LegalNoticesPage() {
           <div className="mt-6 border-l-4 border-harvest bg-newsprint-white p-6">
             <p className="kicker text-harvest">Proof of publication, filed for you</p>
             <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
-              We file the proof with the San Joaquin County Court or the County Recorder at no
-              extra cost, and issue another copy to the petitioner or registrant. That is one less
-              errand on a filing deadline.
+              We file the proof with the San Joaquin County Court or the County Recorder at no extra
+              cost, and issue another copy to the petitioner or registrant. That is one less errand
+              on a filing deadline.
             </p>
           </div>
           <div className="mt-6 border border-rule bg-newsprint-white p-6">

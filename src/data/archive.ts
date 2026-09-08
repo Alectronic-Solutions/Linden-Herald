@@ -20,7 +20,8 @@ export type Issue = {
   label: string; // Printed cover date
   volume: number;
   number: number;
-  sizeMb: number;
+  /** Real byte size of the PDF, filled in by scripts/validate-data.ts --fix. */
+  sizeBytes: number;
   pages: number;
   file: string;
   cover?: string;
@@ -41,7 +42,7 @@ export const issues: Issue[] = [
     label: "September 3, 2026",
     volume: 68,
     number: 36,
-    sizeMb: 13.6,
+    sizeBytes: 7773,
     pages: 12,
     file: "/issues/linden-herald-2026-09-03.pdf",
     contents: [
@@ -83,7 +84,7 @@ export const issues: Issue[] = [
     label: "August 27, 2026",
     volume: 68,
     number: 35,
-    sizeMb: 15.8,
+    sizeBytes: 7764,
     pages: 14,
     file: "/issues/linden-herald-2026-08-27.pdf",
     contents: [
@@ -130,7 +131,7 @@ export const issues: Issue[] = [
     label: "August 20, 2026",
     volume: 68,
     number: 34,
-    sizeMb: 17.6,
+    sizeBytes: 7757,
     pages: 16,
     file: "/issues/linden-herald-2026-08-20.pdf",
     contents: [
@@ -177,7 +178,7 @@ export const issues: Issue[] = [
     label: "August 13, 2026",
     volume: 68,
     number: 33,
-    sizeMb: 14.9,
+    sizeBytes: 7744,
     pages: 12,
     file: "/issues/linden-herald-2026-08-13.pdf",
     contents: [
@@ -218,7 +219,7 @@ export const issues: Issue[] = [
     label: "August 6, 2026",
     volume: 68,
     number: 32,
-    sizeMb: 19.1,
+    sizeBytes: 7688,
     pages: 16,
     file: "/issues/linden-herald-2026-08-06.pdf",
     contents: [
@@ -248,7 +249,7 @@ export const issues: Issue[] = [
     label: "July 30, 2026",
     volume: 68,
     number: 31,
-    sizeMb: 19.4,
+    sizeBytes: 7696,
     pages: 16,
     file: "/issues/linden-herald-2026-07-30.pdf",
     contents: [
@@ -278,7 +279,7 @@ export const issues: Issue[] = [
     label: "July 23, 2026",
     volume: 68,
     number: 30,
-    sizeMb: 14.4,
+    sizeBytes: 7674,
     pages: 12,
     file: "/issues/linden-herald-2026-07-23.pdf",
     contents: [
@@ -303,7 +304,7 @@ export const issues: Issue[] = [
     label: "July 16, 2026",
     volume: 68,
     number: 29,
-    sizeMb: 16.1,
+    sizeBytes: 7759,
     pages: 14,
     file: "/issues/linden-herald-2026-07-16.pdf",
     contents: [
@@ -327,7 +328,7 @@ export const issues: Issue[] = [
     label: "July 9, 2026",
     volume: 68,
     number: 28,
-    sizeMb: 17.2,
+    sizeBytes: 7682,
     pages: 14,
     file: "/issues/linden-herald-2026-07-09.pdf",
     contents: [
@@ -346,7 +347,7 @@ export const issues: Issue[] = [
     label: "July 2, 2026",
     volume: 68,
     number: 27,
-    sizeMb: 15.4,
+    sizeBytes: 7683,
     pages: 12,
     file: "/issues/linden-herald-2026-07-02.pdf",
     contents: [
@@ -359,7 +360,7 @@ export const issues: Issue[] = [
     label: "June 25, 2026",
     volume: 68,
     number: 26,
-    sizeMb: 15.7,
+    sizeBytes: 7758,
     pages: 14,
     file: "/issues/linden-herald-2026-06-25.pdf",
     contents: [
@@ -388,7 +389,7 @@ export const issues: Issue[] = [
     label: "June 18, 2026",
     volume: 68,
     number: 25,
-    sizeMb: 23.3,
+    sizeBytes: 7667,
     pages: 20,
     file: "/issues/linden-herald-2026-06-18.pdf",
     contents: [
@@ -413,7 +414,7 @@ export const issues: Issue[] = [
     label: "June 11, 2026",
     volume: 68,
     number: 24,
-    sizeMb: 18.9,
+    sizeBytes: 7744,
     pages: 16,
     file: "/issues/linden-herald-2026-06-11.pdf",
     contents: [
@@ -427,7 +428,7 @@ export const issues: Issue[] = [
     label: "May 21, 2026",
     volume: 68,
     number: 21,
-    sizeMb: 16.8,
+    sizeBytes: 7659,
     pages: 14,
     file: "/issues/linden-herald-2026-05-21.pdf",
     contents: [
@@ -440,7 +441,7 @@ export const issues: Issue[] = [
     label: "May 7, 2026",
     volume: 68,
     number: 19,
-    sizeMb: 14.2,
+    sizeBytes: 7720,
     pages: 12,
     file: "/issues/linden-herald-2026-05-07.pdf",
     contents: [
@@ -454,7 +455,7 @@ export const issues: Issue[] = [
     label: "April 16, 2026",
     volume: 68,
     number: 16,
-    sizeMb: 15.2,
+    sizeBytes: 7657,
     pages: 12,
     file: "/issues/linden-herald-2026-04-16.pdf",
     contents: [
@@ -467,7 +468,7 @@ export const issues: Issue[] = [
     label: "March 19, 2026",
     volume: 68,
     number: 12,
-    sizeMb: 15.5,
+    sizeBytes: 7744,
     pages: 12,
     file: "/issues/linden-herald-2026-03-19.pdf",
     contents: [
@@ -481,7 +482,7 @@ export const issues: Issue[] = [
     label: "February 12, 2026",
     volume: 68,
     number: 7,
-    sizeMb: 13.9,
+    sizeBytes: 7753,
     pages: 12,
     file: "/issues/linden-herald-2026-02-12.pdf",
     contents: [
@@ -495,7 +496,7 @@ export const issues: Issue[] = [
     label: "January 15, 2026",
     volume: 68,
     number: 3,
-    sizeMb: 14.6,
+    sizeBytes: 7758,
     pages: 12,
     file: "/issues/linden-herald-2026-01-15.pdf",
     contents: [
@@ -509,7 +510,7 @@ export const issues: Issue[] = [
     label: "November 13, 2025",
     volume: 67,
     number: 46,
-    sizeMb: 18.4,
+    sizeBytes: 7679,
     pages: 16,
     file: "/issues/linden-herald-2025-11-13.pdf",
     contents: [
@@ -522,7 +523,7 @@ export const issues: Issue[] = [
     label: "October 16, 2025",
     volume: 67,
     number: 42,
-    sizeMb: 17.1,
+    sizeBytes: 7747,
     pages: 14,
     file: "/issues/linden-herald-2025-10-16.pdf",
     contents: [
@@ -536,7 +537,7 @@ export const issues: Issue[] = [
     label: "September 4, 2025",
     volume: 67,
     number: 36,
-    sizeMb: 14.9,
+    sizeBytes: 7679,
     pages: 12,
     file: "/issues/linden-herald-2025-09-04.pdf",
     contents: [
@@ -549,7 +550,7 @@ export const issues: Issue[] = [
     label: "August 14, 2025",
     volume: 67,
     number: 33,
-    sizeMb: 15.2,
+    sizeBytes: 7739,
     pages: 12,
     file: "/issues/linden-herald-2025-08-14.pdf",
     contents: [
@@ -563,7 +564,7 @@ export const issues: Issue[] = [
     label: "June 19, 2025",
     volume: 67,
     number: 25,
-    sizeMb: 21.7,
+    sizeBytes: 7667,
     pages: 20,
     file: "/issues/linden-herald-2025-06-19.pdf",
     contents: [
@@ -576,7 +577,7 @@ export const issues: Issue[] = [
     label: "May 15, 2025",
     volume: 67,
     number: 20,
-    sizeMb: 16.4,
+    sizeBytes: 7744,
     pages: 14,
     file: "/issues/linden-herald-2025-05-15.pdf",
     contents: [
@@ -590,7 +591,7 @@ export const issues: Issue[] = [
     label: "March 13, 2025",
     volume: 67,
     number: 11,
-    sizeMb: 14.8,
+    sizeBytes: 7728,
     pages: 12,
     file: "/issues/linden-herald-2025-03-13.pdf",
     contents: [
@@ -604,7 +605,7 @@ export const issues: Issue[] = [
     label: "November 14, 2024",
     volume: 66,
     number: 46,
-    sizeMb: 18.2,
+    sizeBytes: 7749,
     pages: 16,
     file: "/issues/linden-herald-2024-11-14.pdf",
     contents: [
@@ -618,7 +619,7 @@ export const issues: Issue[] = [
     label: "September 12, 2024",
     volume: 66,
     number: 37,
-    sizeMb: 15.9,
+    sizeBytes: 7746,
     pages: 14,
     file: "/issues/linden-herald-2024-09-12.pdf",
     contents: [
@@ -632,7 +633,7 @@ export const issues: Issue[] = [
     label: "June 13, 2024",
     volume: 66,
     number: 24,
-    sizeMb: 20.4,
+    sizeBytes: 7729,
     pages: 18,
     file: "/issues/linden-herald-2024-06-13.pdf",
     contents: [
@@ -646,7 +647,7 @@ export const issues: Issue[] = [
     label: "February 15, 2024",
     volume: 66,
     number: 7,
-    sizeMb: 13.4,
+    sizeBytes: 7743,
     pages: 12,
     file: "/issues/linden-herald-2024-02-15.pdf",
     contents: [
@@ -660,7 +661,7 @@ export const issues: Issue[] = [
     label: "October 12, 2023",
     volume: 65,
     number: 41,
-    sizeMb: 16.8,
+    sizeBytes: 7739,
     pages: 14,
     file: "/issues/linden-herald-2023-10-12.pdf",
     contents: [
@@ -674,7 +675,7 @@ export const issues: Issue[] = [
     label: "June 15, 2023",
     volume: 65,
     number: 24,
-    sizeMb: 19.6,
+    sizeBytes: 7739,
     pages: 18,
     file: "/issues/linden-herald-2023-06-15.pdf",
     contents: [

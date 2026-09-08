@@ -5,7 +5,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { currentIssue, sortedIssues } from "@/data/archive";
 import { legalNoticeRates, subscriptionRates } from "@/data/rates";
 import { site } from "@/data/site";
-import { asset, formatDate } from "@/lib/utils";
+import { asset, formatDate, formatFileSize } from "@/lib/utils";
 
 const inCounty = subscriptionRates[0];
 
@@ -47,7 +47,7 @@ export default function HomePage() {
             </Link>
             <div className="mt-5 space-y-2">
               <a href={asset(currentIssue.file)} className="btn-primary w-full text-xs" download>
-                Download the PDF ({currentIssue.sizeMb} MB)
+                Download the PDF ({formatFileSize(currentIssue.sizeBytes)})
               </a>
               <Link href="/subscribe" className="btn-outline w-full text-xs">
                 Subscribe, ${inCounty.price} a year
@@ -209,7 +209,7 @@ export default function HomePage() {
                 {issue.label}
               </p>
               <p className="mt-0.5 font-label text-[0.7rem] uppercase tracking-[0.12em] text-ink-faint">
-                {issue.pages} pages &middot; {issue.sizeMb} MB
+                {issue.pages} pages &middot; {formatFileSize(issue.sizeBytes)}
               </p>
             </Link>
           ))}

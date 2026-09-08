@@ -1,0 +1,28 @@
+name: Correction
+description: Something on the site is wrong.
+title: "Correction: "
+labels: ["correction"]
+body:
+  - type: input
+    id: where
+    attributes:
+      label: Page
+      placeholder: /legal-notices
+    validations:
+      required: true
+  - type: textarea
+    id: wrong
+    attributes:
+      label: What it says now, and what it should say
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Could a customer act on this?
+      description: A wrong price or deadline is urgent. A typo is not.
+      options:
+        - "Yes — a price, deadline or legal claim"
+        - "No"
+    validations:
+      required: true

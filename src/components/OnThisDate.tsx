@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import IssueCover from "@/components/IssueCover";
 import {
   publicationDates,
@@ -12,7 +11,7 @@ import {
 } from "@/lib/issues";
 import { issueHeadlines } from "@/data/archive";
 import { site } from "@/data/site";
-import { asset, cn, formatDate } from "@/lib/utils";
+import { asset, formatDate, formatFileSize } from "@/lib/utils";
 
 type Result = { match: PublicationDate; daysAway: number };
 
@@ -90,16 +89,10 @@ export default function OnThisDate() {
           </button>
         </div>
 
-        <AnimatePresence mode="wait">
+        {/* The matched issue appears with no other feedback, so announce it. */}
+        <div aria-live="polite" aria-atomic="true">
           {result && (
-            <motion.div
-              key={result.match.iso}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-7 border-t-2 border-ink pt-7"
-            >
+            <div className="mt-7 border-t-2 border-ink pt-7">
               <div className="grid gap-7 sm:grid-cols-[10rem_1fr]">
                 <div className="w-40 shadow-page">
                   <IssueCover
@@ -134,7 +127,7 @@ export default function OnThisDate() {
                         ))}
                       </ul>
                       <a href={asset(result.match.issue.file)} className="btn-primary mt-5 text-xs">
-                        Read this issue &middot; PDF {result.match.issue.sizeMb} MB
+                        Read this issue &middot; PDF {formatFileSize(result.match.issue.sizeBytes)}
                       </a>
                     </>
                   ) : (
@@ -157,15 +150,15 @@ export default function OnThisDate() {
                   )}
                 </div>
               </div>
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
 
-        {touched && !result && (
-          <p className="mt-6 font-body text-ink-muted">
-            No issue found for that date. Try another.
-          </p>
-        )}
+          {touched && !result && (
+            <p className="mt-6 font-body text-ink-muted">
+              No issue found for that date. Try another.
+            </p>
+          )}
+        </div>
 
         {/* Coverage by decade. Also shows how much of the back catalogue is scanned. */}
         {dates && (

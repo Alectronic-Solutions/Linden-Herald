@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Reader submission
+    url: https://www.lindenherald.com/community
+    about: Obituaries, calendar entries and classifieds go through the site, not GitHub.

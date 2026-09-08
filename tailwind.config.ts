@@ -9,7 +9,9 @@ const config: Config = {
           DEFAULT: "#14110F",
           soft: "#2A2521",
           muted: "#5A5248",
-          faint: "#8A8175",
+          // 5.3:1 on newsprint. The previous #8A8175 was 3.5:1, which fails
+          // WCAG AA for the small text this token is used for throughout.
+          faint: "#6E6659",
         },
         newsprint: {
           DEFAULT: "#FAF7F0",
@@ -26,7 +28,10 @@ const config: Config = {
           light: "#B24A45",
         },
         harvest: {
-          DEFAULT: "#B8862F",
+          // 5.1:1 on newsprint-white. The previous #B8862F was 3.2:1, which
+          // failed AA for the kickers this is mostly used on. Nothing sits on
+          // a harvest background, so darkening the token is safe.
+          DEFAULT: "#90651A",
           light: "#D8AC55",
         },
         rule: {
@@ -50,15 +55,6 @@ const config: Config = {
       backgroundImage: {
         "newsprint-grain":
           "radial-gradient(circle at 25% 15%, rgba(184,134,47,0.05), transparent 55%), radial-gradient(circle at 78% 62%, rgba(27,77,62,0.05), transparent 55%)",
-      },
-      keyframes: {
-        "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(14px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-      },
-      animation: {
-        "fade-up": "fade-up 0.6s cubic-bezier(0.16,1,0.3,1) both",
       },
     },
   },

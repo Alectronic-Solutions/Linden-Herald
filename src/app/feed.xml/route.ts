@@ -1,6 +1,5 @@
 import { sortedIssues } from "@/data/archive";
 import { site, SITE_URL, sectionName } from "@/data/site";
-import { asset } from "@/lib/utils";
 
 export const dynamic = "force-static";
 
@@ -32,9 +31,7 @@ export async function GET() {
       <link>${url}</link>
       <guid isPermaLink="true">${url}</guid>
       <description>${escapeXml(description)}</description>
-      <enclosure url="${SITE_URL}${asset(issue.file)}" length="${Math.round(
-        issue.sizeMb * 1_048_576,
-      )}" type="application/pdf" />
+      <enclosure url="${SITE_URL}${issue.file}" length="${issue.sizeBytes}" type="application/pdf" />
       <pubDate>${new Date(`${issue.date}T08:00:00Z`).toUTCString()}</pubDate>
     </item>`;
     })
@@ -48,7 +45,7 @@ export async function GET() {
     <description>${escapeXml(site.description)}</description>
     <language>en-us</language>
     <copyright>Copyright ${new Date().getFullYear()} ${escapeXml(site.name)}</copyright>
-    <managingEditor>news@lindenherald.com (${escapeXml(site.name)})</managingEditor>
+    <managingEditor>${site.email} (${escapeXml(site.name)})</managingEditor>
     <atom:link href="${SITE_URL}/feed.xml" rel="self" type="application/rss+xml" />
 ${items}
   </channel>

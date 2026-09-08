@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
 import { legalNoticeRates } from "@/data/rates";
 import { site } from "@/data/site";
 import { cn, formatDate } from "@/lib/utils";
@@ -43,13 +42,13 @@ export default function LegalNoticeEstimator() {
   const complete = Boolean(notice && needBy);
 
   return (
-    <section
-      aria-labelledby="estimator"
-      className="border-[3px] border-ink bg-newsprint-white"
-    >
+    <section aria-labelledby="estimator" className="border-[3px] border-ink bg-newsprint-white">
       <div className="border-b border-rule bg-herald px-6 py-4 text-newsprint-white sm:px-8">
         <p className="kicker text-harvest-light">No phone call required</p>
-        <h2 id="estimator" className="mt-1 font-display text-3xl font-black text-newsprint-white sm:text-4xl">
+        <h2
+          id="estimator"
+          className="mt-1 font-display text-3xl font-black text-newsprint-white sm:text-4xl"
+        >
           What will my notice cost?
         </h2>
         <p className="mt-2 max-w-2xl font-body text-[0.98rem] leading-relaxed text-newsprint-deep/85">
@@ -100,38 +99,30 @@ export default function LegalNoticeEstimator() {
             </div>
           </fieldset>
 
-          <AnimatePresence>
-            {isFbn && (
-              <motion.fieldset
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
-              >
-                <legend className="field-label mb-2">
-                  <span className="mr-2 inline-block bg-ink px-1.5 text-newsprint-white">2</span>
-                  Additional business names
-                </legend>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="number"
-                    min={0}
-                    max={20}
-                    value={extraNames}
-                    onChange={(e) =>
-                      setExtraNames(Math.max(0, Math.min(20, Number(e.target.value) || 0)))
-                    }
-                    className="field w-24"
-                    aria-describedby="extra-names-help"
-                  />
-                  <p id="extra-names-help" className="font-body text-[0.9rem] text-ink-muted">
-                    Beyond the first. $10 each.
-                  </p>
-                </div>
-              </motion.fieldset>
-            )}
-          </AnimatePresence>
+          {isFbn && (
+            <fieldset className="overflow-hidden">
+              <legend className="field-label mb-2">
+                <span className="mr-2 inline-block bg-ink px-1.5 text-newsprint-white">2</span>
+                Additional business names
+              </legend>
+              <div className="flex items-center gap-3">
+                <input
+                  type="number"
+                  min={0}
+                  max={20}
+                  value={extraNames}
+                  onChange={(e) =>
+                    setExtraNames(Math.max(0, Math.min(20, Number(e.target.value) || 0)))
+                  }
+                  className="field w-24"
+                  aria-describedby="extra-names-help"
+                />
+                <p id="extra-names-help" className="font-body text-[0.9rem] text-ink-muted">
+                  Beyond the first. $10 each.
+                </p>
+              </div>
+            </fieldset>
+          )}
 
           <div>
             <label htmlFor="need-by" className="field-label mb-2 block">
@@ -151,103 +142,89 @@ export default function LegalNoticeEstimator() {
           </div>
         </div>
 
-        {/* Result */}
-        <div>
-          <AnimatePresence mode="wait">
-            {complete && notice ? (
-              <motion.div
-                key={`${notice.id}-${extraNames}-${needBy}`}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="border-2 border-ink bg-newsprint p-6"
-              >
-                <p className="kicker text-cherry">Your estimate</p>
-                <p className="mt-2 font-display text-6xl font-black leading-none">
-                  {total === null ? "Quote" : `$${total}`}
-                </p>
-                <p className="mt-2 font-body text-[0.95rem] text-ink-muted">
-                  {notice.type}
-                  {isFbn && extraNames > 0
-                    ? ` plus ${extraNames} additional ${extraNames === 1 ? "name" : "names"}`
-                    : ""}
-                  .{" "}
-                  {total === null
-                    ? "Trustee sales are priced by the column inch. Call and we will quote it the same day."
-                    : notice.runWeeks + "."}
-                </p>
+        {/* Result. Price, deadline and checklist all change together, and a
+            screen-reader user otherwise gets no signal that they did. */}
+        <div aria-live="polite" aria-atomic="true">
+          {complete && notice ? (
+            <div className="border-2 border-ink bg-newsprint p-6">
+              <p className="kicker text-cherry">Your estimate</p>
+              <p className="mt-2 font-display text-6xl font-black leading-none">
+                {total === null ? "Quote" : `$${total}`}
+              </p>
+              <p className="mt-2 font-body text-[0.95rem] text-ink-muted">
+                {notice.type}
+                {isFbn && extraNames > 0
+                  ? ` plus ${extraNames} additional ${extraNames === 1 ? "name" : "names"}`
+                  : ""}
+                .{" "}
+                {total === null
+                  ? "Trustee sales are priced by the column inch. Call and we will quote it the same day."
+                  : notice.runWeeks + "."}
+              </p>
 
-                {plan && (
-                  <dl className="mt-5 divide-y divide-rule border-y border-rule">
+              {plan && (
+                <dl className="mt-5 divide-y divide-rule border-y border-rule">
+                  <div className="flex justify-between gap-4 py-2.5">
+                    <dt className="font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
+                      Copy deadline
+                    </dt>
+                    <dd className="text-right font-body text-[0.95rem] font-semibold">
+                      {formatDate(plan.deadline)}, noon
+                    </dd>
+                  </div>
+                  <div className="flex justify-between gap-4 py-2.5">
+                    <dt className="font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
+                      First publication
+                    </dt>
+                    <dd className="text-right font-body text-[0.95rem] font-semibold">
+                      {formatDate(plan.firstRun)}
+                    </dd>
+                  </div>
+                  {notice.filedFor && (
                     <div className="flex justify-between gap-4 py-2.5">
                       <dt className="font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
-                        Copy deadline
+                        Proof of publication
                       </dt>
-                      <dd className="text-right font-body text-[0.95rem] font-semibold">
-                        {formatDate(plan.deadline)}, noon
+                      <dd className="text-right font-body text-[0.95rem] font-semibold text-herald">
+                        Filed for you, no charge
                       </dd>
                     </div>
-                    <div className="flex justify-between gap-4 py-2.5">
-                      <dt className="font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
-                        First publication
-                      </dt>
-                      <dd className="text-right font-body text-[0.95rem] font-semibold">
-                        {formatDate(plan.firstRun)}
-                      </dd>
-                    </div>
-                    {notice.filedFor && (
-                      <div className="flex justify-between gap-4 py-2.5">
-                        <dt className="font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
-                          Proof of publication
-                        </dt>
-                        <dd className="text-right font-body text-[0.95rem] font-semibold text-herald">
-                          Filed for you, no charge
-                        </dd>
-                      </div>
-                    )}
-                  </dl>
-                )}
+                  )}
+                </dl>
+              )}
 
-                <h3 className="mt-5 font-display text-lg font-bold">What to bring</h3>
-                <ul className="mt-2 space-y-1.5">
-                  {notice.bring.map((b) => (
-                    <li key={b} className="flex gap-2 font-body text-[0.93rem] text-ink-muted">
-                      <span aria-hidden className="text-harvest">
-                        &#9670;
-                      </span>
-                      {b}
-                    </li>
-                  ))}
-                </ul>
+              <h3 className="mt-5 font-display text-lg font-bold">What to bring</h3>
+              <ul className="mt-2 space-y-1.5">
+                {notice.bring.map((b) => (
+                  <li key={b} className="flex gap-2 font-body text-[0.93rem] text-ink-muted">
+                    <span aria-hidden className="text-harvest">
+                      &#9670;
+                    </span>
+                    {b}
+                  </li>
+                ))}
+              </ul>
 
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <Link href="#notice-request" className="btn-primary text-xs">
-                    Start this notice
-                  </Link>
-                  <a href={site.phoneHref} className="btn-outline text-xs">
-                    Call {site.phone}
-                  </a>
-                </div>
-                <p className="mt-4 font-label text-[0.7rem] uppercase tracking-[0.12em] text-ink-faint">
-                  Estimate only. We confirm every notice against the court&apos;s requirements
-                  before it runs.
-                </p>
-              </motion.div>
-            ) : (
-              <motion.div
-                key="empty"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="flex h-full min-h-[16rem] items-center justify-center border-2 border-dashed border-rule-strong p-8 text-center"
-              >
-                <p className="max-w-xs font-body text-[0.96rem] leading-relaxed text-ink-faint">
-                  Choose a notice type and a date, and your price and schedule will appear here.
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <Link href="#notice-request" className="btn-primary text-xs">
+                  Start this notice
+                </Link>
+                <a href={site.phoneHref} className="btn-outline text-xs">
+                  Call {site.phone}
+                </a>
+              </div>
+              <p className="mt-4 font-label text-[0.7rem] uppercase tracking-[0.12em] text-ink-faint">
+                Estimate only. We confirm every notice against the court&apos;s requirements before
+                it runs.
+              </p>
+            </div>
+          ) : (
+            <div className="flex h-full min-h-[16rem] items-center justify-center border-2 border-dashed border-rule-strong p-8 text-center">
+              <p className="max-w-xs font-body text-[0.96rem] leading-relaxed text-ink-faint">
+                Choose a notice type and a date, and your price and schedule will appear here.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </section>

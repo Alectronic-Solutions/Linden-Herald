@@ -1,13 +1,17 @@
 """
-Builds a sample PDF for every issue listed in src/data/archive.ts, so the
-E-Edition archive is clickable end to end during the demo.
+Builds a sample PDF for every issue in the archive, so the back-issue archive is
+clickable end to end during the demo.
 
 Each file is plainly marked a placeholder. Replace them with the Herald's own
 scans, keeping the same filenames, and nothing else needs to change.
 
-Run: python3 scripts/build_issue_pdfs.py
+Run:
+    npm run issues:json > issues.json
+    python3 scripts/build_issue_pdfs.py
+
+Needs reportlab:  pip install reportlab
 """
-import os, re, datetime
+import datetime, json, os, sys
 from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
 from reportlab.pdfgen import canvas as rl_canvas
@@ -22,22 +26,24 @@ FAINT = (0.86, 0.84, 0.80)
 M = 0.6 * inch
 
 
-def parse_issues(path="src/data/archive.ts"):
-    src = open(path, encoding="utf-8").read()
-    out = []
-    # Require a quoted ISO date so the Issue type declaration is not matched too
-    for blk in re.findall(r'\{\s*date:\s*"\d{4}-\d{2}-\d{2}".*?\n  \}', src, re.S):
-        def g(k, cast=str):
-            m = re.search(rf"{k}:\s*\"?([^\",\n]+)\"?", blk)
-            return cast(m.group(1)) if m else None
-        highlights = re.findall(r'"([^"]+)"', blk.split("highlights:")[1]) if "highlights:" in blk else []
-        out.append({
-            "date": g("date"), "label": g("label"),
-            "volume": int(g("volume")), "number": int(g("number")),
-            "pages": int(g("pages")), "file": g("file"),
-            "highlights": highlights,
-        })
-    return out
+def parse_issues(path="issues.json"):
+    """Read the issue list produced by the data validator.
+
+    This used to regex-parse src/data/archive.ts directly, which coupled it
+    to two-space indentation and to a "highlights" key that had already been
+    renamed to "contents" -- so it silently generated every PDF with an empty
+    table of contents. Generate the input first:
+
+        npm run issues:json > issues.json
+    """
+    if not os.path.exists(path):
+        sys.exit(f"{path} not found. Run:  npm run issues:json > {path}")
+    with open(path, encoding="utf-8") as fh:
+        issues = json.load(fh)
+    for issue in issues:
+        # The rest of this script still calls them highlights.
+        issue["highlights"] = issue.get("headlines", [])
+    return issues
 
 
 def rule(c, x0, x1, y, thick=1.6, color=INK):

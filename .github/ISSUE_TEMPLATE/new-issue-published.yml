@@ -1,0 +1,43 @@
+name: New issue published
+description: A new edition is out and should go on the site.
+title: "Add issue: "
+labels: ["content", "archive"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Mention `@claude` anywhere below and it will make the change and open a
+        pull request, following the `add-issue` skill in this repository.
+  - type: input
+    id: date
+    attributes:
+      label: Cover date
+      description: The Thursday printed on the front page.
+      placeholder: 2026-09-10
+    validations:
+      required: true
+  - type: input
+    id: pages
+    attributes:
+      label: Page count
+      placeholder: "12"
+    validations:
+      required: true
+  - type: textarea
+    id: contents
+    attributes:
+      label: What ran in it
+      description: |
+        One line per item: headline, section, page. Sections are news,
+        agriculture, sports, schools, public-safety, opinion, history.
+      placeholder: |
+        Warm spring pulls cherry harvest forward — agriculture — p.1
+        Trustees weigh a facilities bond — schools — p.1
+    validations:
+      required: true
+  - type: checkboxes
+    id: pdf
+    attributes:
+      label: PDF
+      options:
+        - label: The PDF is attached to this issue, or already in public/issues/

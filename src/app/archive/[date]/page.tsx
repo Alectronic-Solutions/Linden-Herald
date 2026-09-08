@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/metadata";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import IssueContents from "@/components/IssueContents";
@@ -7,7 +8,7 @@ import SectionHeading from "@/components/SectionHeading";
 import { getIssue, issueNeighbors, issues } from "@/data/archive";
 import { site, SITE_URL } from "@/data/site";
 import { subscriptionRates } from "@/data/rates";
-import { asset, formatDate } from "@/lib/utils";
+import { asset, formatDate, formatFileSize } from "@/lib/utils";
 
 type Params = { params: { date: string } };
 
@@ -23,11 +24,12 @@ export function generateMetadata({ params }: Params): Metadata {
     .map((c) => c.title)
     .slice(0, 3)
     .join(" · ");
-  return {
+  return pageMetadata({
     title: `${issue.label} Issue`,
     description: `The Linden Herald for ${issue.label}: Vol. ${issue.volume}, No. ${issue.number}, ${issue.pages} pages. ${headlines}`,
-    alternates: { canonical: `/archive/${issue.date}` },
-  };
+    path: `/archive/${issue.date}`,
+    image: "/og/archive.jpg",
+  });
 }
 
 export default function IssuePage({ params }: Params) {
@@ -63,7 +65,7 @@ export default function IssuePage({ params }: Params) {
             <IssueCover date={issue.date} volume={issue.volume} number={issue.number} />
           </div>
           <a href={asset(issue.file)} className="btn-primary mt-5 w-full text-xs" download>
-            Download the PDF ({issue.sizeMb} MB)
+            Download the PDF ({formatFileSize(issue.sizeBytes)})
           </a>
           <p className="mt-3 font-body text-[0.85rem] leading-relaxed text-ink-faint">
             The full page-for-page edition. These are large files. On a phone, downloading over
@@ -76,7 +78,7 @@ export default function IssuePage({ params }: Params) {
               ["Volume", `${issue.volume}`],
               ["Number", `${issue.number}`],
               ["Pages", `${issue.pages}`],
-              ["File size", `${issue.sizeMb} MB`],
+              ["File size", formatFileSize(issue.sizeBytes)],
             ].map(([label, value]) => (
               <div key={label} className="flex justify-between gap-4 py-2.5">
                 <dt className="font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
