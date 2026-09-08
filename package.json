@@ -20,7 +20,7 @@
     "issues:json": "tsx scripts/validate-data.ts --json"
   },
   "dependencies": {
-    "next": "14.2.35",
+    "next": "16.3.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -33,7 +33,7 @@
     "autoprefixer": "^10.4.20",
     "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
-    "eslint-config-next": "14.2.35",
+    "eslint-config-next": "16.3.4",
     "postcss": "^8.4.45",
     "prettier": "^3.9.6",
     "tailwindcss": "^3.4.10",
