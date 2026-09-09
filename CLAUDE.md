@@ -71,6 +71,20 @@ plus Thursday-only dates, unique dates, descending order, page numbers within
 the page count, and PDF existence. Run it. There is a `add-issue` skill in
 `.claude/skills/` that walks the whole procedure.
 
+## Dialogs
+
+Modal dialogs go through `Modal` (`src/components/Modal.tsx`) or, for something
+that is not a centred card, the `useDialog` hook it is built on
+(`src/lib/useDialog.ts`). The hook owns scroll lock, the Tab trap, Escape, and
+returning focus on close. Pass `returnFocusRef` whenever the control that opened
+the dialog might have lost focus in the meantime — a submit button disabled while
+its request is in flight has already handed focus to the body by the time the
+dialog mounts.
+
+Form success opens a confirmation card; form failure stays inline beside the
+button, because on a failure the reader's answers are still in the fields and
+that is where they need to be.
+
 ## Facts that are not confirmed
 
 Most prices, all deadlines, the Thursday publication day, the volume numbering

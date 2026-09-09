@@ -2,10 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Logo from "@/components/Logo";
 import { site } from "@/data/site";
 import { cn, volumeFor } from "@/lib/utils";
+import { useDialog } from "@/lib/useDialog";
 
 export default function SiteHeader() {
   const pathname = usePathname();
@@ -28,6 +29,8 @@ export default function SiteHeader() {
    * AnimatePresence, which was the only reason the library was in the root
    * layout chunk and therefore on every route.
    */
+  const closeDrawer = useCallback(() => setOpen(false), []);
+
   const [drawerMounted, setDrawerMounted] = useState(false);
   const [drawerShown, setDrawerShown] = useState(false);
 
@@ -67,47 +70,15 @@ export default function SiteHeader() {
     setOpen(false);
   }, [pathname]);
 
-  // While the drawer is open: lock the page behind it, close on Escape, and
-  // keep the keyboard inside it.
-  useEffect(() => {
-    if (!open) return;
-
-    const { overflow } = document.body.style;
-    document.body.style.overflow = "hidden";
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setOpen(false);
-        toggleRef.current?.focus();
-        return;
-      }
-      if (event.key !== "Tab") return;
-
-      const focusables = drawerRef.current?.querySelectorAll<HTMLElement>(
-        'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])',
-      );
-      if (!focusables?.length) return;
-
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    document.addEventListener("keydown", onKeyDown);
-    const t = window.setTimeout(() => closeRef.current?.focus(), 60);
-
-    return () => {
-      document.body.style.overflow = overflow;
-      document.removeEventListener("keydown", onKeyDown);
-      window.clearTimeout(t);
-    };
-  }, [open]);
+  // Scroll lock, Escape to close, Tab kept inside the drawer, and focus
+  // returned to the toggle on close. Shared with the form confirmation card.
+  useDialog({
+    open,
+    dialogRef: drawerRef,
+    onClose: closeDrawer,
+    initialFocusRef: closeRef,
+    returnFocusRef: toggleRef,
+  });
 
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
 

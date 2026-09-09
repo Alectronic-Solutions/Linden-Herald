@@ -76,14 +76,14 @@ export default function OnThisDate() {
               value={value}
               disabled={!dates}
               onChange={(e) => look(e.target.value)}
-              className="field disabled:opacity-50"
+              className="field disabled:bg-newsprint-deep disabled:text-ink-muted"
             />
           </div>
           <button
             type="button"
             onClick={surprise}
             disabled={!dates}
-            className="btn-outline py-2.5 text-xs disabled:opacity-50"
+            className="btn-outline py-2.5 text-xs disabled:border-rule-strong disabled:text-ink-faint"
           >
             Surprise me
           </button>

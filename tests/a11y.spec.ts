@@ -10,7 +10,10 @@ import { PAGES, ISSUE_PAGE } from "./routes";
 
 for (const path of [...PAGES, ISSUE_PAGE]) {
   test(`${path} has no axe violations`, async ({ page }) => {
-    await page.goto(path === "/" ? "/" : `${path}/`);
+    await page.goto(path === "/" ? "/" : `${path}/`, { waitUntil: "networkidle" });
+    // /archive builds its publication calendar after mount, and its controls
+    // are disabled until it lands. Audit the settled page, not a frame of it.
+    await expect(page.locator("button:disabled, input:disabled")).toHaveCount(0);
 
     const results = await new AxeBuilder({ page })
       .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])

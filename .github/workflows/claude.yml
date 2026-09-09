@@ -2,8 +2,29 @@
 # mentioning @claude. Pairs with the issue templates in .github/ISSUE_TEMPLATE
 # and the project skills in .claude/skills.
 #
-# Requires: the Claude GitHub App installed on this repository, and an
-# ANTHROPIC_API_KEY repository secret. Run /install-github-app in Claude Code.
+# DORMANT until someone sets a credential. With no secret configured this
+# workflow skips with a note instead of failing, so it costs nothing and traps
+# nobody. Every other workflow in this repo is free: Actions minutes are
+# unmetered on public repositories.
+#
+# To switch it on you need two things:
+#
+#   1. The Claude GitHub App installed on this repository.
+#      https://github.com/apps/claude  ->  Install  ->  Linden-Herald
+#
+#   2. ONE of these repository secrets
+#      (Settings -> Secrets and variables -> Actions):
+#
+#      CLAUDE_CODE_OAUTH_TOKEN  Uses an existing Claude Pro/Max subscription.
+#                               No separate bill; it draws on that plan's
+#                               limits. Generate with: claude setup-token
+#
+#      ANTHROPIC_API_KEY        Pay-per-token API billing from
+#                               console.anthropic.com, separate from any Claude
+#                               subscription. Every @claude mention is charged.
+#
+# Prefer the OAuth token if you already pay for Claude. Delete this file if you
+# would rather not have the option at all.
 name: Claude
 
 on:
@@ -29,13 +50,27 @@ jobs:
       pull-requests: write
       issues: write
       id-token: write
+    env:
+      # The secrets context is not allowed in an `if:`, so it is resolved here.
+      HAS_CREDENTIAL: ${{ (secrets.CLAUDE_CODE_OAUTH_TOKEN != '' || secrets.ANTHROPIC_API_KEY != '') && 'yes' || 'no' }}
     steps:
+      - name: Report that Claude is not configured
+        if: env.HAS_CREDENTIAL != 'yes'
+        run: |
+          echo "::notice::@claude is not set up on this repository. See the" \
+               "comments at the top of .github/workflows/claude.yml. Skipping."
+
       - uses: actions/checkout@v4
+        if: env.HAS_CREDENTIAL == 'yes'
         with:
           fetch-depth: 1
 
       - uses: anthropics/claude-code-action@v1
+        if: env.HAS_CREDENTIAL == 'yes'
         with:
+          # Whichever one is set. The OAuth token draws on a Claude
+          # subscription; the API key bills per token.
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           # Everything the checks need, so Claude can verify its own work.
           claude_args: |
