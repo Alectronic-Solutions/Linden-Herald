@@ -138,10 +138,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${display.variable} ${body.variable} ${label.variable}`}>
       <body className="min-h-screen antialiased no-js">
-        {/* Progressive-enhancement flag, cleared once React has hydrated. */}
+        {/*
+          Progressive-enhancement flag, cleared once React has hydrated, and the
+          reader's stored text size restored before anything paints. This runs
+          as the first node in the body, so a reader who needs the largest
+          setting never sees a frame of the smallest.
+        */}
         <script
           dangerouslySetInnerHTML={{
-            __html: "document.body.classList.remove('no-js')",
+            __html:
+              "document.body.classList.remove('no-js');" +
+              "try{var t=localStorage.getItem('lh-text-size');" +
+              "if(t==='large'||t==='largest')document.documentElement.setAttribute('data-text-size',t)}catch(e){}",
           }}
         />
         <a

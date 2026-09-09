@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import Link from "next/link";
 import IssueCover from "@/components/IssueCover";
 import {
   publicationDates,
@@ -55,7 +56,7 @@ export default function OnThisDate() {
         >
           On This Date
         </h2>
-        <p className="mt-2 max-w-2xl font-body text-[0.98rem] leading-relaxed text-newsprint-deep/80">
+        <p className="mt-2 max-w-2xl font-body text-[1.05rem] leading-relaxed text-newsprint-deep/80">
           The Herald has come out every Thursday since 1959. Pick any date and we will find the
           issue closest to it. The week you were born, the week you were married, the week the Lions
           finally won league.
@@ -83,7 +84,7 @@ export default function OnThisDate() {
             type="button"
             onClick={surprise}
             disabled={!dates}
-            className="btn-outline py-2.5 text-xs disabled:border-rule-strong disabled:text-ink-faint"
+            className="btn-outline py-2.5 disabled:border-rule-strong disabled:text-ink-faint"
           >
             Surprise me
           </button>
@@ -110,13 +111,13 @@ export default function OnThisDate() {
                   <p className="mt-2 font-display text-3xl font-black leading-tight">
                     {formatDate(result.match.iso)}
                   </p>
-                  <p className="mt-1 font-label text-[0.78rem] uppercase tracking-[0.14em] text-ink-faint">
+                  <p className="mt-1 font-label text-[0.82rem] uppercase tracking-[0.14em] text-ink-faint">
                     Volume {result.match.volume}
                   </p>
 
                   {result.match.digitized && result.match.issue ? (
                     <>
-                      <ul className="mt-4 space-y-1.5 font-body text-[0.96rem] text-ink-muted">
+                      <ul className="mt-4 space-y-1.5 font-body text-[1rem] text-ink-muted">
                         {issueHeadlines(result.match.issue).map((h: string) => (
                           <li key={h} className="flex gap-2">
                             <span aria-hidden className="text-harvest">
@@ -126,25 +127,25 @@ export default function OnThisDate() {
                           </li>
                         ))}
                       </ul>
-                      <a href={asset(result.match.issue.file)} className="btn-primary mt-5 text-xs">
+                      <a href={asset(result.match.issue.file)} className="btn-primary mt-5">
                         Read this issue &middot; PDF {formatFileSize(result.match.issue.sizeBytes)}
                       </a>
                     </>
                   ) : (
                     <>
-                      <p className="mt-4 max-w-lg font-body text-[0.98rem] leading-relaxed text-ink-muted">
+                      <p className="mt-4 max-w-lg font-body text-[1.05rem] leading-relaxed text-ink-muted">
                         This issue has not been scanned yet. It exists in the Herald&apos;s bound
                         volumes, and copies from {EARLIEST_DATE.slice(0, 4)} onward are available
                         for review at the Stockton Public Library. Call the office and we will pull
                         the page for you.
                       </p>
                       <div className="mt-5 flex flex-wrap gap-3">
-                        <a href={site.phoneHref} className="btn-primary text-xs">
+                        <a href={site.phoneHref} className="btn-primary">
                           Request this issue
                         </a>
-                        <a href="/contact" className="btn-outline text-xs">
+                        <Link href="/contact" className="btn-outline">
                           Send a note
-                        </a>
+                        </Link>
                       </div>
                     </>
                   )}
@@ -165,7 +166,7 @@ export default function OnThisDate() {
           <div className="mt-9 border-t border-rule pt-6">
             <div className="flex flex-wrap items-baseline justify-between gap-2">
               <h3 className="font-display text-lg font-bold">What is online so far</h3>
-              <p className="font-label text-[0.76rem] uppercase tracking-[0.14em] text-ink-faint">
+              <p className="font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
                 {totalDigitized.toLocaleString()} of {totalIssues.toLocaleString()} issues scanned
               </p>
             </div>
@@ -192,17 +193,17 @@ export default function OnThisDate() {
                         style={{ height: `${pct > 0 ? Math.max(pct, 8) : 0}%` }}
                       />
                     </div>
-                    <p className="mt-1.5 text-center font-label text-[0.72rem] font-semibold uppercase tracking-[0.1em] text-ink">
+                    <p className="mt-1.5 text-center font-label text-[0.8rem] font-semibold uppercase tracking-[0.1em] text-ink">
                       {String(d.decade).slice(2)}s
                     </p>
-                    <p className="text-center font-label text-[0.64rem] uppercase tracking-[0.06em] text-ink-faint">
+                    <p className="text-center font-label text-[0.78rem] uppercase tracking-[0.06em] text-ink-faint">
                       {d.digitized}/{d.total}
                     </p>
                   </li>
                 );
               })}
             </ul>
-            <p className="mt-4 max-w-2xl font-body text-[0.92rem] leading-relaxed text-ink-muted">
+            <p className="mt-4 max-w-2xl font-body text-[1rem] leading-relaxed text-ink-muted">
               Every Thursday since 1959 is accounted for above. Solid green is what a reader can
               open right now. The hatched area is the Herald&apos;s back catalogue, waiting in the
               bound volumes for someone to scan it.

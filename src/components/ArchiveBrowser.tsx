@@ -82,17 +82,20 @@ export default function ArchiveBrowser() {
                 {formatDate(issue.date)}
               </Link>
             </h3>
-            <p className="mt-1 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+            <p className="mt-1 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
               {issue.pages} pages &middot;{" "}
               <a
                 href={asset(issue.file)}
-                className="underline decoration-dotted underline-offset-2 hover:text-herald"
+                className="font-semibold text-ink underline underline-offset-4 hover:text-herald"
                 download
               >
-                PDF {formatFileSize(issue.sizeBytes)}
+                Download PDF {formatFileSize(issue.sizeBytes)}
+                {/* Thirty-two links reading "PDF 4.2 MB" are indistinguishable
+                    from one another in a screen reader's list of links. */}
+                <span className="sr-only"> of the {formatDate(issue.date)} issue</span>
               </a>
             </p>
-            <ul className="mt-2 space-y-1 font-body text-[0.88rem] leading-snug text-ink-muted">
+            <ul className="mt-2 space-y-1 font-body text-[0.95rem] leading-snug text-ink-muted">
               {issueHeadlines(issue, 2).map((h) => (
                 <li key={h}>{h}</li>
               ))}

@@ -71,23 +71,23 @@ export default function CalendarBrowser() {
                     )}
                   >
                     <div className="text-center sm:border-r sm:border-rule sm:pr-4">
-                      <p className="font-label text-[0.72rem] uppercase tracking-[0.16em] text-cherry">
+                      <p className="font-label text-[0.8rem] uppercase tracking-[0.16em] text-cherry">
                         {d.toLocaleDateString("en-US", { weekday: "short" })}
                       </p>
                       <p className="font-display text-4xl font-black leading-none">{d.getDate()}</p>
                       {e.endDate && (
-                        <p className="mt-1 font-label text-[0.66rem] uppercase tracking-[0.1em] text-ink-faint">
+                        <p className="mt-1 font-label text-[0.78rem] uppercase tracking-[0.1em] text-ink-faint">
                           thru {new Date(`${e.endDate}T12:00:00`).getDate()}
                         </p>
                       )}
                     </div>
                     <div>
                       <h3 className="font-display text-xl font-bold leading-snug">{e.title}</h3>
-                      <p className="mt-1 font-label text-[0.74rem] uppercase tracking-[0.13em] text-ink-faint">
+                      <p className="mt-1 font-label text-[0.8rem] uppercase tracking-[0.13em] text-ink-faint">
                         {e.time ? `${e.time} · ` : ""}
                         {e.location}
                       </p>
-                      <p className="mt-2 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+                      <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
                         {e.detail}
                       </p>
                     </div>

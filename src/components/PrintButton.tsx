@@ -41,7 +41,7 @@ export default function PrintButton({
           window.setTimeout(() => document.body.classList.remove("printing-sheet"), 500);
         }
       }}
-      className="no-print btn-outline text-xs"
+      className="no-print btn-outline"
     >
       {label}
     </button>

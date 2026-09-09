@@ -13,6 +13,22 @@
     text-rendering: optimizeLegibility;
   }
 
+  /*
+   * The reader's own text size, chosen in the folio line and remembered in
+   * localStorage. Every size on this site is set in rem, so moving the root
+   * size moves the whole paper together and the typographic hierarchy holds.
+   * Browser zoom does the same thing; this exists because a reader who needs
+   * larger type should not have to know that, and because on a shared family
+   * computer the browser's own zoom is not theirs to change.
+   */
+  html[data-text-size="large"] {
+    font-size: 112.5%;
+  }
+
+  html[data-text-size="largest"] {
+    font-size: 125%;
+  }
+
   body {
     @apply bg-newsprint text-ink font-body;
     background-image: theme("backgroundImage.newsprint-grain");
@@ -24,7 +40,30 @@
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-herald ring-offset-2 ring-offset-newsprint;
+    @apply outline-none ring-[3px] ring-herald ring-offset-2 ring-offset-newsprint;
+  }
+
+  /* Herald green on the ink footer is a dark ring on a dark ground: about
+     1.5:1, well under the 3:1 that SC 1.4.11 asks of a focus indicator. */
+  footer :focus-visible {
+    @apply ring-harvest-light ring-offset-ink;
+  }
+
+  /*
+   * WCAG 2.2 SC 2.4.11 Focus Not Obscured. The navigation is sticky at the top
+   * of every page, so an element the browser scrolls to on Tab can arrive
+   * underneath it with no indication it has focus. scroll-margin keeps whatever
+   * has focus clear of the bar, and of the back-to-top button at the foot.
+   */
+  a,
+  button,
+  input,
+  select,
+  textarea,
+  summary,
+  [tabindex] {
+    scroll-margin-top: 7rem;
+    scroll-margin-bottom: 4rem;
   }
 
   /* Tailwind's ring-* compiles to box-shadow, which is dropped in Windows High
@@ -43,6 +82,11 @@
   h4 {
     @apply font-display text-ink;
     text-wrap: balance;
+    /* "Welcome to LindenHerald.com" is one unbreakable 16-character word at
+       2.25rem. At the reader's largest text size on a phone, and equally at
+       400% browser zoom, it ran off the side of the page and took the whole
+       document's horizontal scroll with it. */
+    overflow-wrap: break-word;
   }
 
   p {
@@ -57,7 +101,7 @@
 
   /* Small condensed uppercase label used for kickers and section names */
   .kicker {
-    @apply font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em];
+    @apply font-label text-[0.8rem] font-semibold uppercase tracking-[0.16em];
   }
 
   /* The double rule that separates major zones, borrowed from print furniture */
@@ -72,7 +116,7 @@
   }
 
   .link-underline {
-    @apply decoration-rule-strong underline-offset-4 transition-colors hover:decoration-herald;
+    @apply underline decoration-ink-muted underline-offset-4 transition-colors hover:decoration-herald;
   }
 
   .headline-link {
@@ -85,7 +129,7 @@
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 font-label text-sm font-semibold uppercase tracking-[0.14em] transition-all duration-200;
+    @apply inline-flex min-h-[2.75rem] items-center justify-center gap-2 font-label text-[0.95rem] font-semibold uppercase tracking-[0.12em] transition-all duration-200;
   }
 
   /*
@@ -132,11 +176,11 @@
   }
 
   .field-label {
-    @apply kicker mb-1.5 block text-ink-muted;
+    @apply mb-2 block font-label text-[0.95rem] font-semibold uppercase tracking-[0.1em] text-ink-soft;
   }
 
   .field {
-    @apply w-full border border-rule-strong bg-newsprint-white px-3.5 py-2.5 font-body text-[0.95rem] text-ink placeholder:text-ink-faint focus:border-herald focus:outline-none focus:ring-1 focus:ring-herald;
+    @apply min-h-[3rem] w-full border-2 border-rule-strong bg-newsprint-white px-3.5 py-2.5 font-body text-[1rem] text-ink placeholder:text-ink-faint focus:border-herald focus:outline-none focus:ring-1 focus:ring-herald;
   }
 }
 

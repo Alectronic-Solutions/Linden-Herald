@@ -46,10 +46,10 @@ export default function HomePage() {
               />
             </Link>
             <div className="mt-5 space-y-2">
-              <a href={asset(currentIssue.file)} className="btn-primary w-full text-xs" download>
+              <a href={asset(currentIssue.file)} className="btn-primary w-full" download>
                 Download the PDF ({formatFileSize(currentIssue.sizeBytes)})
               </a>
-              <Link href="/subscribe" className="btn-outline w-full text-xs">
+              <Link href="/subscribe" className="btn-outline w-full">
                 Subscribe, ${inCounty.price} a year
               </Link>
             </div>
@@ -60,19 +60,19 @@ export default function HomePage() {
             <h2 className="mt-2 font-display text-3xl font-black leading-tight sm:text-[2.6rem]">
               {formatDate(currentIssue.date)}
             </h2>
-            <p className="mt-2 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
+            <p className="mt-2 font-label text-[0.84rem] uppercase tracking-[0.14em] text-ink-faint">
               Vol. {currentIssue.volume} &middot; No. {currentIssue.number} &middot;{" "}
               {currentIssue.pages} pages
             </p>
 
-            <h3 className="mt-8 font-label text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-ink-faint">
+            <h3 className="mt-8 font-label text-[0.8rem] font-semibold uppercase tracking-[0.18em] text-ink-faint">
               What is in it
             </h3>
             <div className="mt-3">
               <IssueContents contents={currentIssue.contents} />
             </div>
 
-            <p className="mt-5 font-body text-[0.95rem] text-ink-muted">
+            <p className="mt-5 font-body text-[1rem] text-ink-muted">
               The stories themselves are in the paper. Subscribe, or download this issue as a PDF.
             </p>
           </div>
@@ -87,13 +87,13 @@ export default function HomePage() {
             <p className="mt-2 font-display text-3xl font-black text-herald">
               ${inCounty.price} a year
             </p>
-            <p className="mt-3 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+            <p className="mt-3 font-body text-[1rem] leading-relaxed text-ink-muted">
               Fifty-two issues, delivered by mail within San Joaquin County. The rate has been $
               {inCounty.price} since January 2023. Send a check, or start the order online.
             </p>
             <Link
               href="/subscribe"
-              className="mt-4 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+              className="mt-4 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
             >
               Subscribe &rarr;
             </Link>
@@ -104,14 +104,14 @@ export default function HomePage() {
             <p className="mt-2 font-display text-3xl font-black text-herald">
               From {legalNoticeRates[0].price}
             </p>
-            <p className="mt-3 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+            <p className="mt-3 font-body text-[1rem] leading-relaxed text-ink-muted">
               We are a newspaper of general circulation, adjudicated by the{" "}
               {site.adjudication.court} in {site.adjudication.date}. We file your proof of
               publication at no extra cost.
             </p>
             <Link
               href="/legal-notices"
-              className="mt-4 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+              className="mt-4 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
             >
               Rates and requirements &rarr;
             </Link>
@@ -120,14 +120,14 @@ export default function HomePage() {
           <div className={column}>
             <h3 className="font-display text-xl font-bold">Advertise</h3>
             <p className="mt-2 font-display text-3xl font-black text-herald">Call for rates</p>
-            <p className="mt-3 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+            <p className="mt-3 font-body text-[1rem] leading-relaxed text-ink-muted">
               About {site.reach.districtResidents} people live inside the school district. About{" "}
               {site.reach.townResidents} live inside the town limits. Display and classified
               advertising are both available.
             </p>
             <Link
               href="/advertise"
-              className="mt-4 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+              className="mt-4 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
             >
               Ad sizes and deadlines &rarr;
             </Link>
@@ -143,16 +143,16 @@ export default function HomePage() {
         <div className={columns}>
           <div className={column}>
             <h3 className="font-display text-xl font-bold">Obituaries</h3>
-            <p className="mt-3 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+            <p className="mt-3 font-body text-[1rem] leading-relaxed text-ink-muted">
               There is no charge for a standard notice. Send what you have and we will call to
               confirm the details before anything is printed.
             </p>
-            <p className="mt-3 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+            <p className="mt-3 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
               Deadline: {site.deadlines.obituary}
             </p>
             <Link
               href="/obituaries"
-              className="mt-3 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+              className="mt-3 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
             >
               Submit a notice &rarr;
             </Link>
@@ -160,16 +160,16 @@ export default function HomePage() {
 
           <div className={column}>
             <h3 className="font-display text-xl font-bold">Community calendar</h3>
-            <p className="mt-3 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+            <p className="mt-3 font-body text-[1rem] leading-relaxed text-ink-muted">
               No charge for community events. Send the date, the place, and who to call for more
               information.
             </p>
-            <p className="mt-3 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+            <p className="mt-3 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
               Deadline: {site.deadlines.classified}
             </p>
             <Link
               href="/calendar"
-              className="mt-3 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+              className="mt-3 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
             >
               List an event &rarr;
             </Link>
@@ -177,16 +177,16 @@ export default function HomePage() {
 
           <div className={column}>
             <h3 className="font-display text-xl font-bold">Classifieds</h3>
-            <p className="mt-3 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+            <p className="mt-3 font-body text-[1rem] leading-relaxed text-ink-muted">
               Priced by the line, about seven words to a line. Write it however it comes and we will
               set it.
             </p>
-            <p className="mt-3 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+            <p className="mt-3 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
               Deadline: {site.deadlines.classified}
             </p>
             <Link
               href="/classifieds"
-              className="mt-3 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+              className="mt-3 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
             >
               Place a listing &rarr;
             </Link>
@@ -205,10 +205,10 @@ export default function HomePage() {
           {recent.map((issue) => (
             <Link key={issue.date} href={`/archive/${issue.date}`} className="group block">
               <IssueCover date={issue.date} volume={issue.volume} number={issue.number} />
-              <p className="mt-3 font-display text-[0.95rem] font-bold leading-tight group-hover:text-herald">
+              <p className="mt-3 font-display text-[1rem] font-bold leading-tight group-hover:text-herald">
                 {issue.label}
               </p>
-              <p className="mt-0.5 font-label text-[0.7rem] uppercase tracking-[0.12em] text-ink-faint">
+              <p className="mt-0.5 font-label text-[0.78rem] uppercase tracking-[0.12em] text-ink-faint">
                 {issue.pages} pages &middot; {formatFileSize(issue.sizeBytes)}
               </p>
             </Link>

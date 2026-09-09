@@ -29,7 +29,7 @@ export default function ObituariesPage() {
             {obituaries.map((o) => (
               <article key={o.slug} className="border-t-2 border-ink bg-newsprint-white p-6">
                 <h2 className="font-display text-2xl font-bold leading-tight">{o.name}</h2>
-                <p className="mt-1 font-label text-[0.78rem] uppercase tracking-[0.16em] text-ink-faint">
+                <p className="mt-1 font-label text-[0.82rem] uppercase tracking-[0.16em] text-ink-faint">
                   {o.years} &middot; {o.town}, California
                 </p>
                 <p className="mt-4 font-body text-[1rem] leading-relaxed text-ink-muted">
@@ -38,20 +38,20 @@ export default function ObituariesPage() {
                 {o.serviceDate && (
                   <div className="mt-5 border-l-4 border-harvest bg-newsprint py-3 pl-4">
                     <p className="kicker text-harvest">Services</p>
-                    <p className="mt-1 font-body text-[0.95rem] text-ink-muted">
+                    <p className="mt-1 font-body text-[1rem] text-ink-muted">
                       {o.serviceDate}
                       {o.serviceLocation ? `, ${o.serviceLocation}` : ""}
                     </p>
                   </div>
                 )}
-                <p className="mt-5 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+                <p className="mt-5 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
                   Published {formatDate(o.published)}
                 </p>
               </article>
             ))}
           </div>
 
-          <p className="mt-10 border border-rule bg-newsprint-white p-6 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+          <p className="mt-10 border border-rule bg-newsprint-white p-6 font-body text-[1rem] leading-relaxed text-ink-muted">
             Notices published before this year are available in the printed archive. Call{" "}
             <a href={site.phoneHref} className="underline link-underline">
               {site.phone}
@@ -66,7 +66,7 @@ export default function ObituariesPage() {
             <h2 className="mt-2 font-display text-2xl font-bold leading-tight">
               Tell us about your loved one
             </h2>
-            <p className="mt-3 font-body text-[0.96rem] leading-relaxed text-ink-muted">
+            <p className="mt-3 font-body text-[1rem] leading-relaxed text-ink-muted">
               Send what you have and we will help shape it. Photographs are welcome. The deadline
               for the Thursday edition is {site.deadlines.obituary}.
             </p>

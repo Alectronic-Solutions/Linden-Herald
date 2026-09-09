@@ -76,6 +76,17 @@ export default function HeraldForm({ subject, submitLabel, children, note, confi
           aria-hidden="true"
         />
 
+        {/*
+          Seven forms on this site marked their required fields with a red
+          asterisk and nowhere said so. The mark is decoration for assistive
+          technology, which reads `required` instead; this sentence is for
+          everybody reading the page with their eyes.
+        */}
+        <p className="font-body text-[0.95rem] text-ink-muted">
+          Fields marked <span className="font-semibold text-cherry">*</span> are required.
+          Everything else is optional.
+        </p>
+
         {children}
 
         <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -100,7 +111,7 @@ export default function HeraldForm({ subject, submitLabel, children, note, confi
             aria-live="polite"
             className={
               status === "error"
-                ? "font-body text-[0.95rem] text-cherry focus:outline-none"
+                ? "font-body text-[1rem] text-cherry focus:outline-none"
                 : "sr-only"
             }
           >
@@ -110,7 +121,7 @@ export default function HeraldForm({ subject, submitLabel, children, note, confi
         </div>
 
         {note && (
-          <p className="pt-1 font-label text-[0.74rem] uppercase tracking-[0.14em] text-ink-faint">
+          <p className="pt-1 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
             {note}
           </p>
         )}

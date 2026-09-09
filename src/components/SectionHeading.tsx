@@ -18,14 +18,14 @@ export default function SectionHeading({ title, href, action, blurb }: Props) {
         {href && action && (
           <Link
             href={href}
-            className="font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald transition-colors hover:text-cherry"
+            className="font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald transition-colors hover:text-cherry"
           >
             {action} &rarr;
           </Link>
         )}
       </div>
       {blurb && (
-        <p className="mt-1.5 max-w-2xl font-body text-[0.95rem] italic text-ink-muted">{blurb}</p>
+        <p className="mt-1.5 max-w-2xl font-body text-[1rem] italic text-ink-muted">{blurb}</p>
       )}
     </div>
   );

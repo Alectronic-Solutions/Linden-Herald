@@ -17,7 +17,7 @@ export default function ContactCard({
 }: Props) {
   if (variant === "inline") {
     return (
-      <p className={cn("font-body text-[0.96rem] text-ink-muted", className)}>
+      <p className={cn("font-body text-[1rem] text-ink-muted", className)}>
         Call{" "}
         <a href={site.phoneHref} className="font-semibold text-ink underline link-underline">
           {site.phone}
@@ -38,11 +38,11 @@ export default function ContactCard({
         >
           {site.phone}
         </a>
-        <p className="mt-1 font-label text-[0.72rem] uppercase tracking-[0.12em] text-ink-faint">
+        <p className="mt-1 font-label text-[0.8rem] uppercase tracking-[0.12em] text-ink-faint">
           {site.phoneNote}
         </p>
         {showAddress && (
-          <address className="mt-3 font-body text-[0.93rem] not-italic leading-relaxed text-ink-muted">
+          <address className="mt-3 font-body text-[1rem] not-italic leading-relaxed text-ink-muted">
             {site.mailing.line1}, {site.mailing.city}, {site.mailing.state} {site.mailing.zip}
           </address>
         )}
@@ -59,9 +59,9 @@ export default function ContactCard({
       >
         {site.phone}
       </a>
-      <p className="mt-2 font-body text-[0.94rem] text-ink-muted">{site.phoneNote}</p>
+      <p className="mt-2 font-body text-[1rem] text-ink-muted">{site.phoneNote}</p>
       {showAddress && (
-        <address className="mt-6 border-t border-rule pt-5 font-body text-[0.98rem] not-italic leading-relaxed text-ink-muted">
+        <address className="mt-6 border-t border-rule pt-5 font-body text-[1.05rem] not-italic leading-relaxed text-ink-muted">
           <span className="kicker block text-ink-faint">Mailing address</span>
           <span className="mt-2 block">
             {mailingAddressLines.map((line) => (

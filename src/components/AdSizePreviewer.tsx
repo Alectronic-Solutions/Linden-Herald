@@ -49,7 +49,7 @@ export default function AdSizePreviewer() {
         >
           How big is my ad, really?
         </h2>
-        <p className="mt-2 max-w-2xl font-body text-[0.98rem] leading-relaxed text-newsprint-deep/80">
+        <p className="mt-2 max-w-2xl font-body text-[1.05rem] leading-relaxed text-newsprint-deep/80">
           Nobody pictures three and a quarter inches. Pick a size and see it land on the page at
           true proportion.
         </p>
@@ -65,7 +65,7 @@ export default function AdSizePreviewer() {
                 onClick={() => setSelected(ad)}
                 aria-pressed={selected.id === ad.id}
                 className={cn(
-                  "border px-3 py-2 font-label text-[0.78rem] font-semibold uppercase tracking-[0.12em] transition-colors",
+                  "border px-3 py-2 font-label text-[0.82rem] font-semibold uppercase tracking-[0.12em] transition-colors",
                   selected.id === ad.id
                     ? "border-ink bg-ink text-newsprint-white"
                     : "border-rule-strong text-ink-muted hover:border-ink hover:text-ink",
@@ -103,7 +103,7 @@ export default function AdSizePreviewer() {
               </div>
             </div>
           </div>
-          <p className="mt-3 text-center font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+          <p className="mt-3 text-center font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
             Shown against a full {PAGE_WIDTH_IN}&quot; x {PAGE_HEIGHT_IN}&quot; page
           </p>
         </div>
@@ -112,12 +112,12 @@ export default function AdSizePreviewer() {
           <div className="border-2 border-ink bg-newsprint p-6">
             <p className="kicker text-cherry">{selected.name}</p>
             <p className="mt-2 font-display text-4xl font-black leading-none">{selected.size}</p>
-            <p className="mt-4 font-body text-[0.96rem] leading-relaxed text-ink-muted">
+            <p className="mt-4 font-body text-[1rem] leading-relaxed text-ink-muted">
               Best for: {selected.best}
             </p>
 
             <div className="mt-5 border-t border-rule pt-4">
-              <p className="font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
+              <p className="font-label text-[0.8rem] uppercase tracking-[0.12em] text-ink-faint">
                 Share of the page
               </p>
               <div className="mt-2 flex items-center gap-3">
@@ -131,11 +131,11 @@ export default function AdSizePreviewer() {
               </div>
             </div>
 
-            <p className="mt-5 font-body text-[0.92rem] leading-relaxed text-ink-muted">
+            <p className="mt-5 font-body text-[1rem] leading-relaxed text-ink-muted">
               We build the artwork at no charge. Send a logo and the details and we will lay it out
               for your approval before it runs.
             </p>
-            <a href="#notice-request" className="btn-primary mt-5 w-full text-xs">
+            <a href="#notice-request" className="btn-primary mt-5 w-full">
               Ask about this size
             </a>
           </div>

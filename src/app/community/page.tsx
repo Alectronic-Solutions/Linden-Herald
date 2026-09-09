@@ -55,16 +55,16 @@ export default function CommunityPage() {
         {services.map((s) => (
           <div key={s.href} className={column}>
             <h2 className="font-display text-xl font-bold">{s.title}</h2>
-            <p className="mt-1 font-label text-[0.72rem] uppercase tracking-[0.14em] text-cherry">
+            <p className="mt-1 font-label text-[0.8rem] uppercase tracking-[0.14em] text-cherry">
               {s.cost}
             </p>
-            <p className="mt-3 font-body text-[0.95rem] leading-relaxed text-ink-muted">{s.body}</p>
-            <p className="mt-3 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+            <p className="mt-3 font-body text-[1rem] leading-relaxed text-ink-muted">{s.body}</p>
+            <p className="mt-3 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
               Deadline: {s.deadline}
             </p>
             <Link
               href={s.href}
-              className="mt-3 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+              className="mt-3 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
             >
               {s.action} &rarr;
             </Link>
@@ -75,7 +75,7 @@ export default function CommunityPage() {
       <section className="mt-16 grid gap-10 border-t-[3px] border-ink pt-10 lg:grid-cols-12">
         <div className="lg:col-span-7">
           <h2 className="font-display text-3xl font-black">Have a news tip?</h2>
-          <p className="mt-3 max-w-xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
+          <p className="mt-3 max-w-xl font-body text-[1.05rem] leading-relaxed text-ink-muted">
             Call us. Our correspondents live and work in Linden, and the phone is{" "}
             {site.phoneNote.toLowerCase()}. If we miss you, we return calls as soon as we are back.
           </p>

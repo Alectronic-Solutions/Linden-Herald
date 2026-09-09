@@ -88,7 +88,7 @@ export default function ClassifiedsPage() {
                 >
                   <dt className="font-display text-[1rem] font-bold">{r.lines}</dt>
                   <dd className="font-display text-xl font-black text-herald">{r.price}</dd>
-                  <dd className="mt-1 w-full font-body text-[0.9rem] text-ink-muted">{r.detail}</dd>
+                  <dd className="mt-1 w-full font-body text-[1rem] text-ink-muted">{r.detail}</dd>
                 </div>
               ))}
             </dl>

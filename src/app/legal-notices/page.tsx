@@ -58,7 +58,7 @@ export default function LegalNoticesPage() {
           ].map((item) => (
             <div key={item.title}>
               <h2 className="font-display text-lg font-bold leading-tight">{item.title}</h2>
-              <p className="mt-2 font-body text-[0.94rem] leading-relaxed text-ink-muted">
+              <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
                 {item.body}
               </p>
             </div>
@@ -75,7 +75,7 @@ export default function LegalNoticesPage() {
       <section className="mt-14">
         <div className="rule-double mb-6" />
         <h2 className="font-display text-3xl font-black">Every notice we publish</h2>
-        <p className="mt-3 max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
+        <p className="mt-3 max-w-3xl font-body text-[1.05rem] leading-relaxed text-ink-muted">
           If what you need is not listed, call {site.phone}. The phone is{" "}
           {site.phoneNote.toLowerCase()}.
         </p>
@@ -89,7 +89,7 @@ export default function LegalNoticesPage() {
                   <th
                     key={h}
                     scope="col"
-                    className="px-4 py-3 font-label text-[0.76rem] uppercase tracking-[0.16em]"
+                    className="px-4 py-3 font-label text-[0.8rem] uppercase tracking-[0.16em]"
                   >
                     {h}
                   </th>
@@ -99,16 +99,16 @@ export default function LegalNoticesPage() {
             <tbody className="divide-y divide-rule">
               {legalNoticeRates.map((r) => (
                 <tr key={r.id} className="align-top transition-colors hover:bg-newsprint">
-                  <th scope="row" className="px-4 py-4 font-display text-[1.02rem] font-bold">
+                  <th scope="row" className="px-4 py-4 font-display text-[1.05rem] font-bold">
                     {r.type}
                   </th>
                   <td className="whitespace-nowrap px-4 py-4 font-display text-xl font-black text-herald">
                     {r.price}
                   </td>
-                  <td className="px-4 py-4 font-body text-[0.9rem] leading-snug text-ink-muted">
+                  <td className="px-4 py-4 font-body text-[1rem] leading-snug text-ink-muted">
                     {r.runWeeks}
                   </td>
-                  <td className="px-4 py-4 font-body text-[0.94rem] leading-relaxed text-ink-muted">
+                  <td className="px-4 py-4 font-body text-[1rem] leading-relaxed text-ink-muted">
                     {r.detail}
                   </td>
                 </tr>
@@ -116,7 +116,7 @@ export default function LegalNoticesPage() {
             </tbody>
           </table>
         </div>
-        <p className="mt-3 font-label text-[0.74rem] uppercase tracking-[0.14em] text-ink-faint">
+        <p className="mt-3 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
           Additional names $10 each. Call {site.phone} for anything not listed.
         </p>
       </section>
@@ -125,7 +125,7 @@ export default function LegalNoticesPage() {
       <section className="mt-16">
         <div className="rule-double mb-6" />
         <h2 className="font-display text-3xl font-black">What to have in front of you</h2>
-        <p className="mt-3 max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
+        <p className="mt-3 max-w-3xl font-body text-[1.05rem] leading-relaxed text-ink-muted">
           Notices are rejected for small mistakes. A name spelled differently than the filing will
           do it, or a missing case number. Have these ready and we can usually start the run the
           same week.
@@ -134,10 +134,10 @@ export default function LegalNoticesPage() {
           {legalNoticeRates.map((r) => (
             <div key={r.id} className="h-full border-t-2 border-ink bg-newsprint-white p-5">
               <h3 className="font-display text-lg font-bold leading-tight">{r.type}</h3>
-              <p className="mt-1 font-label text-[0.72rem] uppercase tracking-[0.14em] text-ink-faint">
+              <p className="mt-1 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
                 {r.price} &middot; {r.runWeeks}
               </p>
-              <ul className="mt-4 space-y-2 border-t border-rule pt-4 font-body text-[0.92rem] leading-relaxed text-ink-muted">
+              <ul className="mt-4 space-y-2 border-t border-rule pt-4 font-body text-[1rem] leading-relaxed text-ink-muted">
                 {r.bring.map((b) => (
                   <li key={b} className="flex gap-2">
                     <span aria-hidden className="text-harvest">
@@ -207,7 +207,7 @@ export default function LegalNoticesPage() {
           <ContactCard variant="full" heading="Talk to a person" />
           <div className="mt-6 border-l-4 border-harvest bg-newsprint-white p-6">
             <p className="kicker text-harvest">Proof of publication, filed for you</p>
-            <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
+            <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
               We file the proof with the San Joaquin County Court or the County Recorder at no extra
               cost, and issue another copy to the petitioner or registrant. That is one less errand
               on a filing deadline.
@@ -215,13 +215,13 @@ export default function LegalNoticesPage() {
           </div>
           <div className="mt-6 border border-rule bg-newsprint-white p-6">
             <p className="kicker text-cherry">Also advertising?</p>
-            <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
+            <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
               Display and classified advertising rates are on the advertising page, along with the
               sizes and the deadlines.
             </p>
             <Link
               href="/advertise"
-              className="mt-3 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+              className="mt-3 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
             >
               Advertise with the Herald &rarr;
             </Link>

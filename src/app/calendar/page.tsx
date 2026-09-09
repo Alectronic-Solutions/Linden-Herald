@@ -76,7 +76,7 @@ export default function CalendarPage() {
         <aside className="lg:col-span-5">
           <div className="border-l-4 border-harvest bg-newsprint-white p-6">
             <p className="kicker text-harvest">Public meeting notices</p>
-            <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
+            <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
               The Herald carries agendas for the school board, the water district and the fire board
               as they are posted. If your agency needs a meeting noticed, call the office and we
               will make sure it runs on time.

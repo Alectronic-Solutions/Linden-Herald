@@ -172,15 +172,28 @@ as an enclosure.
 
 ## Accessibility and performance
 
+Built to WCAG 2.2 AA, the standard the ADA is measured against. `tests/a11y.spec.ts` runs
+axe-core over every route with the `wcag22aa` tags and fails on any violation.
+
 - One `h1` per page, ordered headings, skip-to-content link
-- Visible focus rings, `aria-pressed` on all filter controls, labelled form fields
+- Visible focus rings, `aria-pressed` on all filter controls, labelled form fields,
+  `aria-current` on the navigation
+- **A reader text size control** in the folio line — Normal, Larger, Largest — set on `<html>`
+  as `data-text-size` and remembered in `localStorage`. Every size on this site is in `rem`, so
+  the whole paper moves together. `layout.tsx` restores the choice before first paint
+- Nothing below 16px in reading copy, and nothing below 12.5px anywhere except the two scale
+  drawings (the miniature front page, the ad-size page mock), whose information is repeated at
+  full size beside them
 - Reduced-motion support. Nothing is hidden behind an entry animation, so every
   page renders its content with JavaScript unavailable — enforced by a Playwright
   project that runs the whole suite with scripting disabled
-- No horizontal overflow at 390px
+- No horizontal overflow at 1280, 1024, 390 or 320px, at any text size. 320px is the width
+  SC 1.4.10 asks about, and what a 1280px window looks like at 400% zoom
 - Mobile navigation is a real dialog: focus moves into it, Tab is trapped, Escape closes and
   restores focus to the toggle, and the page behind it is scroll-locked
-- Every interactive target on mobile is at least 44px tall
+- Every interactive target is at least 44px, against the 24px SC 2.5.8 asks for
+- `scroll-margin` on every focusable element, so the sticky nav never hides what has focus
+  (SC 2.4.11)
 - The primary nav is a sibling of the masthead rather than a child of it. A sticky element can
   only stick inside its parent's box, so nesting it in `<header>` gave it no sticky range at all.
 - Fonts self-hosted at build time via `next/font`, no third-party font requests at runtime

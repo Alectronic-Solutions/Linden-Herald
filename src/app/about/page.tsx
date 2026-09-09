@@ -46,10 +46,10 @@ export default function AboutPage() {
                   className="flex flex-wrap items-baseline gap-x-4 gap-y-1 py-4"
                 >
                   <p className="font-display text-lg font-bold">{person.name}</p>
-                  <p className="font-label text-[0.76rem] uppercase tracking-[0.14em] text-herald">
+                  <p className="font-label text-[0.8rem] uppercase tracking-[0.14em] text-herald">
                     {person.role}
                   </p>
-                  <p className="w-full font-body text-[0.93rem] text-ink-muted">{person.beat}</p>
+                  <p className="w-full font-body text-[1rem] text-ink-muted">{person.beat}</p>
                 </li>
               ))}
             </ul>
@@ -108,10 +108,10 @@ export default function AboutPage() {
                 ["Subscription", "$42 a year, 52 issues"],
               ].map(([term, value]) => (
                 <div key={term} className="flex justify-between gap-4 py-3">
-                  <dt className="font-label text-[0.76rem] uppercase tracking-[0.14em] text-ink-faint">
+                  <dt className="font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
                     {term}
                   </dt>
-                  <dd className="text-right font-body text-[0.95rem] font-semibold text-ink">
+                  <dd className="text-right font-body text-[1rem] font-semibold text-ink">
                     {value}
                   </dd>
                 </div>
@@ -123,13 +123,13 @@ export default function AboutPage() {
 
           <div className="mt-6 border border-rule-strong bg-newsprint-white p-6">
             <p className="kicker text-harvest">The bound volumes</p>
-            <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
+            <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
               Copies of the Herald dating to {site.founded} are available for review at the Stockton
               Public Library. Recent issues are posted here as PDFs.
             </p>
             <Link
               href="/archive"
-              className="mt-3 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+              className="mt-3 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
             >
               Browse the archive &rarr;
             </Link>

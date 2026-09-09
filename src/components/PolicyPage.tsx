@@ -10,7 +10,7 @@ export default function PolicyPage({ policy }: { policy: Policy }) {
 
       <div className="grid gap-12 lg:grid-cols-12">
         <article className="lg:col-span-8">
-          <p className="font-label text-[0.76rem] uppercase tracking-[0.16em] text-ink-faint">
+          <p className="font-label text-[0.8rem] uppercase tracking-[0.16em] text-ink-faint">
             Last updated {policy.updated}
           </p>
 
@@ -20,7 +20,7 @@ export default function PolicyPage({ policy }: { policy: Policy }) {
                 <h2 className="font-display text-2xl font-black drop-rule">{section.heading}</h2>
                 <div className="mt-5 space-y-4">
                   {section.body.map((p, i) => (
-                    <p key={i} className="font-body text-[1.02rem] leading-[1.75] text-ink-soft">
+                    <p key={i} className="font-body text-[1.05rem] leading-[1.75] text-ink-soft">
                       {p}
                     </p>
                   ))}
@@ -56,8 +56,8 @@ export default function PolicyPage({ policy }: { policy: Policy }) {
                     aria-current={p.slug === policy.slug ? "page" : undefined}
                     className={
                       p.slug === policy.slug
-                        ? "block py-2.5 font-display text-[1.02rem] font-bold text-herald"
-                        : "block py-2.5 font-display text-[1.02rem] text-ink-muted transition-colors hover:text-ink"
+                        ? "block py-2.5 font-display text-[1.05rem] font-bold text-herald"
+                        : "block py-2.5 font-display text-[1.05rem] text-ink-muted transition-colors hover:text-ink"
                     }
                   >
                     {p.title}

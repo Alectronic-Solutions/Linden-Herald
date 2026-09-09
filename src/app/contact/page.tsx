@@ -84,10 +84,10 @@ export default function ContactPage() {
                 ["Obituaries", site.deadlines.obituary],
               ].map(([term, value]) => (
                 <div key={term} className="py-3">
-                  <dt className="font-label text-[0.76rem] uppercase tracking-[0.14em] text-ink-faint">
+                  <dt className="font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-faint">
                     {term}
                   </dt>
-                  <dd className="mt-0.5 font-body text-[0.95rem] text-ink">{value}</dd>
+                  <dd className="mt-0.5 font-body text-[1rem] text-ink">{value}</dd>
                 </div>
               ))}
             </dl>
@@ -95,7 +95,7 @@ export default function ContactPage() {
 
           <div className="mt-6 border-l-4 border-harvest bg-newsprint-white p-6">
             <p className="kicker text-harvest">Corrections</p>
-            <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
+            <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
               The Herald corrects errors of fact promptly and in print. If we got something wrong,
               call and tell us.
             </p>

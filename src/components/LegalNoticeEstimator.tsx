@@ -51,7 +51,7 @@ export default function LegalNoticeEstimator() {
         >
           What will my notice cost?
         </h2>
-        <p className="mt-2 max-w-2xl font-body text-[0.98rem] leading-relaxed text-newsprint-deep/85">
+        <p className="mt-2 max-w-2xl font-body text-[1.05rem] leading-relaxed text-newsprint-deep/85">
           Answer three questions and you will have the price, the dates it runs, and the documents
           to bring.
         </p>
@@ -90,7 +90,9 @@ export default function LegalNoticeEstimator() {
                     <span className="block font-display text-[1rem] font-bold leading-snug">
                       {n.type}
                     </span>
-                    <span className="block font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
+                    {/* The price is the reason anybody is reading this list.
+                        It was set in the faintest style on the site. */}
+                    <span className="block font-label text-[0.95rem] font-semibold uppercase tracking-[0.1em] text-ink-muted">
                       {n.price}
                     </span>
                   </span>
@@ -117,7 +119,7 @@ export default function LegalNoticeEstimator() {
                   className="field w-24"
                   aria-describedby="extra-names-help"
                 />
-                <p id="extra-names-help" className="font-body text-[0.9rem] text-ink-muted">
+                <p id="extra-names-help" className="font-body text-[1rem] text-ink-muted">
                   Beyond the first. $10 each.
                 </p>
               </div>
@@ -151,7 +153,7 @@ export default function LegalNoticeEstimator() {
               <p className="mt-2 font-display text-6xl font-black leading-none">
                 {total === null ? "Quote" : `$${total}`}
               </p>
-              <p className="mt-2 font-body text-[0.95rem] text-ink-muted">
+              <p className="mt-2 font-body text-[1rem] text-ink-muted">
                 {notice.type}
                 {isFbn && extraNames > 0
                   ? ` plus ${extraNames} additional ${extraNames === 1 ? "name" : "names"}`
@@ -165,27 +167,27 @@ export default function LegalNoticeEstimator() {
               {plan && (
                 <dl className="mt-5 divide-y divide-rule border-y border-rule">
                   <div className="flex justify-between gap-4 py-2.5">
-                    <dt className="font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
+                    <dt className="font-label text-[0.8rem] uppercase tracking-[0.12em] text-ink-faint">
                       Copy deadline
                     </dt>
-                    <dd className="text-right font-body text-[0.95rem] font-semibold">
+                    <dd className="text-right font-body text-[1rem] font-semibold">
                       {formatDate(plan.deadline)}, noon
                     </dd>
                   </div>
                   <div className="flex justify-between gap-4 py-2.5">
-                    <dt className="font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
+                    <dt className="font-label text-[0.8rem] uppercase tracking-[0.12em] text-ink-faint">
                       First publication
                     </dt>
-                    <dd className="text-right font-body text-[0.95rem] font-semibold">
+                    <dd className="text-right font-body text-[1rem] font-semibold">
                       {formatDate(plan.firstRun)}
                     </dd>
                   </div>
                   {notice.filedFor && (
                     <div className="flex justify-between gap-4 py-2.5">
-                      <dt className="font-label text-[0.74rem] uppercase tracking-[0.12em] text-ink-faint">
+                      <dt className="font-label text-[0.8rem] uppercase tracking-[0.12em] text-ink-faint">
                         Proof of publication
                       </dt>
-                      <dd className="text-right font-body text-[0.95rem] font-semibold text-herald">
+                      <dd className="text-right font-body text-[1rem] font-semibold text-herald">
                         Filed for you, no charge
                       </dd>
                     </div>
@@ -196,7 +198,7 @@ export default function LegalNoticeEstimator() {
               <h3 className="mt-5 font-display text-lg font-bold">What to bring</h3>
               <ul className="mt-2 space-y-1.5">
                 {notice.bring.map((b) => (
-                  <li key={b} className="flex gap-2 font-body text-[0.93rem] text-ink-muted">
+                  <li key={b} className="flex gap-2 font-body text-[1rem] text-ink-muted">
                     <span aria-hidden className="text-harvest">
                       &#9670;
                     </span>
@@ -206,21 +208,21 @@ export default function LegalNoticeEstimator() {
               </ul>
 
               <div className="mt-6 flex flex-wrap gap-3">
-                <Link href="#notice-request" className="btn-primary text-xs">
+                <Link href="#notice-request" className="btn-primary">
                   Start this notice
                 </Link>
-                <a href={site.phoneHref} className="btn-outline text-xs">
+                <a href={site.phoneHref} className="btn-outline">
                   Call {site.phone}
                 </a>
               </div>
-              <p className="mt-4 font-label text-[0.7rem] uppercase tracking-[0.12em] text-ink-faint">
+              <p className="mt-4 font-label text-[0.78rem] uppercase tracking-[0.12em] text-ink-faint">
                 Estimate only. We confirm every notice against the court&apos;s requirements before
                 it runs.
               </p>
             </div>
           ) : (
             <div className="flex h-full min-h-[16rem] items-center justify-center border-2 border-dashed border-rule-strong p-8 text-center">
-              <p className="max-w-xs font-body text-[0.96rem] leading-relaxed text-ink-faint">
+              <p className="max-w-xs font-body text-[1rem] leading-relaxed text-ink-faint">
                 Choose a notice type and a date, and your price and schedule will appear here.
               </p>
             </div>

@@ -4,7 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Logo from "@/components/Logo";
+import TextSize from "@/components/TextSize";
 import { site } from "@/data/site";
+import { subscriptionRates } from "@/data/rates";
 import { cn, volumeFor } from "@/lib/utils";
 import { useDialog } from "@/lib/useDialog";
 
@@ -87,12 +89,16 @@ export default function SiteHeader() {
       <header className="relative z-40">
         {/* Folio line, the way it runs across the top of the printed page */}
         <div className="no-print border-b border-rule bg-newsprint-white/70">
-          <div className="wrap flex flex-wrap items-center justify-between gap-y-1 py-2 font-label text-[0.72rem] uppercase tracking-[0.16em] text-ink-muted">
+          <div className="wrap flex flex-wrap items-center justify-between gap-x-5 gap-y-1 py-1.5 font-label text-[0.8rem] uppercase tracking-[0.14em] text-ink-muted">
             <span>{folio?.date ?? " "}</span>
-            <span className="hidden sm:inline">
+            <span className="hidden xl:inline">
               {folio ? `Vol. ${folio.volume} · Linden, California` : "Linden, California"}
             </span>
-            <a href={site.phoneHref} className="hover:text-herald">
+            <TextSize />
+            <a
+              href={site.phoneHref}
+              className="flex min-h-[2.25rem] items-center font-semibold text-ink hover:text-herald"
+            >
               {site.phone}
             </a>
           </div>
@@ -108,7 +114,7 @@ export default function SiteHeader() {
           </Link>
           <div className="mx-auto mt-4 flex max-w-2xl items-center gap-4">
             <span className="h-px flex-1 bg-rule-strong" />
-            <p className="font-display text-[0.95rem] italic text-ink-muted sm:text-base">
+            <p className="font-display text-[1rem] italic text-ink-muted sm:text-base">
               {site.tagline}
             </p>
             <span className="h-px flex-1 bg-rule-strong" />
@@ -145,19 +151,26 @@ export default function SiteHeader() {
             </Link>
           </div>
 
-          <ul className="hidden flex-1 items-center justify-center gap-1 lg:flex">
+          {/* min-w-0 and flex-wrap so that at the reader's largest text size the
+              nav gives way and wraps rather than shouldering Subscribe off the
+              right edge of the page. */}
+          <ul className="hidden min-w-0 flex-1 flex-wrap items-center justify-center gap-x-1 lg:flex">
             {site.nav.map((item) => (
               <li key={item.href}>
                 <Link
                   href={item.href}
+                  aria-current={isActive(item.href) ? "page" : undefined}
                   className={cn(
-                    "relative block whitespace-nowrap px-2 py-3 font-label text-[0.78rem] font-semibold uppercase tracking-[0.1em] transition-colors xl:px-3 xl:text-[0.82rem] xl:tracking-[0.14em]",
+                    "relative flex min-h-[3rem] items-center whitespace-nowrap px-2.5 font-label text-[0.86rem] font-semibold uppercase tracking-[0.1em] transition-colors xl:px-3.5 xl:text-[0.9rem] xl:tracking-[0.12em]",
                     isActive(item.href) ? "text-herald" : "text-ink hover:text-herald",
                   )}
                 >
                   {item.label}
                   {isActive(item.href) && (
-                    <span aria-hidden className="absolute inset-x-2 bottom-1.5 h-[2px] bg-herald" />
+                    <span
+                      aria-hidden
+                      className="absolute inset-x-2.5 bottom-1.5 h-[3px] bg-herald xl:inset-x-3.5"
+                    />
                   )}
                 </Link>
               </li>
@@ -166,7 +179,7 @@ export default function SiteHeader() {
 
           <Link
             href="/subscribe"
-            className="hidden shrink-0 whitespace-nowrap bg-cherry px-3 py-1.5 font-label text-[0.74rem] font-semibold uppercase tracking-[0.1em] text-newsprint-white transition-colors hover:bg-ink lg:inline-block xl:px-4 xl:text-[0.78rem] xl:tracking-[0.14em]"
+            className="hidden min-h-[2.5rem] shrink-0 items-center whitespace-nowrap bg-cherry px-4 font-label text-[0.86rem] font-semibold uppercase tracking-[0.1em] text-newsprint-white transition-colors hover:bg-ink lg:inline-flex xl:px-5 xl:text-[0.9rem] xl:tracking-[0.12em]"
           >
             Subscribe
           </Link>
@@ -191,7 +204,7 @@ export default function SiteHeader() {
               onClick={() => setOpen(true)}
               aria-expanded={open}
               aria-controls="mobile-nav"
-              className="flex min-h-[44px] items-center gap-2.5 border border-ink px-4 font-label text-[0.8rem] font-semibold uppercase tracking-[0.14em]"
+              className="flex min-h-[44px] items-center gap-2.5 border border-ink px-4 font-label text-[0.84rem] font-semibold uppercase tracking-[0.14em]"
             >
               <span aria-hidden className="flex flex-col gap-[3px]">
                 <span className="block h-[2px] w-4 bg-ink" />
@@ -260,7 +273,7 @@ export default function SiteHeader() {
                     href={item.href}
                     aria-current={isActive(item.href) ? "page" : undefined}
                     className={cn(
-                      "flex min-h-[52px] items-center font-label text-[0.95rem] font-semibold uppercase tracking-[0.16em] transition-colors",
+                      "flex min-h-[3.25rem] items-center font-label text-[1.05rem] font-semibold uppercase tracking-[0.14em] transition-colors",
                       isActive(item.href) ? "text-herald" : "text-ink hover:text-herald",
                     )}
                   >
@@ -272,7 +285,7 @@ export default function SiteHeader() {
 
             <div className="border-t border-rule bg-newsprint-white px-5 py-5">
               <Link href="/subscribe" className="btn-primary w-full">
-                Subscribe for $42 a year
+                Subscribe for ${subscriptionRates[0].price} a year
               </Link>
               <a
                 href={site.phoneHref}
@@ -280,7 +293,7 @@ export default function SiteHeader() {
               >
                 {site.phone}
               </a>
-              <p className="mt-1 text-center font-label text-[0.7rem] uppercase tracking-[0.12em] text-ink-faint">
+              <p className="mt-1 text-center font-label text-[0.78rem] uppercase tracking-[0.12em] text-ink-faint">
                 {site.phoneNote}
               </p>
             </div>

@@ -133,15 +133,18 @@ export const policies: Record<string, Policy> = {
       {
         heading: "What we have built for",
         body: [
-          "This site was built to meet the Web Content Accessibility Guidelines, version 2.1, at level AA. In practice that means:",
+          "This site was built to meet the Web Content Accessibility Guidelines, version 2.2, at level AA. That is the standard the Americans with Disabilities Act is measured against. In practice it means:",
         ],
         list: [
           "Every page works from the keyboard alone, with a visible focus outline and a skip-to-content link",
+          "Nothing that has keyboard focus is left hidden underneath the navigation bar at the top of the page",
           "Text and background colors are tested for contrast, and nothing depends on color alone to make sense",
+          "Buttons, links and filters are at least 44 pixels tall, well over the 24 the guidelines ask for, because a target you have to aim at is a target you can miss",
           "Images carry descriptive alternative text, and decorative artwork is hidden from screen readers",
           "Headings run in order, one main heading to a page, so a screen reader can navigate by structure",
-          "Text reflows to a phone screen without sideways scrolling, and stays legible when enlarged to 200 percent",
+          "Text reflows to a phone screen without sideways scrolling, and stays legible when enlarged to 400 percent",
           "Animation respects the reduced-motion setting in your operating system, and no content depends on it",
+          "Every form field is labelled, says which answers are required, and lets your browser fill in your name and address for you",
         ],
       },
       {
@@ -154,7 +157,8 @@ export const policies: Record<string, Policy> = {
       {
         heading: "Large print and read-aloud",
         body: [
-          "Every browser can enlarge this site with Ctrl and the plus key, or Command and plus on a Mac, and the layout is built to hold together when you do.",
+          "There is a text size control in the thin strip at the very top of every page, beside the date. Choose Larger or Largest and the whole paper grows with it. Your choice is remembered on this device, so you only have to set it once, and it does not change anything for anyone else who uses the same computer.",
+          "Every browser can also enlarge this site with Ctrl and the plus key, or Command and plus on a Mac, and the layout is built to hold together when you do.",
           "If a printed page is hard to read, call us and we will read it to you.",
         ],
       },

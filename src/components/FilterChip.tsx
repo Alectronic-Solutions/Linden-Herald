@@ -20,7 +20,7 @@ export function FilterChip({
       onClick={onClick}
       aria-pressed={active}
       className={cn(
-        "border px-3 py-1.5 font-label text-[0.76rem] font-semibold uppercase tracking-[0.14em] transition-colors",
+        "flex min-h-[2.75rem] items-center border px-4 font-label text-[0.86rem] font-semibold uppercase tracking-[0.12em] transition-colors",
         active
           ? "border-ink bg-ink text-newsprint-white"
           : "border-rule-strong text-ink-muted hover:border-ink hover:text-ink",
@@ -37,7 +37,7 @@ export function FilterChip({
  */
 export function FilterGroup({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div role="group" aria-label={label} className="flex flex-wrap gap-1.5">
+    <div role="group" aria-label={label} className="flex flex-wrap gap-2">
       {children}
     </div>
   );
@@ -52,7 +52,7 @@ export function ResultCount({ children }: { children: ReactNode }) {
     <p
       aria-live="polite"
       aria-atomic="true"
-      className="mt-5 font-label text-[0.78rem] uppercase tracking-[0.16em] text-ink-faint"
+      className="mt-5 font-label text-[0.95rem] font-semibold uppercase tracking-[0.12em] text-ink-muted"
     >
       {children}
     </p>

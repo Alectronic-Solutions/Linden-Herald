@@ -55,11 +55,11 @@ export default function ClassifiedsBrowser() {
             <article key={c.id} className="mb-6 break-inside-avoid border-t-2 border-ink pt-3">
               <p className="kicker text-cherry">{category?.name}</p>
               <h3 className="mt-1 font-display text-lg font-bold leading-snug">{c.title}</h3>
-              <p className="mt-1.5 font-body text-[0.92rem] leading-relaxed text-ink-muted">
+              <p className="mt-1.5 font-body text-[1rem] leading-relaxed text-ink-muted">
                 {c.body}
               </p>
-              <p className="mt-2 font-body text-[0.88rem] italic text-ink-faint">{c.contact}</p>
-              <p className="mt-1 font-label text-[0.68rem] uppercase tracking-[0.12em] text-ink-faint">
+              <p className="mt-2 font-body text-[0.95rem] italic text-ink-faint">{c.contact}</p>
+              <p className="mt-1 font-label text-[0.78rem] uppercase tracking-[0.12em] text-ink-faint">
                 Runs through {formatShortDate(c.runsUntil)}
               </p>
             </article>

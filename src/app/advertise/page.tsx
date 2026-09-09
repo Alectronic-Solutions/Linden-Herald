@@ -45,7 +45,7 @@ export default function AdvertisePage() {
             <p className="font-display text-5xl font-black leading-none text-herald">
               {stat.figure}
             </p>
-            <p className="mt-2 font-label text-[0.78rem] uppercase tracking-[0.16em] text-ink-muted">
+            <p className="mt-2 font-label text-[0.82rem] uppercase tracking-[0.16em] text-ink-muted">
               {stat.label}
             </p>
           </div>
@@ -66,7 +66,7 @@ export default function AdvertisePage() {
             family law and bulk sale transfers all have published rates, and there is a cost
             estimator that works out your deadline and first publication date.
           </p>
-          <Link href="/legal-notices" className="btn-primary mt-6 text-xs">
+          <Link href="/legal-notices" className="btn-primary mt-6">
             Legal Notice Rates &amp; Estimator
           </Link>
         </div>
@@ -78,7 +78,7 @@ export default function AdvertisePage() {
       </section>
 
       <section className="mt-10">
-        <p className="max-w-3xl font-body text-[1.02rem] leading-relaxed text-ink-muted">
+        <p className="max-w-3xl font-body text-[1.05rem] leading-relaxed text-ink-muted">
           Linden sits fifteen miles east of Stockton, an hour south of Sacramento and two hours east
           of the Bay Area. Most of what our readers buy, they buy close to home.
         </p>
@@ -91,7 +91,7 @@ export default function AdvertisePage() {
           ].map((d) => (
             <div key={d.label}>
               <p className="kicker text-cherry">{d.label}</p>
-              <p className="mt-1 font-body text-[0.95rem] text-ink-muted">{d.value}</p>
+              <p className="mt-1 font-body text-[1rem] text-ink-muted">{d.value}</p>
             </div>
           ))}
         </div>
@@ -154,7 +154,7 @@ export default function AdvertisePage() {
           <ContactCard variant="full" heading="Talk to a person" />
           <div className="mt-6 border-l-4 border-harvest bg-newsprint-white p-6">
             <p className="kicker text-harvest">We can build the ad</p>
-            <p className="mt-2 font-body text-[0.96rem] leading-relaxed text-ink-muted">
+            <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
               Send a logo and the details and we will set the ad for you at no charge. Camera-ready
               artwork is welcome too. Send a PDF or a high-resolution JPEG at the size you booked.
             </p>

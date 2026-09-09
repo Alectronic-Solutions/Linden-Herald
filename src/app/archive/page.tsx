@@ -33,14 +33,14 @@ export default function ArchivePage() {
       <section className="mt-16 grid gap-6 border-t-[3px] border-ink pt-10 md:grid-cols-3">
         <div>
           <h2 className="font-display text-xl font-bold">Going back to {site.founded}</h2>
-          <p className="mt-2 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+          <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
             {issues.length} issues are posted here so far. Copies going back to {site.founded} can
             be reviewed at the Stockton Public Library.
           </p>
         </div>
         <div>
           <h2 className="font-display text-xl font-bold">Looking for a specific week?</h2>
-          <p className="mt-2 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+          <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
             Call the newsroom at{" "}
             <a href={site.phoneHref} className="underline link-underline">
               {site.phone}
@@ -50,12 +50,12 @@ export default function ArchivePage() {
         </div>
         <div>
           <h2 className="font-display text-xl font-bold">Read it first in print</h2>
-          <p className="mt-2 font-body text-[0.95rem] leading-relaxed text-ink-muted">
+          <p className="mt-2 font-body text-[1rem] leading-relaxed text-ink-muted">
             Subscribers receive the paper by mail every week for $42 a year.
           </p>
           <Link
             href="/subscribe"
-            className="mt-3 inline-block font-label text-[0.78rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
+            className="mt-3 inline-block font-label text-[0.82rem] font-semibold uppercase tracking-[0.16em] text-herald hover:text-cherry"
           >
             Subscribe &rarr;
           </Link>
