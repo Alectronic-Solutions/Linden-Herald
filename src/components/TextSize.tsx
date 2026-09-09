@@ -52,7 +52,13 @@ export default function TextSize() {
   }
 
   return (
-    <div className="flex items-center gap-2">
+    // At 320px — the width SC 1.4.10 asks about, and what a phone looks like at
+    // 400% zoom — the label and the three buttons want about 292px of the 280
+    // available. Wrapping puts the label on its own line rather than pushing a
+    // horizontal scrollbar onto the whole document. It fit exactly on Windows
+    // and overflowed by 5px on CI's Linux, which is what having no headroom
+    // buys you.
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-0.5">
       <span id="text-size-label" className="text-ink-muted">
         Text size
       </span>
