@@ -60,7 +60,7 @@ jobs:
           echo "::notice::@claude is not set up on this repository. See the" \
                "comments at the top of .github/workflows/claude.yml. Skipping."
 
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         if: env.HAS_CREDENTIAL == 'yes'
         with:
           fetch-depth: 1
